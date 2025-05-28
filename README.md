@@ -1,46 +1,61 @@
-# Getting Started with Create React App
+# 📊 Dashboard de Rotina Pessoal
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Bem-vindo ao projeto **Dashboard de Rotina Pessoal**! Esta aplicação tem como objetivo ser o seu centro de organização diária e semanal, reunindo em um só lugar todas as ferramentas necessárias para planejar, acompanhar e alcançar suas metas pessoais.
 
-## Available Scripts
+## ✨ O que é o projeto?
 
-In the project directory, you can run:
+Este dashboard é uma plataforma web pensada para quem deseja melhorar a produtividade, manter o foco e ter uma visão clara sobre suas tarefas e objetivos. A proposta é oferecer uma experiência fluida, visual e intuitiva, trazendo recursos que facilitam o gerenciamento da rotina, o acompanhamento de metas e o registro do progresso ao longo do tempo.
 
-### `npm start`
+## 🛠️ Funcionalidades Principais
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- **Autenticação Segura** 🔐  
+  Login para garantir que seus dados e configurações estejam protegidos e acessíveis apenas por você.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- **Tarefas Diárias** 📋  
+  Visualize, marque e organize suas tarefas do dia com praticidade. Tenha a satisfação de marcar cada tarefa concluída!
 
-### `npm test`
+- **Metas e Progresso** 🎯  
+  Defina metas pessoais e acompanhe seu progresso através de barras e indicadores visuais. Saiba o quanto falta para atingir cada objetivo.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- **Visualização Semanal** 🗓️  
+  Veja suas tarefas organizadas por semana, facilitando o planejamento e o acompanhamento do que foi feito e do que ainda está pendente.
 
-### `npm run build`
+- **Navegação Simples e Intuitiva** 🧭  
+  Acesse facilmente as diferentes áreas do dashboard com menus claros e acessíveis.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- **Filtro por Data** 📅  
+  Filtre tarefas e metas por datas específicas para focar apenas no que importa em cada momento.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- **Tema Claro/Escuro** 🌙  
+  Altere o visual da aplicação conforme sua preferência ou necessidade, tornando o uso confortável em qualquer ambiente.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- **Feedback Visual** 🔔  
+  Receba notificações e mensagens de feedback para cada ação realizada, como conclusão de tarefas ou alcance de metas.
 
-### `npm run eject`
+- **Estatísticas de Produtividade** 📊  
+  Acompanhe gráficos e relatórios que mostram sua evolução, ajudando a identificar padrões e melhorar a performance.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- **Sistema de Prioridades** 🚩  
+  Classifique tarefas por prioridade (alta, média, baixa) para saber onde concentrar seus esforços.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- **Tags e Categorias** 🏷️  
+  Utilize tags coloridas para organizar tarefas e metas por categorias, facilitando buscas e agrupamentos.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- **Responsividade** 📱  
+  Use o dashboard no computador, tablet ou celular, com uma experiência otimizada para cada dispositivo.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## 🚀 Por que usar este dashboard?
 
-## Learn More
+- Centraliza toda sua rotina em um só lugar;
+- Ajuda a manter o foco e a disciplina;
+- Facilita o acompanhamento do progresso de metas de curto e longo prazo;
+- Permite personalização de acordo com suas preferências;
+- Incentiva a produtividade e a organização diária.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 💡 Para quem é este projeto?
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Ideal para estudantes, profissionais, autônomos, ou qualquer pessoa que queira ter mais controle sobre seu tempo, tarefas e objetivos pessoais.
+
+---
+
+> Transforme sua rotina, alcance seus objetivos e tenha controle total do seu dia a dia com o **Dashboard de Rotina Pessoal**! 🚀
