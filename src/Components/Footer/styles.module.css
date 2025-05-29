@@ -1,0 +1,60 @@
+.footer {
+  width: 100vw;
+  background: #eef4fd;
+  color: #6b7280;
+  font-size: 0.95rem;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  z-index: 20;
+  box-shadow: 0 -2px 8px rgba(37, 99, 235, 0.04);
+  padding: 0;
+}
+
+.footerContent {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0.7rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.copyright {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.logoText {
+  font-weight: 600;
+  color: #2563eb;
+  margin-left: 0.25rem;
+}
+
+.socialLinks {
+  display: flex;
+  gap: 1.2rem;
+  align-items: center;
+}
+
+.socialIcon {
+  display: flex;
+  color: #6b7280;
+  transition: color 0.2s;
+}
+
+.socialIcon:hover {
+  color: #2563eb;
+}
+
+@media (max-width: 640px) {
+  .footer {
+    padding: 0.5rem;
+  }
+  .footerContent {
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0.7rem 0.5rem;
+  }
+}
