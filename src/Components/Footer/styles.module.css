@@ -1,23 +1,24 @@
 .footer {
-  width: 100vw;
-  background: #eef4fd;
+  padding: 0.75rem 1rem;
   color: #6b7280;
-  font-size: 0.95rem;
+  font-size: 0.8rem;
+  width: 100%;
   position: fixed;
-  left: 0;
   bottom: 0;
+  left: 0;
+  text-align: center;
+  background: transparent;
   z-index: 20;
-  box-shadow: 0 -2px 8px rgba(37, 99, 235, 0.04);
-  padding: 0;
+  box-shadow: none;
 }
 
 .footerContent {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0.7rem 2rem;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+  gap: 0.75rem;
 }
 
 .copyright {
@@ -29,12 +30,11 @@
 .logoText {
   font-weight: 600;
   color: #2563eb;
-  margin-left: 0.25rem;
 }
 
 .socialLinks {
   display: flex;
-  gap: 1.2rem;
+  gap: 1rem;
   align-items: center;
 }
 
@@ -55,6 +55,5 @@
   .footerContent {
     flex-direction: column;
     gap: 0.5rem;
-    padding: 0.7rem 0.5rem;
   }
 }
