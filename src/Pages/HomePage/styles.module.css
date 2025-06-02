@@ -1,0 +1,33 @@
+.homePageContainer {
+  display: flex;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  min-height: 100vh;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+}
+
+.mainContent {
+  flex: 1;
+  margin-left: 280px;
+  padding: 2rem;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  transition: margin-left 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+}
+
+.contentWrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  box-shadow: var(--shadow-lg);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Add a class that can be toggled by JavaScript */
+.collapsedContent {
+  margin-left: 80px; /* Match collapsed sidebar width */
+}

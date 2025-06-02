@@ -1,0 +1,89 @@
+/* Global theme application - applies theme colors to all elements */
+
+* {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+/* Apply to all divs, sections, mains, asides */
+div, section, main, aside, nav, header, footer {
+  background-color: inherit;
+  color: inherit;
+}
+
+/* Sidebar specific styling */
+aside {
+  background-color: var(--color-sidebar) !important;
+  color: var(--color-text-sidebar) !important;
+}
+
+/* Navigation links */
+a {
+  color: var(--color-text-sidebar-secondary);
+  transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+a:hover {
+  color: var(--color-text-sidebar);
+}
+
+/* Buttons */
+button {
+  background-color: var(--color-bg-secondary);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background-color: var(--color-surface);
+  border-color: var(--color-primary);
+}
+
+/* Form elements */
+input, textarea, select {
+  background-color: var(--color-bg-secondary);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+}
+
+/* Cards and containers */
+.card, [class*="card"], [class*="container"], [class*="wrapper"] {
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Text variations */
+.text-secondary, [class*="secondary"] {
+  color: var(--color-text-secondary);
+}
+
+.text-sidebar, [class*="sidebar"] {
+  color: var(--color-text-sidebar);
+}
+
+.text-sidebar-secondary {
+  color: var(--color-text-sidebar-secondary);
+}
+
+/* Surface elements */
+[class*="surface"], [class*="background"] {
+  background-color: var(--color-surface);
+}
+
+/* Primary elements */
+[class*="primary"] {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+/* Active states */
+[class*="active"] {
+  background-color: var(--color-primary);
+  color: white;
+}
