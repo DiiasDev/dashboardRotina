@@ -63,3 +63,55 @@
     border-radius: 16px;
   }
 }
+
+.loginPageContainer {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-bg);
+}
+
+.loginContent {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 1rem;
+}
+
+@media (max-width: 480px) {
+  .loginContent {
+    padding: 1rem;
+  }
+}
+
+.footer {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--color-text-secondary);
+  font-size: 0.9rem;
+}
+
+.devName {
+  color: var(--color-primary);
+  font-weight: 500;
+}
+
+.socialLinks {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.socialLinks a {
+  color: var(--color-text-secondary);
+  font-size: 1.25rem;
+  transition: color 0.2s ease;
+}
+
+.socialLinks a:hover {
+  color: var(--color-primary);
+}
