@@ -6,10 +6,6 @@ export default function ClimaComponent() {
     const [loading, setLoading] = useState(true)
     const [erro, setErro] = useState<string>('')
 
-    const obterEmojiTemperatura = (temp: number) => {
-        return temp < 25 ? '❄️' : '🔥'
-    }
-
     const obterIconePeriodo = () => {
         const agora = new Date()
         const hora = agora.getHours()
@@ -52,7 +48,7 @@ export default function ClimaComponent() {
             <span>
                 {loading ? 'Carregando...' : 
                  temperatura !== null ? 
-                 `${obterIconePeriodo()} ${temperatura}° ${obterEmojiTemperatura(temperatura)}` : 
+                 `${obterIconePeriodo()} ${temperatura}°` : 
                  `Erro: ${erro}`}
             </span>
         </div>
