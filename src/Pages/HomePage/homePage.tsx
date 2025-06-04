@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import styles from "./styles.module.css";
 import CardCabecalho from "../../Components/CardCabecalho/cardCabecalho";
+import CardTasks from "../../Components/CardTasks/cardTasks";
+import CardLembretes from "../../Components/CardLembretes/cardLembretes";
 
 export default function HomePage() {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
@@ -25,6 +27,10 @@ export default function HomePage() {
       <main className={`${styles.mainContent} ${isSidebarCollapsed ? styles.collapsedContent : ''}`}>
         <div className={styles.contentWrapper}>
           <CardCabecalho />
+          <div className={styles.cardsContainer}>
+            <CardTasks />
+            <CardLembretes />
+          </div>
         </div>
       </main>
     </div>

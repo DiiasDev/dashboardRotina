@@ -11,6 +11,14 @@
     --color-sidebar: #ffffff;
     --color-text-sidebar: #212529;
     --color-text-sidebar-secondary: #6c757d;
+    
+    /* Card Colors */
+    --color-card-tasks: #3b82f6;
+    --color-card-tasks-bg: #eff6ff;
+    --color-card-tasks-text: #1e40af;
+    --color-card-lembretes: #10b981;
+    --color-card-lembretes-bg: #f0fdf4;
+    --color-card-lembretes-text: #065f46;
   
     /* Shadows */
     --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
@@ -32,6 +40,14 @@
     --color-sidebar: #1a1a1a;
     --color-text-sidebar: #ffffff;
     --color-text-sidebar-secondary: #b3b3b3;
+    
+    /* Card Colors Dark */
+    --color-card-tasks: #60a5fa;
+    --color-card-tasks-bg: #1e3a8a;
+    --color-card-tasks-text: #dbeafe;
+    --color-card-lembretes: #34d399;
+    --color-card-lembretes-bg: #064e3b;
+    --color-card-lembretes-text: #d1fae5;
   
     /* Dark theme shadows */
     --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);

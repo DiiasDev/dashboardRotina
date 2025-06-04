@@ -9,7 +9,6 @@ export default function ClimaComponent() {
     const obterIconePeriodo = () => {
         const agora = new Date()
         const hora = agora.getHours()
-        // Considera noite entre 18h e 6h
         return hora >= 18 || hora < 6 ? '🌙' : '☀️'
     }
 
@@ -25,7 +24,7 @@ export default function ClimaComponent() {
             }
             
             const data = await response.json()
-            console.log('Dados da API:', data) // Para debug
+            console.log('Dados da API:', data) 
             
             const tempCelsius = Math.round(data.current_weather.temperature)
             setTemperatura(tempCelsius)

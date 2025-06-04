@@ -52,11 +52,14 @@ input, textarea, select {
 }
 
 /* Cards and containers */
+/* Remover [class*="card"] daqui para não afetar os cards customizados */
+/*
 .card, [class*="card"], [class*="container"], [class*="wrapper"] {
   background-color: var(--color-bg-secondary);
   border: 1px solid var(--color-border);
   box-shadow: var(--shadow-lg);
 }
+*/
 
 /* Text variations */
 .text-secondary, [class*="secondary"] {

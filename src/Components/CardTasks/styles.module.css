@@ -1,0 +1,164 @@
+.cardContainer {
+  background: var(--color-surface);
+  border: 1.5px solid var(--color-border);
+  border-radius: 18px;
+  padding: 20px 22px 18px 22px;
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-height: 180px;
+  max-width: 340px;
+  width: 100%;
+  margin-right: 24px;
+  position: relative;
+  transition: box-shadow 0.2s, border-color 0.2s, transform 0.2s;
+  overflow: visible;
+}
+
+.cardContainer:hover {
+  box-shadow: var(--shadow-xl);
+  border-color: var(--color-card-tasks);
+  transform: translateY(-3px) scale(1.01);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+  padding: 0;
+  background: none;
+  box-shadow: none;
+}
+
+.cardIcon {
+  font-size: 22px;
+  background: var(--color-card-tasks);
+  color: #fff;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cardTitle {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0;
+  letter-spacing: 0.5px;
+}
+
+.cardBadges {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.cardBadge {
+  background: var(--color-card-tasks-bg);
+  color: var(--color-card-tasks-text);
+  font-size: 0.78rem;
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 3px 10px;
+  border: none;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 6px rgba(30, 58, 138, 0.10);
+}
+
+.cardNumber {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--color-card-tasks);
+  margin: 0 0 10px 0;
+  line-height: 1.1;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+.cardSubtext {
+  font-size: 0.93rem;
+  color: var(--color-text-secondary);
+  margin-bottom: 18px;
+  font-weight: 500;
+  opacity: 0.85;
+}
+
+.cardFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.cardValue {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.cardButton {
+  background: var(--color-card-tasks);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 7px 18px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.10);
+  text-decoration: none;
+}
+
+.cardButton:hover {
+  background: #2563eb;
+}
+
+@media (max-width: 500px) {
+  .cardContainer {
+    max-width: 100%;
+    padding: 14px 10px;
+  }
+  .cardHeader .cardIcon {
+    width: 30px;
+    height: 30px;
+    font-size: 18px;
+  }
+  .cardTitle {
+    font-size: 1rem;
+  }
+  .cardNumber {
+    font-size: 1.5rem;
+  }
+}
+
+/* Dark mode adjustments */
+[data-theme="dark"] .cardContainer {
+  background: var(--color-surface);
+  border: 1.5px solid var(--color-border);
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.32), 0 1.5px 4px 0 rgba(0,0,0,0.18);
+}
+
+[data-theme="dark"] .cardContainer:hover {
+  box-shadow: 0 4px 16px 0 rgba(0,0,0,0.38), 0 2px 8px 0 rgba(0,0,0,0.22);
+}
+
+[data-theme="dark"] .cardBadge {
+  background: var(--color-card-tasks-bg);
+  color: var(--color-card-tasks-text);
+  box-shadow: 0 2px 6px rgba(30, 58, 138, 0.18);
+}
+
+[data-theme="dark"] .cardButton {
+  background: var(--color-card-tasks);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.18);
+}
+
+[data-theme="dark"] .cardButton:hover {
+  background: #2563eb;
+}
