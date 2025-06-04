@@ -1,53 +1,41 @@
 :root {
-    /* Core Neutral Palette */
-    --color-bg: #f8fafd;
-    --color-bg-secondary: #ffffff;
-    --color-surface: #f2f3f7;
-    --color-sidebar: #18181a;
-    --color-border: #e3e6ed;
+    /* Light Theme */
+    --color-primary: #007bff;
+    --color-primary-dark: #0056b3;
+    --color-bg: #ffffff;
+    --color-bg-secondary: #f8f9fa;
+    --color-surface: #ffffff;
+    --color-text: #212529;
+    --color-text-secondary: #6c757d;
+    --color-border: #dee2e6;
+    --color-sidebar: #ffffff;
+    --color-text-sidebar: #212529;
+    --color-text-sidebar-secondary: #6c757d;
   
-    /* Text */
-    --color-text: #22242c;
-    --color-text-secondary: #7d818b;
-    --color-text-sidebar: #fff;
-    --color-text-sidebar-secondary: #bdbdc9;
-  
-    /* Accents */
-    --color-primary: #2261e9; /* Blue accent for charts, icons, highlight */
-    --color-success: #22c55e; /* Green (bars, completed) */
-    --color-warning: #ff9800; /* Orange (housing icon) */
-    --color-danger: #f44336;  /* Red (food icon) */
-    --color-info: #2bb3f6;    /* Cyan (grocery icon) */
-    --color-purple: #a259e6;  /* Purple (transportation icon) */
-    --color-yellow: #ffc107;  /* Yellow, optional */
-  
-    /* Rounding and shadow */
-    --radius-lg: 18px;
-    --shadow-lg: 0 4px 24px 0 rgba(60, 72, 99, 0.09);
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
   }
   
   /* Dark Theme */
   [data-theme="dark"] {
-    --color-bg: #111113;
-    --color-bg-secondary: #18181a;
-    --color-surface: #18181a;
-    --color-sidebar: #000;
-    --color-border: #23242b;
+    --color-primary: #4dabf7;
+    --color-primary-dark: #339af0;
+    --color-bg: #121212;
+    --color-bg-secondary: #1e1e1e;
+    --color-surface: #2d2d2d;
+    --color-text: #ffffff;
+    --color-text-secondary: #b3b3b3;
+    --color-border: #404040;
+    --color-sidebar: #1a1a1a;
+    --color-text-sidebar: #ffffff;
+    --color-text-sidebar-secondary: #b3b3b3;
   
-    --color-text: #f4f6fb;
-    --color-text-secondary: #b0b3ba;
-    --color-text-sidebar: #fff;
-    --color-text-sidebar-secondary: #757585;
-  
-    /* Accents: keep them vibrant for contrast */
-    --color-primary: #4f8cff; /* Lighter blue for dark bg */
-    --color-success: #22c55e;
-    --color-warning: #ffb142;
-    --color-danger: #ff5b5b;
-    --color-info: #40cfff;
-    --color-purple: #ae7aff;
-    --color-yellow: #ffe066;
-  
-    --radius-lg: 18px;
-    --shadow-lg: 0 4px 24px 0 rgba(0, 0, 0, 0.35);
+    /* Dark theme shadows */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.3);
   }

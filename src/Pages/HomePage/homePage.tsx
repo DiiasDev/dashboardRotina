@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import styles from "./styles.module.css";
+import CardCabecalho from "../../Components/CardCabecalho/cardCabecalho";
 
 export default function HomePage() {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
@@ -13,7 +14,7 @@ export default function HomePage() {
     };
 
     window.addEventListener('sidebarToggle', handleSidebarToggle as EventListener);
-    
+
     return () => {
       window.removeEventListener('sidebarToggle', handleSidebarToggle as EventListener);
     };
@@ -23,6 +24,7 @@ export default function HomePage() {
     <div className={styles.homePageContainer}>
       <main className={`${styles.mainContent} ${isSidebarCollapsed ? styles.collapsedContent : ''}`}>
         <div className={styles.contentWrapper}>
+          <CardCabecalho />
         </div>
       </main>
     </div>

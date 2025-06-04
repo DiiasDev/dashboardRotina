@@ -102,22 +102,7 @@ export default function Navigation() {
             </svg>
             {!isCollapsed && "Adicionar Tarefa"}
           </a>
-          <a href="/graficos" className={styles.navLink}>
-            <svg
-              className={styles.icon}
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M19 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3ZM9 17H7V10H9V17ZM13 17H11V7H13V17ZM17 17H15V13H17V17Z"
-                fill="currentColor"
-              />
-            </svg>
-            {!isCollapsed && "Gráficos"}
-          </a>
+         
           <a href="/objetivos" className={styles.navLink}>
             <svg
               className={styles.icon}
@@ -133,6 +118,40 @@ export default function Navigation() {
               />
             </svg>
             {!isCollapsed && "Objetivos"}
+          </a>
+
+           <a href="/Financeiro" className={styles.navLink}>
+            <svg
+              className={styles.icon}
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM13 17H11V15H13V17ZM13 13H11V7H13V13Z"
+                fill="currentColor"
+              />
+            </svg>
+            {!isCollapsed && "Tasks"}
+          </a>
+
+            <a href="/Projetos" className={styles.navLink}>
+            <svg
+              className={styles.icon}
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM13 17H11V15H13V17ZM13 13H11V7H13V13Z"
+                fill="currentColor"
+              />
+            </svg>
+            {!isCollapsed && "Financeiro"}
           </a>
         </nav>
 
