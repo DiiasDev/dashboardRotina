@@ -23,7 +23,15 @@ export default function HomePage() {
   }, []);
 
   return (
-    <div className={styles.homePageContainer}>
+    <div
+      className={styles.homePageContainer}
+      style={{
+        minHeight: "100vh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center"
+      }}
+    >
       <main className={`${styles.mainContent} ${isSidebarCollapsed ? styles.collapsedContent : ''}`}>
         <div className={styles.contentWrapper}>
           <CardCabecalho />
