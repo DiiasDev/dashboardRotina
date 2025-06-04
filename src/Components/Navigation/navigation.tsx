@@ -1,10 +1,24 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ToggleTheme from "../ToggleTheme/toggleTheme";
 import styles from "./styles.module.css";
 import avatar from '../../Assets/images/gabrielDias.jpg'
 
 export default function Navigation() {
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const [activeRoute, setActiveRoute] = useState(window.location.pathname);
+
+  useEffect(() => {
+    const handleLocationChange = () => {
+      setActiveRoute(window.location.pathname);
+    };
+
+    window.addEventListener('popstate', handleLocationChange);
+    return () => window.removeEventListener('popstate', handleLocationChange);
+  }, []);
+
+  const isActive = (route: string) => {
+    return activeRoute === route || activeRoute.includes(route);
+  };
 
   const toggleSidebar = () => {
     setIsCollapsed(!isCollapsed);
@@ -41,117 +55,44 @@ export default function Navigation() {
         <nav className={styles.menu}>
           <a
             href="/HomePage"
-            className={`${styles.navLink} ${styles.active}`}
+            className={`${styles.navLink} ${isActive('/HomePage') ? styles.active : ''}`}
+            onClick={() => setActiveRoute('/HomePage')}
           >
-            <svg
-              className={styles.icon}
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <rect
-                x="3"
-                y="3"
-                width="7"
-                height="9"
-                rx="2"
-                fill="currentColor"
-              />
-              <rect
-                x="14"
-                y="3"
-                width="7"
-                height="5"
-                rx="2"
-                fill="currentColor"
-              />
-              <rect
-                x="14"
-                y="12"
-                width="7"
-                height="9"
-                rx="2"
-                fill="currentColor"
-              />
-              <rect
-                x="3"
-                y="16"
-                width="7"
-                height="5"
-                rx="2"
-                fill="currentColor"
-              />
-            </svg>
-            {!isCollapsed && "Home"}
+            {!isCollapsed && "🏠 Home"}
           </a>
-          <a href="/tarefas" className={styles.navLink}>
-            <svg
-              className={styles.icon}
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M19 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3ZM9 17H7V10H9V17ZM13 17H11V7H13V17ZM17 17H15V13H17V17Z"
-                fill="currentColor"
-              />
-            </svg>
-            {!isCollapsed && "Adicionar Tarefa"}
-          </a>
+      
          
-          <a href="/objetivos" className={styles.navLink}>
-            <svg
-              className={styles.icon}
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM13 17H11V15H13V17ZM13 13H11V7H13V13Z"
-                fill="currentColor"
-              />
-            </svg>
-            {!isCollapsed && "Objetivos"}
+          <a 
+            href="/Financeiro" 
+            className={`${styles.navLink} ${isActive('/Financeiro') ? styles.active : ''}`}
+            onClick={() => setActiveRoute('/Financeiro')}
+          >
+            {!isCollapsed && "💰 Financeiro"}
           </a>
 
-           <a href="/Financeiro" className={styles.navLink}>
-            <svg
-              className={styles.icon}
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM13 17H11V15H13V17ZM13 13H11V7H13V13Z"
-                fill="currentColor"
-              />
-            </svg>
-            {!isCollapsed && "Tasks"}
+           <a 
+            href="/Tasks" 
+            className={`${styles.navLink} ${isActive('/Tasks') ? styles.active : ''}`}
+            onClick={() => setActiveRoute('/Tasks')}
+          >
+            {!isCollapsed && "✅ Tasks"}
           </a>
 
-            <a href="/Projetos" className={styles.navLink}>
-            <svg
-              className={styles.icon}
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM13 17H11V15H13V17ZM13 13H11V7H13V13Z"
-                fill="currentColor"
-              />
-            </svg>
-            {!isCollapsed && "Financeiro"}
+            <a 
+            href="/Objetivos" 
+            className={`${styles.navLink} ${isActive('/Objetivos') ? styles.active : ''}`}
+            onClick={() => setActiveRoute('/Objetivos')}
+          >
+            {!isCollapsed && "🎯 Objetivos"}
+          </a>
+
+
+          <a 
+            href="/Projetos" 
+            className={`${styles.navLink} ${isActive('/Projetos') ? styles.active : ''}`}
+            onClick={() => setActiveRoute('/Projetos')}
+          >
+            {!isCollapsed && "📁 Projetos"}
           </a>
         </nav>
 
