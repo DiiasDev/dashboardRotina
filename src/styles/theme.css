@@ -25,10 +25,18 @@
     --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
     --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  }
   
-  /* Dark Theme */
-  [data-theme="dark"] {
+    /* Status Colors */
+    --color-status-iniciado: #22c55e;
+    --color-status-iniciado-bg: #e7fbe9;
+    --color-status-pausado: #f59e42;
+    --color-status-pausado-bg: #fff6e5;
+    --color-status-parado: #ef4444;
+    --color-status-parado-bg: #ffeaea;
+}
+  
+/* Dark Theme */
+[data-theme="dark"] {
     --color-primary: #4dabf7;
     --color-primary-dark: #339af0;
     --color-bg: #121212;
@@ -54,4 +62,12 @@
     --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
     --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.3);
-  }
+  
+    /* Status Colors Dark */
+    --color-status-iniciado: #4ade80;
+    --color-status-iniciado-bg: #14532d;
+    --color-status-pausado: #fbbf24;
+    --color-status-pausado-bg: #78350f;
+    --color-status-parado: #f87171;
+    --color-status-parado-bg: #7f1d1d;
+}

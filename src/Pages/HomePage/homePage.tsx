@@ -3,11 +3,11 @@ import styles from "./styles.module.css";
 import CardCabecalho from "../../Components/CardCabecalho/cardCabecalho";
 import CardTasks from "../../Components/CardTasks/cardTasks";
 import CardLembretes from "../../Components/CardLembretes/cardLembretes";
+import CardProjetos from "../../Components/CardProjetos/cardProjetos";
 
 export default function HomePage() {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
 
-  // Listen for sidebar collapse/expand
   useEffect(() => {
     const handleSidebarToggle = (e: Event) => {
       if (e instanceof CustomEvent) {
@@ -30,6 +30,7 @@ export default function HomePage() {
           <div className={styles.cardsContainer}>
             <CardTasks />
             <CardLembretes />
+            <CardProjetos />
           </div>
         </div>
       </main>
