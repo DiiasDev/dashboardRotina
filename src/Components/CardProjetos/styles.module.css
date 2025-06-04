@@ -97,3 +97,19 @@
   border-color: var(--color-status-parado);
   background: var(--color-status-parado-bg);
 }
+
+.tituloContainer {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.titulo {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin: 0;
+  letter-spacing: 0.5px;
+}

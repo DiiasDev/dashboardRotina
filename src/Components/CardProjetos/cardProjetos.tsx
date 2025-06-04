@@ -21,6 +21,9 @@ export default function CardProjetos({
 }: ProjetoCardProps) {
     return (
         <div className={styles.cardProjeto}>
+            <div className={styles.tituloContainer}>
+                <h2 className={styles.titulo}>Projetos</h2>
+            </div>
             <div className={styles.header}>
                 <span className={styles.nomeProjeto}>{nome}</span>
                 <span className={styles.percentual}>{percentual}%</span>
