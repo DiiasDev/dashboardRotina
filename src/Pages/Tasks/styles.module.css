@@ -6,21 +6,60 @@
 }
 
 .pageContainer {
-    margin-left: 280px; /* largura da sidebar expandida */
-    padding: 24px;
-    min-height: 100vh;
+    margin-left: 250px;
+    padding: 16px;
     transition: margin-left 0.3s ease;
+    height: 100%;
+    width: 100%;
+    max-width: 100vw;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    display: flex;
+    justify-content: center;
 }
 
 /* Quando sidebar está colapsada */
 .pageContainer.sidebarCollapsed {
-    margin-left: 80px; /* largura da sidebar colapsada */
+    margin-left: 60px; /* largura da sidebar colapsada */
+    padding-left: 90px; /* Ajuste conforme a largura da sua sidebar colapsada */
+    /* Adicionado para corrigir o problema de scroll horizontal */
+    margin-left: 0;
+    transition: margin-left 0.3s ease;
 }
 
+.contentCard {
+    flex: 1;
+    background: var(--color-surface);
+    margin: 20px;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: var(--shadow-md);
+    max-width: calc(100vw - 290px);
+}
+
+/* Estilos para dispositivos móveis */
 @media (max-width: 768px) {
-    .pageContainer,
-    .pageContainer.sidebarCollapsed {
-        margin-left: 0;
-        padding: 16px;
+    .pageContainer {
+        padding: 8px;
     }
+    
+    .contentCard {
+        padding: 15px;
+    }
+    
+    .sidebarCollapsed {
+        padding-left: 60px; /* Padding menor para dispositivos móveis */
+    }
+}
+
+.sidebarCollapsed .contentCard {
+    max-width: calc(100vw - 100px);
+}
+
+.cardsContainer {
+    width: 100%;
+}
+
+.spacedContainer {
+    margin-top: 24px;
 }

@@ -33,15 +33,14 @@ export default function CabecalhoTasks() {
 
     return (
         <>
-            <div className={styles.container}>
                 <div className={styles.tasksTitle}>
-                    <h2>Minhas tasks</h2>
+                    <h2>Minhas Tasks</h2>
                     <button className={styles.addButton}>+</button>
                 </div>
-                <div className={styles.filtroContainer}>
+                <div className={styles.filterWrapper}>
                     <div className={styles.filtro}>
                         <span className={styles.filtroLabel}>Filtro por data</span>
-                        <div 
+                        <div
                             className={styles.dateRange}
                             onClick={() => setIsDatePickerOpen(!isDatePickerOpen)}
                         >
@@ -66,7 +65,6 @@ export default function CabecalhoTasks() {
                         Aplicar
                     </button>
                 </div>
-            </div>
         </>
     )
 }

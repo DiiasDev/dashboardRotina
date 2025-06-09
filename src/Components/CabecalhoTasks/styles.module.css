@@ -1,39 +1,34 @@
 .container {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     width: 100%;
-    padding: 16px 20px;
-    margin-bottom: 24px;
+    padding: 12px;
+    margin-bottom: 20px;
     background: linear-gradient(135deg, var(--color-bg) 0%, var(--color-bg-secondary) 100%);
     border-radius: 12px;
     box-shadow: var(--shadow-lg);
     border: 1px solid var(--color-border);
     box-sizing: border-box;
+    max-width: 100%;
+    overflow: hidden;
 }
 
 .tasksTitle {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 12px;
-    background: var(--color-surface);
-    border-radius: 24px;
-    padding: 10px 16px;
-    box-shadow: var(--shadow-md);
-    border: 1px solid var(--color-border);
-    transition: all 0.3s ease;
-}
-
-.tasksTitle:hover {
-    box-shadow: var(--shadow-lg);
-    transform: translateY(-1px);
+    margin-bottom: 24px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .tasksTitle h2 {
-    font-size: 1.3rem;
+    margin: 0;
+    font-size: 1.5rem;
     font-weight: 600;
     color: var(--color-text);
-    margin: 0;
     background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -41,87 +36,84 @@
 }
 
 .addButton {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
     border: none;
-    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+    background: var(--color-primary);
     color: white;
-    font-size: 20px;
-    font-weight: bold;
+    font-size: 1.5rem;
     cursor: pointer;
-    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s;
     padding: 0;
     line-height: 1;
     box-shadow: var(--shadow-md);
 }
 
 .addButton:hover {
-    transform: scale(1.1);
-    box-shadow: var(--shadow-lg);
+    background: var(--color-primary-dark);
 }
 
 .addButton:active {
     transform: scale(0.95);
 }
 
+.filterWrapper {
+    display: flex;
+    gap: 16px;
+    align-items: flex-end;
+    margin-bottom: 24px;
+    width: 100%;
+}
+
 .filtroContainer {
     display: flex;
     align-items: center;
-    gap: 16px;
-    position: relative;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding: 12px;
+    background-color: #252525;
+    border-radius: 8px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .filtro {
-    display: flex;
-    flex-direction: column;
-    background: var(--color-surface);
-    border-radius: 16px;
-    padding: 10px 14px;
-    box-shadow: var(--shadow-md);
-    border: 1px solid var(--color-border);
     position: relative;
-    transition: all 0.3s ease;
-}
-
-.filtro:hover {
-    box-shadow: var(--shadow-lg);
-    transform: translateY(-1px);
+    flex: 1;
 }
 
 .filtroLabel {
-    font-size: 0.75rem;
-    color: var(--color-text-secondary);
-    margin-bottom: 6px;
+    display: block;
+    font-size: 0.875rem;
     font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+    color: var(--color-text-secondary);
+    margin-bottom: 8px;
 }
 
 .dateRange {
-    font-size: 0.95rem;
+    padding: 12px 16px;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    background: var(--color-surface);
     color: var(--color-text);
-    font-weight: 600;
     cursor: pointer;
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 8px;
-    padding: 4px 8px;
-    border-radius: 8px;
-    transition: all 0.2s ease;
-    min-width: 140px;
+    font-size: 0.875rem;
+    transition: border-color 0.2s;
 }
 
 .dateRange:hover {
-    background-color: var(--color-bg-secondary);
+    border-color: var(--color-primary);
 }
 
 .calendarIcon {
-    font-size: 16px;
-    opacity: 0.7;
+    font-size: 1rem;
 }
 
 .datePickerWrapper {
@@ -129,11 +121,12 @@
     top: 100%;
     left: 0;
     z-index: 1000;
-    margin-top: 8px;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: var(--shadow-xl);
+    margin-top: 4px;
+    background: var(--color-surface);
     border: 1px solid var(--color-border);
+    border-radius: 8px;
+    box-shadow: var(--shadow-lg);
+    max-width: calc(100vw - 40px);
 }
 
 .datePickerWrapper :global(.react-datepicker) {
@@ -170,49 +163,74 @@
 }
 
 .applyButton {
-    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+    padding: 12px 24px;
+    background: var(--color-primary);
     color: white;
     border: none;
-    padding: 10px 20px;
-    border-radius: 16px;
-    font-size: 0.85rem;
-    font-weight: 600;
+    border-radius: 8px;
+    font-weight: 500;
     cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: var(--shadow-md);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+    transition: background-color 0.2s;
+    white-space: nowrap;
 }
 
 .applyButton:hover {
+    background: var(--color-primary-dark);
     transform: translateY(-2px);
-    box-shadow: var(--shadow-lg);
 }
 
 .applyButton:active {
     transform: translateY(0);
-    box-shadow: var(--shadow-sm);
 }
 
 @media (max-width: 768px) {
     .container {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 16px;
-        padding: 12px 16px;
+        padding: 10px;
+        margin-bottom: 16px;
     }
-
-    .filtroContainer {
+    
+    .filterWrapper {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+    }
+    
+    .filtro {
         width: 100%;
+        max-width: 100%;
+    }
+    
+    .applyButton {
+        width: 100%;
+        margin-top: 8px;
+        padding: 6px 10px;
+    }
+    
+    .dateRange {
+        width: 100%;
+        box-sizing: border-box;
         justify-content: space-between;
     }
-
-    .tasksTitle h2 {
-        font-size: 1.1rem;
-    }
-
+    
     .datePickerWrapper {
-        left: 50%;
-        transform: translateX(-50%);
+        left: 0;
+        right: 0;
+        width: 100%;
+        max-width: calc(100vw - 20px);
+    }
+    
+    .tasksTitle {
+        width: 100%;
+        margin-bottom: 15px;
+    }
+    
+    .tasksTitle h2 {
+        font-size: 20px;
+    }
+    
+    .addButton {
+        width: 28px;
+        height: 28px;
+        font-size: 18px;
     }
 }

@@ -1,0 +1,11 @@
+/* Add these rules to the beginning of your index.css file */
+html, body, #root {
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ...rest of your existing CSS... */
