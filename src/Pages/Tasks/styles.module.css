@@ -1,0 +1,26 @@
+.pageContent {
+    padding-top: 72px; /* ajuste conforme a altura real da navbar */
+    min-height: 100vh;
+    box-sizing: border-box;
+    /* ...adicione outros estilos se necessário... */
+}
+
+.pageContainer {
+    margin-left: 280px; /* largura da sidebar expandida */
+    padding: 24px;
+    min-height: 100vh;
+    transition: margin-left 0.3s ease;
+}
+
+/* Quando sidebar está colapsada */
+.pageContainer.sidebarCollapsed {
+    margin-left: 80px; /* largura da sidebar colapsada */
+}
+
+@media (max-width: 768px) {
+    .pageContainer,
+    .pageContainer.sidebarCollapsed {
+        margin-left: 0;
+        padding: 16px;
+    }
+}

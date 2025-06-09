@@ -6,6 +6,7 @@ import "./styles/global-theme.css";
 import LoginPage from "./Pages/LoginPage/loginPage";
 import Navigation from "./Components/Navigation/navigation";
 import { ThemeProvider } from "./contexts/ThemeContext";
+import Tasks from "./Pages/Tasks/tasks";
 
 function AppContent() {
   const location = useLocation();
@@ -17,6 +18,7 @@ function AppContent() {
       <Routes>
         <Route path="/" element={<LoginPage />} />
         <Route path="/homepage" element={<HomePage />} />
+        <Route path="/Tasks" element={<Tasks />} />
       </Routes>
     </div>
   );
