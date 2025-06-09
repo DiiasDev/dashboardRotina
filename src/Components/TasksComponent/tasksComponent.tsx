@@ -30,7 +30,7 @@ export default function TasksComponent() {
     ]
 
     return (
-        <div className={styles.container}>
+        <div className={`${styles.container} ${styles.cardsRow}`}>
             {cards.map((card, index) => (
                 <div 
                     className={styles.cardTask} 
