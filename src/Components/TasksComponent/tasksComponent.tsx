@@ -9,7 +9,7 @@ export default function TasksComponent() {
             moreLabel: 'mais',
             emoji: '🏠',
             progress: 100, // 5/5 = 100%
-            color: '#4caf50'
+            color: '#10b981'
         },
         {
             titulo: 'Trabalho',
@@ -17,7 +17,7 @@ export default function TasksComponent() {
             moreLabel: 'mais',
             emoji: '💼',
             progress: 60, // 3/5 = 60%
-            color: '#ff9800'
+            color: '#f59e0b'
         },
         {
             titulo: 'Faculdade',
@@ -25,7 +25,7 @@ export default function TasksComponent() {
             moreLabel: 'mais',
             emoji: '🎓',
             progress: 37.5, // 3/8 = 37.5%
-            color: '#2196f3'
+            color: '#3b82f6'
         }
     ]
 

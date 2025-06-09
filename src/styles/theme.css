@@ -3,14 +3,14 @@
     --color-primary: #007bff;
     --color-primary-dark: #0056b3;
     --color-bg: #ffffff;
-    --color-bg-secondary: #f8f9fa;
+    --color-bg-secondary: #f1f5f9;
     --color-surface: #ffffff;
-    --color-text: #212529;
-    --color-text-secondary: #6c757d;
-    --color-border: #dee2e6;
+    --color-text: #1e293b;
+    --color-text-secondary: #64748b;
+    --color-border: #cbd5e1;
     --color-sidebar: #ffffff;
-    --color-text-sidebar: #212529;
-    --color-text-sidebar-secondary: #6c757d;
+    --color-text-sidebar: #1e293b;
+    --color-text-sidebar-secondary: #64748b;
     
     /* Card Colors */
     --color-card-tasks: #3b82f6;
