@@ -2,12 +2,14 @@ import { useState } from "react";
 import DatePicker from "react-datepicker";
 import styles from "./styles.module.css";
 import "react-datepicker/dist/react-datepicker.css";
-import { CircularProgress } from "@mui/material";
+import DialogTasks from "../DialogTasks/dialogTasks";
+import { Call } from "@mui/icons-material";
 
 export default function CabecalhoTasks() {
   const [startDate, setStartDate] = useState<Date | null>(new Date());
   const [endDate, setEndDate] = useState<Date | null>(new Date());
   const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const formatDate = (date: Date | null) => {
     if (!date) return "";
@@ -32,11 +34,21 @@ export default function CabecalhoTasks() {
     console.log("Applying filter:", { startDate, endDate });
   };
 
+
+
+  function openDialog() {
+    setIsModalOpen(true);
+  }
+
+  const closeDialog = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <>
       <div className={styles.tasksTitle}>
         <h2>Minhas Tasks</h2>
-        <button className={styles.addButton}>+</button>
+        <button onClick={openDialog} className={styles.addButton}>+</button>
       </div>
       <div className={styles.filterWrapper}>
         <div className={styles.filtro}>
@@ -66,6 +78,7 @@ export default function CabecalhoTasks() {
           Aplicar
         </button>
       </div>
+      <DialogTasks open={isModalOpen} onClose={closeDialog} />
     </>
   );
 }

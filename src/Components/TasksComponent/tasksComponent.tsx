@@ -1,57 +1,42 @@
 import styles from './styles.module.css'
 
-export default function TasksComponent() {
+interface Task {
+    emoji: string;
+    title: string;
+    moreLabel: string;
+    progress: number;
+    color: string;
+    Total: string;
+    categoria: string;
+    descricao: string;
+}
 
-    const cards = [
-        {
-            titulo: 'Casa',
-            Total: '5/5',
-            moreLabel: 'mais',
-            emoji: '🏠',
-            progress: 100, // 5/5 = 100%
-            color: '#10b981'
-        },
-        {
-            titulo: 'Trabalho',
-            Total: '3/5',
-            moreLabel: 'mais',
-            emoji: '💼',
-            progress: 60, // 3/5 = 60%
-            color: '#f59e0b'
-        },
-        {
-            titulo: 'Faculdade',
-            Total: '3/8',
-            moreLabel: 'mais',
-            emoji: '🎓',
-            progress: 37.5, // 3/8 = 37.5%
-            color: '#3b82f6'
-        }
-    ]
+export default function TasksComponent() {
+    const tasks = JSON.parse(localStorage.getItem('tasks') || '[]')
 
     return (
         <div className={`${styles.container} ${styles.cardsRow}`}>
-            {cards.map((card, index) => (
-                <div 
-                    className={styles.cardTask} 
+            {tasks.map((task: Task, index: number) => (
+                <div
+                    className={styles.cardTask}
                     key={index}
-                    style={{borderLeft: `4px solid ${card.color}`}}
+                    style={{ borderLeft: `4px solid ${task.color}` }}
                 >
-                    <div className={styles.cardContent}>
-                        <div className={styles.cardHeader}>
-                            <span className={styles.cardEmoji}>{card.emoji}</span>
-                            <h3 className={styles.cardTitle}>{card.titulo}</h3>
+                    <div className={styles.taskContent}>
+                        <div className={styles.taskHeader}>
+                            <span className={styles.taskEmoji}>{task.emoji}</span>
+                            <h3 className={styles.taskTitle}>{task.title}</h3>
                         </div>
-                        <div className={styles.cardProgress}>
-                            <div className={styles.progressInfo}>
-                                <span>{card.Total}</span>
-                                <span className={styles.moreLabel}>{card.moreLabel}</span>
-                            </div>
+                        <div className={styles.taskProgress}>
                             <div className={styles.progressBar}>
-                                <div 
-                                    className={styles.progressFill} 
-                                    style={{width: `${card.progress}%`, backgroundColor: card.color}}
+                                <div
+                                    className={styles.progressFill}
+                                    style={{ width: `${task.progress}%`, backgroundColor: task.color }}
                                 ></div>
+                                <div className={styles.progressInfo}>
+                                    <span>{task.Total}</span>
+                                    <span className={styles.moreLabel}>{task.moreLabel}</span>
+                                </div>
                             </div>
                         </div>
                     </div>
