@@ -7,13 +7,11 @@
 
 .pageContainer {
     position: relative;
+    min-height: 100vh;
+    background-color: var(--color-bg);
     margin-left: 250px; /* Width of expanded sidebar */
-    padding: 20px;
-    height: 100vh;
-    box-sizing: border-box;
-    overflow-x: hidden;
     transition: margin-left 0.3s ease;
-    background-color: var(--color-bg-secondary);
+    padding: 20px;
 }
 
 /* Quando sidebar está colapsada */
@@ -22,7 +20,7 @@
 }
 
 .contentCard {
-    background-color: var(--color-surface);
+    background: var(--color-surface);
     border-radius: 12px;
     padding: 24px;
     box-shadow: var(--shadow-md);
@@ -36,7 +34,7 @@
 @media (max-width: 768px) {
     .pageContainer {
         margin-left: 0;
-        padding: 1rem;
+        padding: 10px;
     }
     
     .pageContainer.sidebarCollapsed {
@@ -50,6 +48,7 @@
 
 .cardsContainer {
     width: 100%;
+    margin: 20px 0;
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
@@ -58,5 +57,5 @@
 
 .spacedContainer {
     margin-top: 1.5rem;
-    padding: 20px 0;
+    padding: 0;
 }
