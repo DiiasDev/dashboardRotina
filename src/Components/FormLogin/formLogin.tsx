@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import styles from './styles.module.css';
+import { LinearProgress } from '@mui/material';
 
 export default function FormLogin() {
   const [user, setUser] = useState('')
@@ -41,9 +42,17 @@ export default function FormLogin() {
         <div className={styles.loadingOverlay}>
           <div className={`${styles.loadingModal} ${styles[loadingType]}`}>
             <div className={styles.progressContainer}>
-              <div className={styles.progressBar}></div>
             </div>
             <p className={styles.loadingText}>{loadingMessage}</p>
+            <LinearProgress 
+              color={loadingType === 'success' ? 'success' : 'error'}
+              sx={{
+                '& .MuiLinearProgress-bar': {
+                  backgroundColor: loadingType === 'success' ? '#4caf50' : '#f44336'
+                },
+                backgroundColor: loadingType === 'success' ? '#c8e6c9' : '#ffcdd2'
+              }}
+            />
           </div>
         </div>
       )}
