@@ -3,6 +3,7 @@ import CabecalhoTasks from '../../Components/CabecalhoTasks/cabecalhoTasks'
 import TasksComponent from '../../Components/TasksComponent/tasksComponent';
 import styles from './styles.module.css'
 import ChartComponent from '../../Components/ChartComponent/chatrComponent';
+import StatusTasks from '../../Components/StatusTasks/statusTasks';
 
 export default function Tasks() {
     const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
@@ -26,8 +27,14 @@ export default function Tasks() {
                 <div className={`${styles.cardsContainer} ${styles.spacedContainer}`}>
                     <TasksComponent />
                 </div>
-                <ChartComponent />
-
+                <div className={styles.chartsContainer}>
+                    <div className={`${styles.chartItem} ${styles.chartMain}`}>
+                        <ChartComponent />
+                    </div>
+                    <div className={`${styles.chartItem} ${styles.chartSide}`}>
+                        <StatusTasks />
+                    </div>
+                </div>
             </div>
         </div>
     )

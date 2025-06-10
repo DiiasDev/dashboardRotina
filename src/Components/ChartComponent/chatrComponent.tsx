@@ -17,16 +17,18 @@ export default function ChartComponent(){
             <Grid>
                 <Grid>
                     <Card style={{ 
-                        height: 450, 
-                        width: 700,
+                        height: 520, 
+                        width: '100%',
+                        maxWidth: 700,
                         backgroundColor: 'var(--color-surface)',
                         boxShadow: 'var(--shadow-lg)',
                         border: '1px solid var(--color-border)',
-                        borderRadius: '12px'
+                        borderRadius: '12px',
+                        marginTop: '26px'
                     }}>
                         <CardContent style={{ 
-                            height: 400, 
-                            width: 700,
+                            height: 470, 
+                            width: '100%',
                             backgroundColor: 'var(--color-surface)'
                         }}>
                             <Typography 
