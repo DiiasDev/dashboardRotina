@@ -1,3 +1,12 @@
+type TaskData = {
+  id: number;
+  titulo: string;
+  categoria: string[];
+  descricao: string;
+  concluido: boolean;
+  dataCreacao: string;
+};
+
 export class Tasks {
   id: number;
   titulo: string;
@@ -5,7 +14,7 @@ export class Tasks {
   descricao: string;
   concluido: boolean;
 
-  private static taskCriadas: any[] = [];
+  private static taskCriadas: TaskData[] = [];
 
   constructor(
     id: number,
@@ -21,24 +30,22 @@ export class Tasks {
     this.concluido = concluido;
   }
 
-  async init() {
-    try {
-      console.log("Iniciou a classe");
-      await this.createTasks();
-    } catch (error) {
-      console.warn("Erro ao iniciar a classe", error);
-    }
-  }
-
   createTasks() {
     try {
-      const task = {
+        this.id = Math.floor(Math.random() * 90000000) + 10000000;
+
+      if(Tasks.taskCriadas.find((e) => e.id === this.id)) {
+        alert("Id repetido");
+        return;
+      }
+
+      const task: TaskData = {
         id: this.id,
         titulo: this.titulo,
         categoria: this.categoria,
         descricao: this.descricao,
         concluido: this.concluido,
-        dataCreacao: new Date().toISOString()
+        dataCreacao: new Date().toISOString(),
       };
 
       Tasks.taskCriadas.push(task);
@@ -50,5 +57,26 @@ export class Tasks {
       console.warn("Erro ao criar task");
     }
     return;
+  }
+
+  marcarComoConcluida() {
+    this.concluido = true;
+    return;
+  }
+
+  listarTasks(): TaskData[] {
+    try {
+      const dadosSalvos = localStorage.getItem("tasks_criadas");
+
+      if (dadosSalvos) {
+        Tasks.taskCriadas = JSON.parse(dadosSalvos);
+        return Tasks.taskCriadas;
+      }
+
+      return []; 
+    } catch (error) {
+      console.warn("Erro ao carregar tasks:", error);
+      return [];
+    }
   }
 }

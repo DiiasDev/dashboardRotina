@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
 import Dialog from "@mui/material/Dialog";
@@ -14,6 +14,7 @@ import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import Box from "@mui/material/Box";
 import { Tasks } from "../../../logic/tasks";
+
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
     padding: theme.spacing(2),
@@ -29,6 +30,7 @@ interface DialogTasksProps {
 }
 
 export default function DialogTasks({ open, onClose }: DialogTasksProps) {
+  const [taskId, setTaskId] = useState<number>(0);
   const [formData, setFormData] = useState({
     id: "",
     titulo: "",
@@ -37,28 +39,51 @@ export default function DialogTasks({ open, onClose }: DialogTasksProps) {
     categoria: "",
   });
 
-  const hadleChange = async () => {
+  // Gerar novo ID quando dialog abrir
+  useEffect(() => {
+    if (open) {
+      const novoId = Math.floor(Math.random() * 90000000) + 10000000;
+      setTaskId(novoId);
+      setFormData((prev) => ({ ...prev, id: novoId.toString() }));
+    }
+  }, [open]);
+
+  const handleChange = async () => {
     try {
-        const newTask = new Tasks(
-            Number(formData.id),
-            formData.titulo,
-            [formData.categoria],
-            formData.descricao,
-            formData.concluida
-        );
+      // Validações básicas
+      if (!formData.titulo.trim()) {
+        alert("Título é obrigatório!");
+        return;
+      }
+      if (!formData.categoria) {
+        alert("Categoria é obrigatória!");
+        return;
+      }
 
-        await newTask.init();
+      const newTask = new Tasks(
+        taskId,
+        formData.titulo,
+        [formData.categoria],
+        formData.descricao,
+        formData.concluida
+      );
 
-          setFormData({
-            id: '',
-            titulo: '',
-            descricao: '',
-            categoria: '',
-            concluida: false
-        });
+      newTask.createTasks();
 
+      // Limpar formulário
+      const novoId = Math.floor(Math.random() * 90000000) + 10000000;
+      setTaskId(novoId);
+      setFormData({
+        id: novoId.toString(),
+        titulo: "",
+        descricao: "",
+        categoria: "",
+        concluida: false,
+      });
+
+      onClose();
     } catch (error) {
-        console.warn("Erro ao capturar valores", error)
+      console.warn("Erro ao criar task:", error);
     }
   };
 
@@ -88,20 +113,33 @@ export default function DialogTasks({ open, onClose }: DialogTasksProps) {
           component="form"
           sx={{ display: "flex", flexDirection: "column", gap: 2 }}
         >
-          <TextField 
-            label="ID" 
-            value={formData.id} 
-            onChange={(e) => setFormData({...formData, id: e.target.value})} 
-            fullWidth 
-            aria-readonly
+          {/* Campo ID Read-only */}
+          <TextField
+            label="ID (Gerado automaticamente)"
+            value={formData.id}
+            fullWidth
+            slotProps={{
+              input: {
+                readOnly: true,
+              },
+            }}
+            sx={{
+              "& .MuiInputBase-input": {
+                backgroundColor: "#f5f5f5",
+                cursor: "not-allowed",
+                color: "#666",
+              },
+            }}
           />
 
           <FormControl fullWidth>
             <InputLabel>Categoria</InputLabel>
-            <Select 
-              value={formData.categoria} 
-              label="Categoria" 
-              onChange={(e) => setFormData({...formData, categoria: e.target.value})}
+            <Select
+              value={formData.categoria}
+              label="Categoria"
+              onChange={(e) =>
+                setFormData({ ...formData, categoria: e.target.value })
+              }
             >
               <MenuItem value="Casa">Casa</MenuItem>
               <MenuItem value="Trabalho">Trabalho</MenuItem>
@@ -109,26 +147,31 @@ export default function DialogTasks({ open, onClose }: DialogTasksProps) {
             </Select>
           </FormControl>
 
-        <TextField 
-          label="Titulo da Task" 
-          value={formData.titulo} 
-          onChange={(e) => setFormData({...formData, titulo: e.target.value})} 
-          fullWidth 
-        />
+          <TextField
+            label="Título da Task"
+            value={formData.titulo}
+            onChange={(e) =>
+              setFormData({ ...formData, titulo: e.target.value })
+            }
+            fullWidth
+            required
+          />
 
-        <TextField
-          label="Descrição da Task"
-          value={formData.descricao}
-          onChange={(e) => setFormData({...formData, descricao: e.target.value})}
-          multiline
-          rows={3}
-          fullWidth
-        />
+          <TextField
+            label="Descrição da Task"
+            value={formData.descricao}
+            onChange={(e) =>
+              setFormData({ ...formData, descricao: e.target.value })
+            }
+            multiline
+            rows={3}
+            fullWidth
+          />
         </Box>
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose}>Cancelar</Button>
-        <Button autoFocus onClick={hadleChange} variant="contained">
+        <Button autoFocus onClick={handleChange} variant="contained">
           Salvar Task
         </Button>
       </DialogActions>
