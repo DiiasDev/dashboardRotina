@@ -16,13 +16,8 @@ export class Tasks {
 
   private static taskCriadas: TaskData[] = [];
 
-  constructor(
-    id: number,
-    titulo: string,
-    categoria: string[],
-    descricao: string,
-    concluido: boolean
-  ) {
+  constructor(id: number,titulo: string,categoria: string[],descricao: string,concluido: boolean) {
+    
     this.id = id;
     this.titulo = titulo;
     this.categoria = categoria;
@@ -35,7 +30,7 @@ export class Tasks {
         this.id = Math.floor(Math.random() * 90000000) + 10000000;
 
       if(Tasks.taskCriadas.find((e) => e.id === this.id)) {
-        alert("Id repetido");
+        console.error("ID REPETIDO")
         return;
       }
 
@@ -52,7 +47,6 @@ export class Tasks {
 
       localStorage.setItem("tasks_criadas", JSON.stringify(Tasks.taskCriadas));
 
-      console.log("Tasks criadas:", Tasks.taskCriadas);
     } catch (error) {
       console.warn("Erro ao criar task");
     }
