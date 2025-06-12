@@ -304,3 +304,133 @@
   0% { left: -100%; }
   100% { left: 100%; }
 }
+
+/* Styles for grouped category layout */
+.categoryCard {
+    background: var(--color-surface);
+    border-radius: 12px;
+    padding: 20px;
+    margin: 10px;
+    border: 1px solid var(--color-border);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    min-width: 320px;
+    max-width: 400px;
+    box-shadow: var(--shadow-md);
+}
+
+.categoryCard:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-xl);
+    border-color: var(--color-primary);
+}
+
+.categoryHeader {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.categoryEmoji {
+    font-size: 2rem;
+    margin-right: 12px;
+}
+
+.categoryInfo {
+    flex: 1;
+}
+
+.categoryTitle {
+    color: var(--color-text);
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 0 0 4px 0;
+}
+
+.categoryStats {
+    display: flex;
+    gap: 12px;
+    font-size: 0.875rem;
+}
+
+.taskCount {
+    color: var(--color-text-secondary);
+}
+
+.completionRate {
+    color: var(--color-status-iniciado);
+    font-weight: 500;
+}
+
+.tasksList {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.taskItem {
+    background: var(--color-bg-secondary);
+    border-radius: 8px;
+    padding: 12px;
+    border-left: 3px solid var(--color-text-secondary);
+    transition: border-color 0.2s ease;
+}
+
+.taskItem.completed {
+    border-left-color: var(--color-status-iniciado);
+    opacity: 0.7;
+}
+
+.taskItem:not(.completed) {
+    border-left-color: var(--color-status-pausado);
+}
+
+.taskItemContent {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.taskItemTitle {
+    color: var(--color-text);
+    font-size: 0.95rem;
+    font-weight: 500;
+    margin: 0;
+    text-decoration: none;
+}
+
+.taskItem.completed .taskItemTitle {
+    text-decoration: line-through;
+}
+
+.taskItemDescription {
+    color: var(--color-text-secondary);
+    font-size: 0.8rem;
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.taskItemMeta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 4px;
+}
+
+.taskItemDate {
+    color: var(--color-text-secondary);
+    font-size: 0.75rem;
+}
+
+.moreTasksIndicator {
+    text-align: center;
+    color: var(--color-text-secondary);
+    font-size: 0.8rem;
+    padding: 8px;
+    border: 1px dashed var(--color-border);
+    border-radius: 6px;
+    margin-top: 4px;
+}

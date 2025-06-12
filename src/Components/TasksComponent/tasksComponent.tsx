@@ -12,7 +12,6 @@ interface Task {
 export default function TasksComponent() {
     const tasks = JSON.parse(localStorage.getItem('tasks_criadas') || '[]')
 
-    // Emoji mapping for categories
     const categoryEmojis: { [key: string]: string } = {
         'Casa': '🏠',
         'Trabalho': '💼',
@@ -26,46 +25,76 @@ export default function TasksComponent() {
         'Amigos': '👥'
     };
 
-    const getTaskEmoji = (categoria: string[]) => {
-        return categoria.length > 0 ? categoryEmojis[categoria[0]] || '📝' : '📝';
-    };
-
     const formatDate = (dateString: string) => {
         return new Date(dateString).toLocaleDateString('pt-BR');
     };
 
+    const groupTasksByCategory = () => {
+        const grouped: { [key: string]: Task[] } = {};
+        
+        tasks.forEach((task: Task) => {
+            const primaryCategory = task.categoria[0] || 'Outros';
+            if (!grouped[primaryCategory]) {
+                grouped[primaryCategory] = [];
+            }
+            grouped[primaryCategory].push(task);
+        });
+        
+        return grouped;
+    };
+
+    const groupedTasks = groupTasksByCategory();
+
     return (
         <div className={styles.container}>
             <div className={styles.cardsRow}>
-                {tasks.map((task: Task) => (
-                    <div
-                        className={`${styles.cardTask} ${task.concluido ? styles.completed : ''}`}
-                        key={task.id}
-                    >
-                        <div className={styles.taskContent}>
-                            <div className={styles.taskHeader}>
-                                <span className={styles.taskEmoji}>{getTaskEmoji(task.categoria)}</span>
-                                <div className={styles.taskHeaderContent}>
-                                    <h3 className={styles.taskTitle}>{task.titulo}</h3>
-                                    <div className={styles.taskCategories}>
-                                        {task.categoria.map((cat, index) => (
-                                            <span key={index} className={styles.categoryTag}>{cat}</span>
-                                        ))}
+                {Object.entries(groupedTasks).map(([category, categoryTasks]) => {
+                    const completedTasks = categoryTasks.filter(task => task.concluido).length;
+                    const totalTasks = categoryTasks.length;
+                    const completionPercentage = Math.round((completedTasks / totalTasks) * 100);
+
+                    return (
+                        <div className={styles.categoryCard} key={category}>
+                            <div className={styles.categoryHeader}>
+                                <span className={styles.categoryEmoji}>
+                                    {categoryEmojis[category] || '📝'}
+                                </span>
+                                <div className={styles.categoryInfo}>
+                                    <h3 className={styles.categoryTitle}>{category}</h3>
+                                    <div className={styles.categoryStats}>
+                                        <span className={styles.taskCount}>{totalTasks} task{totalTasks !== 1 ? 's' : ''}</span>
+                                        <span className={styles.completionRate}>{completionPercentage}% concluído</span>
                                     </div>
                                 </div>
                             </div>
-                            <div className={styles.taskDetails}>
-                                <p className={styles.taskDescription}>{task.descricao}</p>
-                                <div className={styles.taskMeta}>
-                                    <span className={styles.taskDate}>{formatDate(task.dataCreacao)}</span>
-                                    <span className={`${styles.taskStatus} ${task.concluido ? styles.statusCompleted : styles.statusPending}`}>
-                                        {task.concluido ? 'Concluído' : 'Pendente'}
-                                    </span>
-                                </div>
+                            
+                            <div className={styles.tasksList}>
+                                {categoryTasks.slice(0, 3).map((task: Task) => (
+                                    <div 
+                                        key={task.id} 
+                                        className={`${styles.taskItem} ${task.concluido ? styles.completed : ''}`}
+                                    >
+                                        <div className={styles.taskItemContent}>
+                                            <h4 className={styles.taskItemTitle}>{task.titulo}</h4>
+                                            <p className={styles.taskItemDescription}>{task.descricao}</p>
+                                            <div className={styles.taskItemMeta}>
+                                                <span className={styles.taskItemDate}>{formatDate(task.dataCreacao)}</span>
+                                                <span className={`${styles.taskStatus} ${task.concluido ? styles.statusCompleted : styles.statusPending}`}>
+                                                    {task.concluido ? 'Concluído' : 'Pendente'}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                                {categoryTasks.length > 3 && (
+                                    <div className={styles.moreTasksIndicator}>
+                                        +{categoryTasks.length - 3} mais task{categoryTasks.length - 3 !== 1 ? 's' : ''}
+                                    </div>
+                                )}
                             </div>
                         </div>
-                    </div>
-                ))}
+                    );
+                })}
             </div>
         </div>
     )

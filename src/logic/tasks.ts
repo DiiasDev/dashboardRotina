@@ -74,7 +74,6 @@ export class Tasks {
       
       this.concluido = true;
       
-      // Atualizar a task no array
       const taskIndex = Tasks.taskCriadas.findIndex(task => task.id === this.id);
       if (taskIndex !== -1) {
         Tasks.taskCriadas[taskIndex].concluido = true;

@@ -17,7 +17,7 @@ export default function CardTasks(){
             <span className={styles.cardNumber}>{tasks.length}</span>
             <div className={styles.cardSubtext}>Últimas 30 dias</div>
             <div className={styles.cardFooter}>
-                <a className={styles.cardButton} href="/Tarefas">Adicionar Task</a>
+                <a className={styles.cardButton} href="/Tasks">Adicionar Task</a>
             </div>
         </div>
     )
