@@ -2,7 +2,7 @@ import { useState } from "react";
 import DatePicker from "react-datepicker";
 import styles from "./styles.module.css";
 import "react-datepicker/dist/react-datepicker.css";
-import DialogTasks from "../DialogTasks/dialogTasks";
+import DialogTasks from "../modals/DialogTasks/dialogTasks";
 import { Call } from "@mui/icons-material";
 
 export default function CabecalhoTasks() {

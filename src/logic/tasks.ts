@@ -1,25 +1,53 @@
 export class Tasks {
-    id: number;
-    categoria: string[];
-    titulo: string = '';
-    descricao: string = ''; 
-    tasksCreated: string[];
+  id: number;
+  titulo: string;
+  categoria: string[];
+  descricao: string;
+  concluido: boolean;
 
-    constructor() {
-        this.id = 1;
-        this.categoria = ['Casa', 'Trabalho','Faculdade'];
-        this.titulo = '',
-        this.descricao = ''
-        this.tasksCreated = []
-    }
+  private static taskCriadas: any[] = [];
 
-    createTask(){
-        
-        const tasks = {
-            id: this.id,
-            categoria: this.categoria,
-            titulo: this.titulo,
-            descricao: this.descricao,
-        }
+  constructor(
+    id: number,
+    titulo: string,
+    categoria: string[],
+    descricao: string,
+    concluido: boolean
+  ) {
+    this.id = id;
+    this.titulo = titulo;
+    this.categoria = categoria;
+    this.descricao = descricao;
+    this.concluido = concluido;
+  }
+
+  async init() {
+    try {
+      console.log("Iniciou a classe");
+      await this.createTasks();
+    } catch (error) {
+      console.warn("Erro ao iniciar a classe", error);
     }
+  }
+
+  createTasks() {
+    try {
+      const task = {
+        id: this.id,
+        titulo: this.titulo,
+        categoria: this.categoria,
+        descricao: this.descricao,
+        concluido: this.concluido,
+      };
+
+      Tasks.taskCriadas.push(task);
+
+      localStorage.setItem("tasks_criadas", JSON.stringify(Tasks.taskCriadas));
+
+      console.log("Tasks criadas:", Tasks.taskCriadas);
+    } catch (error) {
+      console.warn("Erro ao criar task");
+    }
+    return;
+  }
 }
