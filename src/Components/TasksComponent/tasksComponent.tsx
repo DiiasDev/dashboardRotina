@@ -1,47 +1,72 @@
 import styles from './styles.module.css'
 
 interface Task {
-    emoji: string;
-    title: string;
-    moreLabel: string;
-    progress: number;
-    color: string;
-    Total: string;
-    categoria: string;
+    id: number;
+    titulo: string;
+    categoria: string[];
     descricao: string;
+    concluido: boolean;
+    dataCreacao: string;
 }
 
 export default function TasksComponent() {
-    const tasks = JSON.parse(localStorage.getItem('tasks') || '[]')
+    const tasks = JSON.parse(localStorage.getItem('tasks_criadas') || '[]')
+
+    // Emoji mapping for categories
+    const categoryEmojis: { [key: string]: string } = {
+        'Casa': '🏠',
+        'Trabalho': '💼',
+        'Estudos': '📚',
+        'Saúde': '🏥',
+        'Exercício': '💪',
+        'Lazer': '🎮',
+        'Compras': '🛒',
+        'Viagem': '✈️',
+        'Família': '👨‍👩‍👧‍👦',
+        'Amigos': '👥'
+    };
+
+    const getTaskEmoji = (categoria: string[]) => {
+        return categoria.length > 0 ? categoryEmojis[categoria[0]] || '📝' : '📝';
+    };
+
+    const formatDate = (dateString: string) => {
+        return new Date(dateString).toLocaleDateString('pt-BR');
+    };
 
     return (
-        <div className={`${styles.container} ${styles.cardsRow}`}>
-            {tasks.map((task: Task, index: number) => (
-                <div
-                    className={styles.cardTask}
-                    key={index}
-                    style={{ borderLeft: `4px solid ${task.color}` }}
-                >
-                    <div className={styles.taskContent}>
-                        <div className={styles.taskHeader}>
-                            <span className={styles.taskEmoji}>{task.emoji}</span>
-                            <h3 className={styles.taskTitle}>{task.title}</h3>
-                        </div>
-                        <div className={styles.taskProgress}>
-                            <div className={styles.progressBar}>
-                                <div
-                                    className={styles.progressFill}
-                                    style={{ width: `${task.progress}%`, backgroundColor: task.color }}
-                                ></div>
-                                <div className={styles.progressInfo}>
-                                    <span>{task.Total}</span>
-                                    <span className={styles.moreLabel}>{task.moreLabel}</span>
+        <div className={styles.container}>
+            <div className={styles.cardsRow}>
+                {tasks.map((task: Task) => (
+                    <div
+                        className={`${styles.cardTask} ${task.concluido ? styles.completed : ''}`}
+                        key={task.id}
+                    >
+                        <div className={styles.taskContent}>
+                            <div className={styles.taskHeader}>
+                                <span className={styles.taskEmoji}>{getTaskEmoji(task.categoria)}</span>
+                                <div className={styles.taskHeaderContent}>
+                                    <h3 className={styles.taskTitle}>{task.titulo}</h3>
+                                    <div className={styles.taskCategories}>
+                                        {task.categoria.map((cat, index) => (
+                                            <span key={index} className={styles.categoryTag}>{cat}</span>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                            <div className={styles.taskDetails}>
+                                <p className={styles.taskDescription}>{task.descricao}</p>
+                                <div className={styles.taskMeta}>
+                                    <span className={styles.taskDate}>{formatDate(task.dataCreacao)}</span>
+                                    <span className={`${styles.taskStatus} ${task.concluido ? styles.statusCompleted : styles.statusPending}`}>
+                                        {task.concluido ? 'Concluído' : 'Pendente'}
+                                    </span>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            ))}
+                ))}
+            </div>
         </div>
     )
 }

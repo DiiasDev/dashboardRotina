@@ -1,6 +1,9 @@
 import styles from './styles.module.css'
 
 export default function CardTasks(){
+
+    const tasks = JSON.parse(localStorage.getItem("tasks_criadas") || "[]");
+
     return (
         <div className={styles.cardContainer}>
             <div className={styles.cardHeader}>
@@ -11,7 +14,7 @@ export default function CardTasks(){
                 <span className={styles.cardBadge}>Part-time</span>
                 <span className={styles.cardBadge}>Senior level</span>
             </div>
-            <span className={styles.cardNumber}>8</span>
+            <span className={styles.cardNumber}>{tasks.length}</span>
             <div className={styles.cardSubtext}>Últimas 30 dias</div>
             <div className={styles.cardFooter}>
                 <a className={styles.cardButton} href="/Tarefas">Adicionar Task</a>
