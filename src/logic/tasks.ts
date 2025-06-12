@@ -38,6 +38,7 @@ export class Tasks {
         categoria: this.categoria,
         descricao: this.descricao,
         concluido: this.concluido,
+        dataCreacao: new Date().toISOString()
       };
 
       Tasks.taskCriadas.push(task);
