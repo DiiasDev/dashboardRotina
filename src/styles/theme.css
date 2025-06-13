@@ -13,6 +13,10 @@
     --color-text-sidebar-secondary: #64748b;
     --sucess: rgb(11, 141, 11);
     
+    /* Sidebar Variables */
+    --sidebar-width: 280px;
+    --sidebar-collapsed-width: 60px;
+    
     /* Card Colors */
     --color-card-tasks: #3b82f6;
     --color-card-tasks-bg: #eff6ff;

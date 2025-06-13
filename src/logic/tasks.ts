@@ -39,7 +39,6 @@ export class Tasks {
 
   createTasks() {
     try {
-      // Carregar tasks existentes antes de adicionar nova
       Tasks.carregarTasks();
       
       this.id = Math.floor(Math.random() * 90000000) + 10000000;

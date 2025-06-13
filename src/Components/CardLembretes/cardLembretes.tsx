@@ -1,6 +1,6 @@
 import styles from './styles.module.css'
 
-export default function CardLembretes(){
+export default function CardLembretesPage(){
     return (
         <div className={styles.cardContainer}>
             <div className={styles.cardHeader}>

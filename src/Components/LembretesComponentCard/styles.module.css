@@ -1,0 +1,538 @@
+.container {
+  padding: 20px;
+  max-width: calc(100vw - var(--sidebar-width));
+  width: 100%;
+  margin-left: var(--sidebar-width);
+  transition: margin-left 0.3s ease, max-width 0.3s ease;
+  min-height: 100vh;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+/* Sidebar collapsed state */
+.container.sidebarCollapsed {
+  margin-left: var(--sidebar-collapsed-width);
+  max-width: calc(100vw - var(--sidebar-collapsed-width));
+}
+
+.mainCard {
+  background: var(--color-surface) !important;
+  border-radius: 12px !important;
+  box-shadow: var(--shadow-lg) !important;
+  border: 1px solid var(--color-border) !important;
+  padding: 24px !important;
+  transition: all 0.3s ease !important;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+.mainCard:hover {
+  box-shadow: var(--shadow-xl) !important;
+}
+
+.cabecalho {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  margin-bottom: 24px !important;
+  padding-bottom: 0 !important;
+  border-bottom: none !important;
+  flex-wrap: wrap !important;
+  gap: 12px !important;
+}
+
+.title {
+  color: var(--color-text) !important;
+  font-size: 20px !important;
+  font-weight: 500 !important;
+  margin: 0 !important;
+}
+
+.headerActions {
+  display: flex !important;
+  gap: 12px !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+}
+
+.filterSelect {
+  background: var(--color-surface) !important;
+  border: 1px solid var(--color-border) !important;
+  border-radius: 6px !important;
+  padding: 6px 12px !important;
+  color: var(--color-text) !important;
+  font-size: 12px !important;
+  cursor: pointer !important;
+  min-width: 100px !important;
+}
+
+.addButton {
+  background: var(--color-card-lembretes) !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 20px !important;
+  padding: 8px 16px !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  white-space: nowrap !important;
+}
+
+.addButton:hover {
+  background: #059669 !important;
+  transform: translateY(-1px) !important;
+}
+
+.statsContainer {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)) !important;
+  gap: 12px !important;
+  margin-bottom: 32px !important;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.statCard {
+  background: var(--color-surface) !important;
+  border: 1px solid var(--color-border) !important;
+  border-radius: 8px !important;
+  padding: 16px 20px !important;
+  transition: all 0.3s ease !important;
+  cursor: pointer !important;
+  position: relative !important;
+  overflow: hidden !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+}
+
+.statCard:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: var(--shadow-md) !important;
+}
+
+.statCard::before {
+  content: '' !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 4px !important;
+  height: 100% !important;
+  background: var(--color-card-lembretes) !important;
+}
+
+.statContent {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 4px !important;
+}
+
+.statTitle {
+  color: var(--color-text) !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  margin: 0 !important;
+  line-height: 1.2 !important;
+}
+
+.statSubtitle {
+  color: var(--color-text-secondary) !important;
+  font-size: 12px !important;
+  font-weight: 400 !important;
+  margin: 0 !important;
+}
+
+.statNumber {
+  color: var(--color-text) !important;
+  font-size: 24px !important;
+  font-weight: 600 !important;
+  line-height: 1 !important;
+}
+
+.lembretesSections {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 24px !important;
+  margin-bottom: 32px !important;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.section {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 16px !important;
+}
+
+.sectionHeader {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  padding-bottom: 8px !important;
+  border-bottom: 1px solid var(--color-border) !important;
+}
+
+.sectionTitle {
+  color: var(--color-text) !important;
+  font-size: 16px !important;
+  font-weight: 500 !important;
+  margin: 0 !important;
+}
+
+.sectionCount {
+  background: var(--color-card-lembretes) !important;
+  color: white !important;
+  padding: 4px 8px !important;
+  border-radius: 12px !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+}
+
+.lembretesLista {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 8px !important;
+  max-height: 300px !important;
+  overflow-y: auto !important;
+}
+
+.lembreteCard {
+  background: var(--color-bg-secondary) !important;
+  border: 1px solid var(--color-border) !important;
+  border-radius: 6px !important;
+  padding: 12px !important;
+  transition: all 0.3s ease !important;
+}
+
+.lembreteCard:hover {
+  background: var(--color-surface) !important;
+  box-shadow: var(--shadow-sm) !important;
+}
+
+.lembreteCardConcluido {
+  opacity: 0.7 !important;
+  background: var(--color-bg-secondary) !important;
+}
+
+.lembreteContent {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+}
+
+.lembreteInfo {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 4px !important;
+}
+
+.lembreteHorario {
+  color: var(--color-card-lembretes) !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+}
+
+.lembreteTitulo {
+  color: var(--color-text) !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  margin: 0 !important;
+}
+
+.lembreteActions {
+  display: flex !important;
+  gap: 8px !important;
+  align-items: center !important;
+}
+
+.prioridadeBadge {
+  padding: 2px 8px !important;
+  border-radius: 10px !important;
+  font-size: 10px !important;
+  font-weight: 500 !important;
+  text-transform: uppercase !important;
+}
+
+.prioridadeAlta {
+  background: var(--color-status-parado-bg) !important;
+  color: var(--color-status-parado) !important;
+}
+
+.prioridadeMedia {
+  background: var(--color-status-pausado-bg) !important;
+  color: var(--color-status-pausado) !important;
+}
+
+.prioridadeBaixa {
+  background: var(--color-status-iniciado-bg) !important;
+  color: var(--color-status-iniciado) !important;
+}
+
+.concluirBtn {
+  background: var(--color-card-lembretes) !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 50% !important;
+  width: 24px !important;
+  height: 24px !important;
+  font-size: 12px !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+}
+
+.concluirBtn:hover {
+  background: #059669 !important;
+  transform: scale(1.1) !important;
+}
+
+.concluidoBadge {
+  background: var(--color-status-iniciado-bg) !important;
+  color: var(--color-status-iniciado) !important;
+  padding: 2px 8px !important;
+  border-radius: 10px !important;
+  font-size: 10px !important;
+  font-weight: 500 !important;
+  text-transform: uppercase !important;
+}
+
+.quickActions {
+  margin-top: 24px !important;
+  padding-top: 24px !important;
+  border-top: 1px solid var(--color-border) !important;
+}
+
+.actionButtons {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)) !important;
+  gap: 12px !important;
+  margin-top: 16px !important;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.actionBtn {
+  background: var(--color-bg-secondary) !important;
+  border: 1px solid var(--color-border) !important;
+  border-radius: 8px !important;
+  padding: 12px !important;
+  color: var(--color-text) !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+
+.actionBtn:hover {
+  background: var(--color-surface) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: var(--shadow-sm) !important;
+}
+
+.actionIcon {
+  font-size: 16px !important;
+}
+
+@media (max-width: 1400px) {
+  .container {
+    padding: 16px;
+    max-width: calc(100vw - var(--sidebar-width));
+  }
+  
+  .container.sidebarCollapsed {
+    max-width: calc(100vw - var(--sidebar-collapsed-width));
+  }
+  
+  .statsContainer {
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)) !important;
+  }
+  
+  .actionButtons {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)) !important;
+  }
+}
+
+@media (max-width: 1200px) {
+  .container {
+    padding: 12px;
+    max-width: calc(100vw - var(--sidebar-collapsed-width));
+    margin-left: var(--sidebar-collapsed-width);
+  }
+  
+  .container.sidebarCollapsed {
+    max-width: calc(100vw - var(--sidebar-collapsed-width));
+  }
+  
+  .lembretesSections {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+  
+  .statsContainer {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)) !important;
+  }
+}
+
+@media (max-width: 992px) {
+  .container {
+    margin-left: var(--sidebar-collapsed-width);
+    padding: 12px;
+    max-width: calc(100vw - var(--sidebar-collapsed-width));
+  }
+  
+  .container.sidebarCollapsed {
+    margin-left: 0;
+    max-width: 100vw;
+  }
+  
+  .statsContainer {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 8px !important;
+  }
+  
+  .mainCard {
+    padding: 20px !important;
+  }
+  
+  .cabecalho {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+  
+  .headerActions {
+    justify-content: space-between !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    margin-left: 0;
+    padding: 8px;
+    max-width: 100vw;
+  }
+  
+  .container.sidebarCollapsed {
+    margin-left: 0;
+    max-width: 100vw;
+  }
+  
+  .statsContainer {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 6px !important;
+  }
+  
+  .mainCard {
+    padding: 16px !important;
+  }
+  
+  .actionButtons {
+    grid-template-columns: 1fr 1fr !important;
+  }
+  
+  .lembreteCard {
+    padding: 10px !important;
+  }
+  
+  .lembreteContent {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 8px !important;
+  }
+  
+  .lembreteActions {
+    align-self: flex-end !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .container {
+    padding: 6px;
+    margin-left: 0;
+    max-width: 100vw;
+  }
+  
+  .statsContainer {
+    grid-template-columns: 1fr !important;
+    gap: 8px !important;
+  }
+  
+  .actionButtons {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .cabecalho {
+    gap: 12px !important;
+  }
+  
+  .headerActions {
+    flex-direction: column !important;
+    width: 100% !important;
+  }
+  
+  .filterSelect {
+    width: 100% !important;
+  }
+  
+  .addButton {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+  
+  .title {
+    font-size: 18px !important;
+  }
+  
+  .mainCard {
+    padding: 12px !important;
+  }
+}
+
+/* Large screens with sidebar expanded */
+@media (min-width: 1025px) and (max-width: 1300px) {
+  .statsContainer {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+  
+  .actionButtons {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+}
+
+/* Extra large screens */
+@media (min-width: 1400px) {
+  .container {
+    padding: 24px;
+    max-width: calc(100vw - var(--sidebar-width));
+  }
+  
+  .container.sidebarCollapsed {
+    max-width: calc(100vw - var(--sidebar-collapsed-width));
+  }
+  
+  .statsContainer {
+    grid-template-columns: repeat(4, 1fr) !important;
+  }
+  
+  .actionButtons {
+    grid-template-columns: repeat(4, 1fr) !important;
+  }
+}
+
+/* Prevent any horizontal overflow */
+* {
+  box-sizing: border-box;
+}
+
+.mainCard * {
+  max-width: 100%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}

@@ -94,6 +94,14 @@ export default function Navigation() {
           >
             {!isCollapsed && "📁 Projetos"}
           </a>
+
+           <a 
+            href="/Lembretes" 
+            className={`${styles.navLink} ${isActive('/Lembretes') ? styles.active : ''}`}
+            onClick={() => setActiveRoute('/Lembretes')}
+          >
+            {!isCollapsed && "🔔 Lembretes"}
+          </a>
         </nav>
 
         {!isCollapsed && (
