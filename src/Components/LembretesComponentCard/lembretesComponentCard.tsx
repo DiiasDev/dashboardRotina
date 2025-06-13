@@ -1,9 +1,18 @@
 import styles from "./styles.module.css";
 import { Card, Container, Grid, Box } from "@mui/material";
 import { useState, useEffect } from "react";
+import AdicionarLembretes from "../modals/AdicionarLembretes/adicionarLembretes";
 
 export default function LembretesComponentCard() {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [lembretes, setLembretes] = useState([
+    { id: 1, titulo: "Reunião com equipe", data: "2024-01-15", horario: "14:00", prioridade: "alta", concluido: false },
+    { id: 2, titulo: "Enviar relatório mensal", data: "2024-01-16", horario: "16:30", prioridade: "media", concluido: false },
+    { id: 3, titulo: "Ligar para cliente", data: "2024-01-14", horario: "09:00", prioridade: "alta", concluido: true },
+    { id: 4, titulo: "Revisar documentos", data: "2024-01-17", horario: "11:15", prioridade: "baixa", concluido: false },
+    { id: 5, titulo: "Backup do sistema", data: "2024-01-15", horario: "18:00", prioridade: "media", concluido: false }
+  ]);
 
   useEffect(() => {
     const handleSidebarToggle = (event: CustomEvent) => {
@@ -17,13 +26,15 @@ export default function LembretesComponentCard() {
     };
   }, []);
 
-  const lembretes = [
-    { id: 1, titulo: "Reunião com equipe", horario: "14:00", prioridade: "alta", concluido: false },
-    { id: 2, titulo: "Enviar relatório mensal", horario: "16:30", prioridade: "media", concluido: false },
-    { id: 3, titulo: "Ligar para cliente", horario: "09:00", prioridade: "alta", concluido: true },
-    { id: 4, titulo: "Revisar documentos", horario: "11:15", prioridade: "baixa", concluido: false },
-    { id: 5, titulo: "Backup do sistema", horario: "18:00", prioridade: "media", concluido: false }
-  ];
+  const handleAddLembrete = (novoLembrete: any) => {
+    const lembreteComId = {
+      ...novoLembrete,
+      id: lembretes.length + 1,
+      prioridade: novoLembrete.prioridade.toLowerCase(),
+      horario: novoLembrete.hora,
+    };
+    setLembretes(prev => [...prev, lembreteComId]);
+  };
 
   const lembretesPendentes = lembretes.filter(l => !l.concluido);
   const lembretesConcluidos = lembretes.filter(l => l.concluido);
@@ -40,7 +51,12 @@ export default function LembretesComponentCard() {
               <option value="semana">Esta semana</option>
               <option value="mes">Este mês</option>
             </select>
-            <button className={styles.addButton}>Adicionar lembrete +</button>
+            <button 
+              className={styles.addButton}
+              onClick={() => setIsModalOpen(true)}
+            >
+              Adicionar lembrete +
+            </button>
           </div>
         </div>
 
@@ -92,6 +108,7 @@ export default function LembretesComponentCard() {
                     <div className={styles.lembreteInfo}>
                       <span className={styles.lembreteHorario}>{lembrete.horario}</span>
                       <h5 className={styles.lembreteTitulo}>{lembrete.titulo}</h5>
+                      <span className={styles.lembreteData}>{new Date(lembrete.data).toLocaleDateString('pt-BR')}</span>
                     </div>
                     <div className={styles.lembreteActions}>
                       <span className={`${styles.prioridadeBadge} ${styles[`prioridade${lembrete.prioridade.charAt(0).toUpperCase() + lembrete.prioridade.slice(1)}`]}`}>
@@ -118,6 +135,7 @@ export default function LembretesComponentCard() {
                     <div className={styles.lembreteInfo}>
                       <span className={styles.lembreteHorario}>{lembrete.horario}</span>
                       <h5 className={styles.lembreteTitulo}>{lembrete.titulo}</h5>
+                      <span className={styles.lembreteData}>{new Date(lembrete.data).toLocaleDateString('pt-BR')}</span>
                     </div>
                     <div className={styles.lembreteActions}>
                       <span className={styles.concluidoBadge}>Concluído</span>
@@ -151,6 +169,12 @@ export default function LembretesComponentCard() {
           </div>
         </div>
       </Card>
+
+      <AdicionarLembretes
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onSubmit={handleAddLembrete}
+      />
     </div>
   );
 }
