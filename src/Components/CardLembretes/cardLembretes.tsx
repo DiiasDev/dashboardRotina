@@ -1,6 +1,8 @@
 import styles from './styles.module.css'
 
 export default function CardLembretesPage(){
+    const lembretes = JSON.parse(localStorage.getItem("lembretes") || "[]") 
+
     return (
         <div className={styles.cardContainer}>
             <div className={styles.cardHeader}>
@@ -11,8 +13,7 @@ export default function CardLembretesPage(){
                 <span className={styles.cardBadge}>Novo</span>
                 <span className={styles.cardBadge}>Importante</span>
             </div>
-            <span className={styles.cardNumber}>0</span>
-            <div className={styles.cardSubtext}>Últimas 30 dias</div>
+            <span className={styles.cardNumber}>{lembretes.length}</span>
             <div className={styles.cardFooter}>
                 <a className={styles.cardButton} href="/Lembretes">Ver Todos</a>
             </div>

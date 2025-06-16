@@ -15,7 +15,6 @@ export default function CardTasks(){
                 <span className={styles.cardBadge}>Senior level</span>
             </div>
             <span className={styles.cardNumber}>{tasks.length}</span>
-            <div className={styles.cardSubtext}>Últimas 30 dias</div>
             <div className={styles.cardFooter}>
                 <a className={styles.cardButton} href="/Tasks">Adicionar Task</a>
             </div>
