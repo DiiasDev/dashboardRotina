@@ -1,20 +1,20 @@
 import styles from "./styles.module.css";
-import { Card, Container, Grid, Box } from "@mui/material";
+import { Card } from "@mui/material";
 import { useState, useEffect } from "react";
 import AdicionarLembretes from "../modals/AdicionarLembretes/adicionarLembretes";
+import { Lembretes, LembretesData } from "../../logic/lembretes";
 
 export default function LembretesComponentCard() {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [lembretes, setLembretes] = useState([
-    { id: 1, titulo: "Reunião com equipe", data: "2024-01-15", horario: "14:00", prioridade: "alta", concluido: false },
-    { id: 2, titulo: "Enviar relatório mensal", data: "2024-01-16", horario: "16:30", prioridade: "media", concluido: false },
-    { id: 3, titulo: "Ligar para cliente", data: "2024-01-14", horario: "09:00", prioridade: "alta", concluido: true },
-    { id: 4, titulo: "Revisar documentos", data: "2024-01-17", horario: "11:15", prioridade: "baixa", concluido: false },
-    { id: 5, titulo: "Backup do sistema", data: "2024-01-15", horario: "18:00", prioridade: "media", concluido: false }
-  ]);
+  const [lembretes, setLembretes] = useState<LembretesData[]>([]);
+  const [filtroAtivo, setFiltroAtivo] = useState('todos');
+  
+  const lembretesManager = new Lembretes(0, new Date(), '', 0, '');
 
   useEffect(() => {
+    carregarLembretes();
+    
     const handleSidebarToggle = (event: CustomEvent) => {
       setSidebarCollapsed(event.detail.collapsed);
     };
@@ -26,18 +26,62 @@ export default function LembretesComponentCard() {
     };
   }, []);
 
-  const handleAddLembrete = (novoLembrete: any) => {
-    const lembreteComId = {
-      ...novoLembrete,
-      id: lembretes.length + 1,
-      prioridade: novoLembrete.prioridade.toLowerCase(),
-      horario: novoLembrete.hora,
-    };
-    setLembretes(prev => [...prev, lembreteComId]);
+  const carregarLembretes = () => {
+    const lembretesStorage = JSON.parse(localStorage.getItem('lembretes') || '[]');
+    setLembretes(lembretesStorage);
   };
 
-  const lembretesPendentes = lembretes.filter(l => !l.concluido);
-  const lembretesConcluidos = lembretes.filter(l => l.concluido);
+  const handleAddLembrete = () => {
+    carregarLembretes();
+    setIsModalOpen(false);
+  };
+
+  const handleConcluirLembrete = (id: number) => {
+    const lembretesAtualizados = lembretes.map(lembrete => 
+      lembrete.id === id 
+        ? { ...lembrete, concluido: true }
+        : lembrete
+    );
+    
+    setLembretes(lembretesAtualizados);
+    localStorage.setItem('lembretes', JSON.stringify(lembretesAtualizados));
+  };
+
+  const handleFiltroChange = (filtro: string) => {
+    setFiltroAtivo(filtro);
+  };
+
+  const getLembretesFiltrados = () => {
+    switch (filtroAtivo) {
+      case 'hoje':
+        return lembretesManager.lembretesDia(lembretes);
+      case 'semana':
+        return lembretesManager.lembretesSemana(lembretes);
+      case 'mes':
+        return lembretesManager.lembretesMensal(lembretes);
+      default:
+        return lembretes;
+    }
+  };
+
+  const formatarHorario = (horario: number) => {
+    const horarioStr = horario.toString().padStart(4, '0');
+    const horas = horarioStr.slice(0, 2);
+    const minutos = horarioStr.slice(2, 4);
+    return `${horas}:${minutos}`;
+  };
+
+  const lembretesHoje = lembretesManager.lembretesDia(lembretes);
+  const lembretesSemana = lembretesManager.lembretesSemana(lembretes);
+  const lembretesMes = lembretesManager.lembretesMensal(lembretes);
+  
+  const lembretesFiltrados = getLembretesFiltrados();
+  const lembretesPendentes = lembretesFiltrados.filter(l => !l.concluido);
+  const lembretesConcluidos = lembretesFiltrados.filter(l => l.concluido);
+  
+  const totalLembretes = lembretes.length;
+  const totalConcluidos = lembretes.filter(l => l.concluido).length;
+  const taxaConclusao = totalLembretes > 0 ? Math.round((totalConcluidos / totalLembretes) * 100) : 0;
 
   return (
     <div className={`${styles.container} ${sidebarCollapsed ? styles.sidebarCollapsed : ''}`}>
@@ -45,7 +89,11 @@ export default function LembretesComponentCard() {
         <div className={styles.cabecalho}>
           <h3 className={styles.title}>Lembretes</h3>
           <div className={styles.headerActions}>
-            <select className={styles.filterSelect}>
+            <select 
+              className={styles.filterSelect}
+              value={filtroAtivo}
+              onChange={(e) => handleFiltroChange(e.target.value)}
+            >
               <option value="todos">Todos</option>
               <option value="hoje">Hoje</option>
               <option value="semana">Esta semana</option>
@@ -66,7 +114,7 @@ export default function LembretesComponentCard() {
               <h4 className={styles.statTitle}>Lembretes para Hoje</h4>
               <span className={styles.statSubtitle}>Tarefas agendadas</span>
             </div>
-            <span className={styles.statNumber}>4</span>
+            <span className={styles.statNumber}>{lembretesHoje.length}</span>
           </Card>
 
           <Card className={styles.statCard}>
@@ -74,7 +122,7 @@ export default function LembretesComponentCard() {
               <h4 className={styles.statTitle}>Lembretes para essa semana</h4>
               <span className={styles.statSubtitle}>Próximos 7 dias</span>
             </div>
-            <span className={styles.statNumber}>8</span>
+            <span className={styles.statNumber}>{lembretesSemana.length}</span>
           </Card>
 
           <Card className={styles.statCard}>
@@ -82,7 +130,7 @@ export default function LembretesComponentCard() {
               <h4 className={styles.statTitle}>Lembretes para esse Mês</h4>
               <span className={styles.statSubtitle}>Próximos 30 dias</span>
             </div>
-            <span className={styles.statNumber}>16</span>
+            <span className={styles.statNumber}>{lembretesMes.length}</span>
           </Card>
 
           <Card className={styles.statCard}>
@@ -90,7 +138,7 @@ export default function LembretesComponentCard() {
               <h4 className={styles.statTitle}>Taxa de Conclusão</h4>
               <span className={styles.statSubtitle}>Este mês</span>
             </div>
-            <span className={styles.statNumber}>78%</span>
+            <span className={styles.statNumber}>{taxaConclusao}%</span>
           </Card>
         </div>
 
@@ -102,47 +150,64 @@ export default function LembretesComponentCard() {
             </div>
             
             <div className={styles.lembretesLista}>
-              {lembretesPendentes.map(lembrete => (
-                <Card key={lembrete.id} className={styles.lembreteCard}>
-                  <div className={styles.lembreteContent}>
-                    <div className={styles.lembreteInfo}>
-                      <span className={styles.lembreteHorario}>{lembrete.horario}</span>
-                      <h5 className={styles.lembreteTitulo}>{lembrete.titulo}</h5>
-                      <span className={styles.lembreteData}>{new Date(lembrete.data).toLocaleDateString('pt-BR')}</span>
+              {lembretesPendentes.length > 0 ? (
+                lembretesPendentes.map(lembrete => (
+                  <Card key={lembrete.id} className={styles.lembreteCard}>
+                    <div className={styles.lembreteContent}>
+                      <div className={styles.lembreteInfo}>
+                        <span className={styles.lembreteHorario}>{formatarHorario(lembrete.horario)}</span>
+                        <h5 className={styles.lembreteTitulo}>{lembrete.titulo}</h5>
+                        <span className={styles.lembreteData}>
+                          {new Date(lembrete.date).toLocaleDateString('pt-BR')}
+                        </span>
+                      </div>
+                      <div className={styles.lembreteActions}>
+                        <span className={`${styles.prioridadeBadge} ${styles[`prioridade${lembrete.prioridade.charAt(0).toUpperCase() + lembrete.prioridade.slice(1)}`]}`}>
+                          {lembrete.prioridade}
+                        </span>
+                        <button 
+                          className={styles.concluirBtn}
+                          onClick={() => handleConcluirLembrete(lembrete.id)}
+                        >
+                          ✓
+                        </button>
+                      </div>
                     </div>
-                    <div className={styles.lembreteActions}>
-                      <span className={`${styles.prioridadeBadge} ${styles[`prioridade${lembrete.prioridade.charAt(0).toUpperCase() + lembrete.prioridade.slice(1)}`]}`}>
-                        {lembrete.prioridade}
-                      </span>
-                      <button className={styles.concluirBtn}>✓</button>
-                    </div>
-                  </div>
-                </Card>
-              ))}
+                  </Card>
+                ))
+              ) : (
+                <p className={styles.emptyMessage}>Nenhum lembrete pendente</p>
+              )}
             </div>
           </div>
 
           <div className={styles.section}>
             <div className={styles.sectionHeader}>
-              <h4 className={styles.sectionTitle}>Concluídos Hoje</h4>
+              <h4 className={styles.sectionTitle}>Concluídos</h4>
               <span className={styles.sectionCount}>{lembretesConcluidos.length}</span>
             </div>
             
             <div className={styles.lembretesLista}>
-              {lembretesConcluidos.map(lembrete => (
-                <Card key={lembrete.id} className={`${styles.lembreteCard} ${styles.lembreteCardConcluido}`}>
-                  <div className={styles.lembreteContent}>
-                    <div className={styles.lembreteInfo}>
-                      <span className={styles.lembreteHorario}>{lembrete.horario}</span>
-                      <h5 className={styles.lembreteTitulo}>{lembrete.titulo}</h5>
-                      <span className={styles.lembreteData}>{new Date(lembrete.data).toLocaleDateString('pt-BR')}</span>
+              {lembretesConcluidos.length > 0 ? (
+                lembretesConcluidos.map(lembrete => (
+                  <Card key={lembrete.id} className={`${styles.lembreteCard} ${styles.lembreteCardConcluido}`}>
+                    <div className={styles.lembreteContent}>
+                      <div className={styles.lembreteInfo}>
+                        <span className={styles.lembreteHorario}>{formatarHorario(lembrete.horario)}</span>
+                        <h5 className={styles.lembreteTitulo}>{lembrete.titulo}</h5>
+                        <span className={styles.lembreteData}>
+                          {new Date(lembrete.date).toLocaleDateString('pt-BR')}
+                        </span>
+                      </div>
+                      <div className={styles.lembreteActions}>
+                        <span className={styles.concluidoBadge}>Concluído</span>
+                      </div>
                     </div>
-                    <div className={styles.lembreteActions}>
-                      <span className={styles.concluidoBadge}>Concluído</span>
-                    </div>
-                  </div>
-                </Card>
-              ))}
+                  </Card>
+                ))
+              ) : (
+                <p className={styles.emptyMessage}>Nenhum lembrete concluído</p>
+              )}
             </div>
           </div>
         </div>

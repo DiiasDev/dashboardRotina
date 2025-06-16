@@ -16,7 +16,7 @@ import { Lembretes } from "../../../logic/lembretes";
 interface AdicionarLembretesProps {
   isOpen: boolean;
   onClose: () => void;
-  onSubmit?: (lembrete: any) => void;
+  onSubmit?: () => void; // Changed to not expect parameters
 }
 
 export default function AdicionarLembretes({ isOpen, onClose, onSubmit }: AdicionarLembretesProps) {
@@ -62,17 +62,20 @@ export default function AdicionarLembretes({ isOpen, onClose, onSubmit }: Adicio
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (formData.titulo && formData.data && formData.hora && formData.prioridade) {
+      // Convert time format from "HH:MM" to numeric format HHMM
+      const horarioNumerico = parseInt(formData.hora.replace(':', ''));
+      
       const newLembrete = new Lembretes(
         Date.now(),
         new Date(`${formData.data}T${formData.hora}`),
         formData.titulo,
-        parseInt(formData.hora.replace(':', '')),
+        horarioNumerico,
         formData.prioridade
       );
 
       newLembrete.createLembrate();
       
-      onSubmit?.(newLembrete);
+      onSubmit?.(); // Just call the callback without parameters
       setFormData({ id: 0, titulo: "", data: "", hora: "", prioridade: "", concluido: false });
       onClose();
     }
