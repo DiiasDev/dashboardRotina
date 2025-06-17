@@ -446,78 +446,227 @@
   padding: 20px !important;
 }
 
-@media (max-width: 1400px) {
-  .container {
-    padding: 16px;
-    max-width: calc(100vw - var(--sidebar-width));
-  }
-  
-  .container.sidebarCollapsed {
-    max-width: calc(100vw - var(--sidebar-collapsed-width));
-  }
-  
-  .statsContainer {
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)) !important;
-  }
-  
-  .actionButtons {
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)) !important;
-  }
+/* Seção inferior */
+.bottomSection {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
-@media (max-width: 1200px) {
-  .container {
-    padding: 12px;
-    max-width: calc(100vw - var(--sidebar-collapsed-width));
-    margin-left: var(--sidebar-collapsed-width);
-  }
-  
-  .container.sidebarCollapsed {
-    max-width: calc(100vw - var(--sidebar-collapsed-width));
-  }
-  
-  .lembretesSections {
-    grid-template-columns: 1fr !important;
-    gap: 20px !important;
-    height: auto;
-  }
-  
-  .statsContainer {
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)) !important;
-  }
+.advancedStatsCard {
+  padding: 20px;
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-@media (max-width: 992px) {
-  .container {
-    margin-left: var(--sidebar-collapsed-width);
-    padding: 12px;
-    max-width: calc(100vw - var(--sidebar-collapsed-width));
-  }
-  
-  .container.sidebarCollapsed {
-    margin-left: 0;
-    max-width: 100vw;
-  }
-  
-  .statsContainer {
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: 8px !important;
-  }
-  
-  .mainCard {
-    padding: 20px !important;
-  }
-  
-  .cabecalho {
-    flex-direction: column !important;
-    align-items: stretch !important;
-  }
-  
-  .headerActions {
-    justify-content: space-between !important;
-  }
+.priorityStats {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 16px;
 }
 
+.priorityStatItem {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.priorityHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.priorityLabel {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.priorityAlta {
+  background: #ffebee;
+  color: #c62828;
+}
+
+.priorityMedia {
+  background: #fff3e0;
+  color: #ef6c00;
+}
+
+.priorityBaixa {
+  background: #e8f5e8;
+  color: #2e7d32;
+}
+
+.priorityCount {
+  font-size: 14px;
+  font-weight: 600;
+  color: #666;
+}
+
+.progressBar {
+  width: 100%;
+  height: 8px;
+  background: #f0f0f0;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(90deg, #4caf50, #66bb6a);
+  transition: width 0.3s ease;
+}
+
+.progressPercent {
+  font-size: 12px;
+  color: #666;
+  align-self: flex-end;
+}
+
+.bottomGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+/* Lembretes Vencidos */
+.overdueCard {
+  padding: 20px;
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-left: 4px solid #f44336;
+}
+
+.overdueLista {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.overdueItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  border-radius: 8px;
+  background: #fff5f5;
+  border: 1px solid #ffcdd2;
+}
+
+.overdueInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.overdueTitle {
+  font-weight: 600;
+  color: #d32f2f;
+}
+
+.overdueDate {
+  font-size: 12px;
+  color: #666;
+}
+
+.overdueActions {
+  display: flex;
+  gap: 8px;
+}
+
+/* Atividades Recentes */
+.recentActivitiesCard {
+  padding: 20px;
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.activitiesList {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.activityItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 8px;
+  background: #f8f9fa;
+  border-left: 3px solid #4caf50;
+}
+
+.activityIcon {
+  font-size: 16px;
+}
+
+.activityInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.activityTitle {
+  font-weight: 600;
+  color: #333;
+}
+
+.activityDate {
+  font-size: 12px;
+  color: #666;
+}
+
+/* Resumo do Mês */
+.monthSummaryCard {
+  padding: 20px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.monthSummaryCard .sectionTitle {
+  color: white;
+  margin-bottom: 16px;
+}
+
+.summaryGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.summaryItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.summaryNumber {
+  font-size: 24px;
+  font-weight: 700;
+  color: white;
+}
+
+.summaryLabel {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.8);
+  margin-top: 4px;
+}
+
+/* Responsividade */
 @media (max-width: 768px) {
   .container {
     margin-left: 0;
@@ -565,6 +714,23 @@
   .lembretesLista {
     max-height: 250px;
   }
+
+  .bottomGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .priorityStats {
+    gap: 12px;
+  }
+  
+  .summaryGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  
+  .summaryNumber {
+    font-size: 20px;
+  }
 }
 
 @media (max-width: 576px) {
@@ -607,6 +773,20 @@
   
   .mainCard {
     padding: 12px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .bottomSection {
+    margin-top: 16px;
+    gap: 16px;
+  }
+  
+  .advancedStatsCard,
+  .overdueCard,
+  .recentActivitiesCard,
+  .monthSummaryCard {
+    padding: 16px;
   }
 }
 
