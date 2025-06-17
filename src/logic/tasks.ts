@@ -13,16 +13,18 @@ export class Tasks {
   categoria: string[];
   descricao: string;
   concluido: boolean;
+  dataCreacao: string;
 
   private static taskCriadas: TaskData[] = [];
 
-  constructor(id: number,titulo: string,categoria: string[],descricao: string,concluido: boolean) {
+  constructor(id: number,titulo: string,categoria: string[],descricao: string,concluido: boolean, dataCreacao: string) {
     
     this.id = id;
     this.titulo = titulo;
     this.categoria = categoria;
     this.descricao = descricao;
     this.concluido = concluido;
+    this.dataCreacao = dataCreacao;
   }
 
   private static carregarTasks() {

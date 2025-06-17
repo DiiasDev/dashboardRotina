@@ -21,6 +21,7 @@ export default function DialogTasks({ open, onClose }: DialogTasksProps) {
     descricao: "",
     concluida: false,
     categoria: "",
+    dataCreacao: ""
   });
 
   const categorias = ["Casa", "Trabalho", "Faculdade"];
@@ -74,7 +75,8 @@ export default function DialogTasks({ open, onClose }: DialogTasksProps) {
         formData.titulo,
         [formData.categoria],
         formData.descricao,
-        formData.concluida
+        formData.concluida,
+        formData.dataCreacao
       );
 
       newTask.createTasks();
@@ -88,6 +90,7 @@ export default function DialogTasks({ open, onClose }: DialogTasksProps) {
         descricao: "",
         categoria: "",
         concluida: false,
+        dataCreacao: ""
       });
 
       onClose();
