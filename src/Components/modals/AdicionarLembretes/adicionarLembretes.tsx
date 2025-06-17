@@ -62,7 +62,6 @@ export default function AdicionarLembretes({ isOpen, onClose, onSubmit }: Adicio
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (formData.titulo && formData.data && formData.hora && formData.prioridade) {
-      // Convert time format from "HH:MM" to numeric format HHMM
       const horarioNumerico = parseInt(formData.hora.replace(':', ''));
       
       const newLembrete = new Lembretes(
@@ -75,7 +74,7 @@ export default function AdicionarLembretes({ isOpen, onClose, onSubmit }: Adicio
 
       newLembrete.createLembrate();
       
-      onSubmit?.(); // Just call the callback without parameters
+      onSubmit?.();
       setFormData({ id: 0, titulo: "", data: "", hora: "", prioridade: "", concluido: false });
       onClose();
     }

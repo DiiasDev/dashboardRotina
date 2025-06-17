@@ -38,6 +38,12 @@
     --color-status-pausado-bg: #fff6e5;
     --color-status-parado: #ef4444;
     --color-status-parado-bg: #ffeaea;
+
+    /* Remove Button Colors */
+    --color-remove-btn: linear-gradient(135deg, #ff6b6b, #ee5a52);
+    --color-remove-btn-hover: linear-gradient(135deg, #ff5252, #d32f2f);
+    --color-remove-btn-shadow: rgba(238, 90, 82, 0.2);
+    --color-remove-btn-shadow-hover: rgba(238, 90, 82, 0.4);
 }
   
 /* Dark Theme */
@@ -75,4 +81,10 @@
     --color-status-pausado-bg: #78350f;
     --color-status-parado: #f87171;
     --color-status-parado-bg: #7f1d1d;
+
+    /* Remove Button Colors Dark */
+    --color-remove-btn: linear-gradient(135deg, #f87171, #dc2626);
+    --color-remove-btn-hover: linear-gradient(135deg, #ef4444, #b91c1c);
+    --color-remove-btn-shadow: rgba(0, 0, 0, 0.4);
+    --color-remove-btn-shadow-hover: rgba(0, 0, 0, 0.6);
 }
