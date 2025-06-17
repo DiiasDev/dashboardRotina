@@ -4,13 +4,12 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1300;
-  backdrop-filter: blur(2px);
-  animation: fadeIn 0.2s ease-out;
+  z-index: 9999;
+  backdrop-filter: blur(4px);
 }
 
 @keyframes fadeIn {
@@ -34,213 +33,194 @@
 }
 
 .modalContainer {
-  background: white;
+  background: var(--color-surface);
   border-radius: 16px;
-  padding: 0;
-  max-width: 480px;
+  box-shadow: var(--shadow-xl);
   width: 90%;
-  max-height: 85vh;
-  overflow: visible;
-  box-shadow: 
-    0 25px 50px -12px rgba(0, 0, 0, 0.25),
-    0 0 0 1px rgba(0, 0, 0, 0.05);
-  animation: slideIn 0.3s ease-out;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  border: 1px solid var(--color-border);
   position: relative;
   z-index: 1301;
 }
 
 .modalHeader {
-  padding: 24px 24px 20px;
-  border-bottom: 1px solid #f1f5f9;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  padding: 20px 24px 16px;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .modalTitle {
   margin: 0;
-  color: white;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 600;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  color: var(--color-text);
 }
 
 .closeButton {
-  background: rgba(255, 255, 255, 0.2);
+  background: none;
   border: none;
-  font-size: 20px;
+  font-size: 24px;
   cursor: pointer;
-  color: white;
-  padding: 8px;
-  border-radius: 8px;
-  transition: all 0.2s;
-  width: 32px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  color: var(--color-text-secondary);
+  padding: 4px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
 }
 
 .closeButton:hover {
-  background-color: rgba(255, 255, 255, 0.3);
-  transform: scale(1.05);
+  background: var(--color-bg-secondary);
+  color: var(--color-text);
 }
 
 .modalBody {
-  padding: 32px 24px 24px;
-  overflow-y: visible;
-  max-height: 60vh;
+  padding: 24px;
 }
 
 .formGroup {
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
 
 .formLabel {
   display: block;
   margin-bottom: 8px;
-  color: #374151;
-  font-weight: 600;
-  font-size: 14px;
-  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  color: var(--color-text);
+  font-size: 0.875rem;
 }
 
 .textField {
-  width: 100% !important;
-  margin-bottom: 0 !important;
+  width: 100%;
 }
 
 .textField .MuiOutlinedInput-root {
-  border-radius: 12px;
-  background-color: #f8fafc;
-  transition: all 0.2s;
+  background: var(--color-bg);
+  border-radius: 8px;
 }
 
-.textField .MuiOutlinedInput-root:hover {
-  background-color: #f1f5f9;
+.textField .MuiOutlinedInput-root fieldset {
+  border-color: var(--color-border);
 }
 
-.textField .MuiOutlinedInput-root.Mui-focused {
-  background-color: white;
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+.textField .MuiOutlinedInput-root:hover fieldset {
+  border-color: var(--color-primary);
+}
+
+.textField .MuiOutlinedInput-root.Mui-focused fieldset {
+  border-color: var(--color-primary);
+}
+
+.textField .MuiOutlinedInput-input {
+  color: var(--color-text) !important;
+}
+
+.textField .MuiOutlinedInput-input::placeholder {
+  color: var(--color-text-secondary) !important;
+  opacity: 1;
+}
+
+.textField .MuiInputLabel-root {
+  color: var(--color-text-secondary) !important;
+}
+
+.textField .MuiInputLabel-root.Mui-focused {
+  color: var(--color-primary) !important;
 }
 
 .selectField {
-  width: 100% !important;
-  margin-bottom: 0 !important;
-  position: relative;
-  z-index: 1302;
+  width: 100%;
 }
 
 .selectField .MuiOutlinedInput-root {
-  border-radius: 12px;
-  background-color: #f8fafc;
-  transition: all 0.2s;
-  min-height: 56px;
-}
-
-.selectField .MuiOutlinedInput-root:hover {
-  background-color: #f1f5f9;
-}
-
-.selectField .MuiOutlinedInput-root.Mui-focused {
-  background-color: #f8fafc !important;
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
-}
-
-.selectField .MuiSelect-select {
-  padding: 16px 14px;
+  background: var(--color-bg);
+  border-radius: 8px;
 }
 
 .selectField .MuiOutlinedInput-notchedOutline {
-  border-color: #d1d5db;
+  border-color: var(--color-border);
 }
 
 .selectField .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
-  border-color: #9ca3af;
+  border-color: var(--color-primary);
 }
 
 .selectField .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
-  border-color: #6366f1;
-  border-width: 2px;
+  border-color: var(--color-primary);
+}
+
+.selectField .MuiSelect-select {
+  color: var(--color-text) !important;
+}
+
+.selectField .MuiSvgIcon-root {
+  color: var(--color-text-secondary) !important;
 }
 
 .checkboxGroup {
   margin-top: 8px;
-  padding: 16px;
-  background-color: #f8fafc;
-  border-radius: 12px;
-  border: 1px solid #e2e8f0;
 }
 
-.checkboxGroup .MuiFormControlLabel-root {
-  margin: 0;
+.checkboxGroup .MuiFormControlLabel-label {
+  color: var(--color-text) !important;
+  font-size: 0.875rem;
 }
 
 .checkboxGroup .MuiCheckbox-root {
-  color: #6366f1;
+  color: var(--color-text-secondary) !important;
+}
+
+.checkboxGroup .MuiCheckbox-root.Mui-checked {
+  color: var(--color-primary) !important;
 }
 
 .modalActions {
-  padding: 20px 24px 24px;
-  border-top: 1px solid #f1f5f9;
   display: flex;
-  gap: 12px;
   justify-content: flex-end;
-  background-color: #fafbfc;
+  gap: 12px;
+  padding: 16px 24px 24px;
+  border-top: 1px solid var(--color-border);
 }
 
 .cancelButton {
-  padding: 12px 24px;
-  border: 2px solid #e2e8f0;
-  background: white;
-  color: #64748b;
-  border-radius: 12px;
+  padding: 10px 20px;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+  color: var(--color-text);
+  border-radius: 8px;
   cursor: pointer;
-  font-weight: 600;
-  font-size: 14px;
-  transition: all 0.2s;
-  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  transition: all 0.2s ease;
 }
 
 .cancelButton:hover {
-  background-color: #f8fafc;
-  border-color: #cbd5e1;
-  color: #475569;
-  transform: translateY(-1px);
+  background: var(--color-bg-secondary);
+  border-color: var(--color-text-secondary);
 }
 
 .submitButton {
-  padding: 12px 24px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  padding: 10px 20px;
   border: none;
-  border-radius: 12px;
+  background: var(--color-primary);
+  color: white;
+  border-radius: 8px;
   cursor: pointer;
-  font-weight: 600;
-  font-size: 14px;
-  transition: all 0.2s;
-  font-family: 'Inter', sans-serif;
-  min-width: 140px;
+  font-weight: 500;
+  transition: all 0.2s ease;
 }
 
-.submitButton:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px -8px rgba(99, 102, 241, 0.5);
+.submitButton:hover:not(:disabled) {
+  background: var(--color-primary-dark);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
 }
 
 .submitButton:disabled {
-  background: #cbd5e1;
+  background: var(--color-text-secondary);
   cursor: not-allowed;
-  transform: none;
-  box-shadow: none;
-}
-
-.submitButton:disabled:hover {
-  transform: none;
-  box-shadow: none;
+  opacity: 0.6;
 }
 
 /* Global style to ensure Select dropdown appears above modal */
@@ -256,11 +236,12 @@
   z-index: 10000 !important;
 }
 
+/* Light theme dropdown styles */
 :global(.MuiPaper-root.MuiMenu-paper) {
-  background-color: white !important;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12) !important;
+  background-color: var(--color-surface) !important;
+  box-shadow: var(--shadow-lg) !important;
   border-radius: 12px !important;
-  border: 1px solid #e5e7eb !important;
+  border: 1px solid var(--color-border) !important;
   margin-top: 4px !important;
 }
 
@@ -269,19 +250,154 @@
   font-family: 'Inter', sans-serif !important;
   font-size: 14px !important;
   transition: all 0.2s !important;
+  color: var(--color-text) !important;
+  background: var(--color-surface) !important;
 }
 
 :global(.MuiMenuItem-root:hover) {
-  background-color: #f1f5f9 !important;
+  background-color: var(--color-bg-secondary) !important;
 }
 
 :global(.MuiMenuItem-root.Mui-selected) {
-  background-color: #ede9fe !important;
-  color: #6366f1 !important;
+  background-color: var(--color-primary) !important;
+  color: white !important;
 }
 
 :global(.MuiMenuItem-root.Mui-selected:hover) {
-  background-color: #ddd6fe !important;
+  background-color: var(--color-primary-dark) !important;
+}
+
+/* Dark theme dropdown styles - more specific selectors */
+:global([data-theme="dark"] .MuiPaper-root.MuiMenu-paper) {
+  background-color: var(--color-surface) !important;
+  border: 1px solid var(--color-border) !important;
+  box-shadow: var(--shadow-lg) !important;
+}
+
+:global([data-theme="dark"] .MuiMenuItem-root) {
+  color: var(--color-text) !important;
+  background: var(--color-surface) !important;
+}
+
+:global([data-theme="dark"] .MuiMenuItem-root:hover) {
+  background: var(--color-bg-secondary) !important;
+}
+
+:global([data-theme="dark"] .MuiMenuItem-root.Mui-selected) {
+  background-color: var(--color-primary) !important;
+  color: white !important;
+}
+
+:global([data-theme="dark"] .MuiMenuItem-root.Mui-selected:hover) {
+  background-color: var(--color-primary-dark) !important;
+}
+
+/* Additional dark theme styles for Material-UI components */
+:global([data-theme="dark"] .MuiList-root) {
+  background-color: var(--color-surface) !important;
+}
+
+:global([data-theme="dark"] .MuiPopover-paper) {
+  background-color: var(--color-surface) !important;
+  border: 1px solid var(--color-border) !important;
+}
+
+/* Dark theme specific styles */
+[data-theme="dark"] .modalOverlay {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+[data-theme="dark"] .textField .MuiOutlinedInput-root {
+  background: var(--color-surface) !important;
+}
+
+[data-theme="dark"] .textField .MuiOutlinedInput-input {
+  color: var(--color-text) !important;
+}
+
+[data-theme="dark"] .textField .MuiOutlinedInput-input::placeholder {
+  color: var(--color-text-secondary) !important;
+  opacity: 1;
+}
+
+[data-theme="dark"] .textField .MuiInputLabel-root {
+  color: var(--color-text-secondary) !important;
+}
+
+/* Additional placeholder fixes for dark mode */
+[data-theme="dark"] .textField input::placeholder {
+  color: var(--color-text-secondary) !important;
+  opacity: 1;
+}
+
+[data-theme="dark"] .textField .MuiInputBase-input::placeholder {
+  color: var(--color-text-secondary) !important;
+  opacity: 1;
+}
+
+/* Webkit specific placeholder styling for dark mode */
+[data-theme="dark"] .textField input::-webkit-input-placeholder {
+  color: var(--color-text-secondary) !important;
+}
+
+[data-theme="dark"] .textField input::-moz-placeholder {
+  color: var(--color-text-secondary) !important;
+}
+
+[data-theme="dark"] .textField input:-ms-input-placeholder {
+  color: var(--color-text-secondary) !important;
+}
+
+/* Menu items styling for dark mode */
+:global([data-theme="dark"]) .modalContainer .MuiMenuItem-root {
+  color: var(--color-text) !important;
+  background: var(--color-surface) !important;
+}
+
+:global([data-theme="dark"]) .modalContainer .MuiMenuItem-root:hover {
+  background: var(--color-bg-secondary) !important;
+}
+
+:global([data-theme="dark"]) .modalContainer .MuiPaper-root {
+  background: var(--color-surface) !important;
+  border: 1px solid var(--color-border) !important;
+}
+
+:global([data-theme="dark"]) .MuiPaper-root.MuiMenu-paper {
+  background-color: var(--color-surface) !important;
+  border: 1px solid var(--color-border) !important;
+}
+
+:global([data-theme="dark"]) .MuiMenuItem-root {
+  color: var(--color-text) !important;
+  background: var(--color-surface) !important;
+}
+
+:global([data-theme="dark"]) .MuiMenuItem-root:hover {
+  background: var(--color-bg-secondary) !important;
+}
+
+/* Select placeholder text for dark mode */
+:global([data-theme="dark"]) .MuiSelect-select[aria-expanded="false"] {
+  color: var(--color-text) !important;
+}
+
+/* Ensure dropdown arrow is visible in dark mode */
+:global([data-theme="dark"]) .MuiSelect-icon {
+  color: var(--color-text-secondary) !important;
+}
+
+/* Fix date and time input text color in dark mode */
+[data-theme="dark"] .textField input[type="date"],
+[data-theme="dark"] .textField input[type="time"] {
+  color: var(--color-text) !important;
+  color-scheme: dark;
+}
+
+/* Fix placeholder text in select when nothing is selected */
+[data-theme="dark"] .selectField .MuiSelect-select em {
+  color: var(--color-text-secondary) !important;
+  font-style: normal;
 }
 
 /* Responsive */
