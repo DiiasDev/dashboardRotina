@@ -22,7 +22,7 @@ export default function TasksComponent() {
     //realtime 
     useEffect(() => {
         carregarTasks();
-    })
+    },[])
 
     const carregarTasks = () => {
         const savedTasks = JSON.parse(localStorage.getItem("tasks_criadas") || "[]")
