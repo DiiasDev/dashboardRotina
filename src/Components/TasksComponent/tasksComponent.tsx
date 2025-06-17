@@ -29,6 +29,11 @@ export default function TasksComponent() {
         setTasks(savedTasks)
     }
 
+    const excluirTask = (id:number) => {
+        const tasksAtualizadas = tasksSalvas.filter((task => task.id !== id))
+        setTasks(tasksAtualizadas)
+    }
+
     const categoryEmojis: { [key: string]: string } = {
         'Casa': '🏠',
         'Trabalho': '💼',
@@ -101,6 +106,7 @@ export default function TasksComponent() {
                                                     <button
                                                         className={styles.deleteButton}
                                                         title="Remover task"
+                                                        onClick={() => excluirTask(task.id)}
                                                     >
                                                         🗑️
                                                     </button>
