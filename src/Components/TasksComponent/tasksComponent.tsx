@@ -1,4 +1,7 @@
 import styles from './styles.module.css'
+import { Tasks, TaskData } from '../../logic/tasks';
+import { useState } from 'react';
+import { groupBy } from 'lodash';
 
 interface Task {
     id: number;
@@ -10,7 +13,11 @@ interface Task {
 }
 
 export default function TasksComponent() {
-    const tasks = JSON.parse(localStorage.getItem('tasks_criadas') || '[]')
+    const [tasksSalvas, setTasks] = useState<TaskData[]>(() => {
+        return JSON.parse(localStorage.getItem('tasks_criadas') || '[]');
+    });
+
+    const taskManeger = new Tasks(0, "", [], "", false, "")
 
     const categoryEmojis: { [key: string]: string } = {
         'Casa': '🏠',
@@ -25,22 +32,19 @@ export default function TasksComponent() {
         'Amigos': '👥'
     };
 
+    const handleConcluirTask = (id: number) => {
+        const tasksAtualizadas = tasksSalvas.map((task) => task.id === id ? { ...task, concluido: true } : task);
+
+        setTasks(tasksAtualizadas);
+        localStorage.setItem("tasks_criadas", JSON.stringify(tasksAtualizadas))
+    }
+
     const formatDate = (dateString: string) => {
         return new Date(dateString).toLocaleDateString('pt-BR');
     };
 
-    const groupTasksByCategory = () => {
-        const grouped: { [key: string]: Task[] } = {};
-        
-        tasks.forEach((task: Task) => {
-            const primaryCategory = task.categoria[0] || 'Outros';
-            if (!grouped[primaryCategory]) {
-                grouped[primaryCategory] = [];
-            }
-            grouped[primaryCategory].push(task);
-        });
-        
-        return grouped;
+    const groupTasksByCategory = (): { [key: string]: Task[] } => {
+        return groupBy(tasksSalvas, (task: Task) => task.categoria[0] || 'Outros') as { [key: string]: Task[] };
     };
 
     const groupedTasks = groupTasksByCategory();
@@ -67,16 +71,23 @@ export default function TasksComponent() {
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div className={styles.tasksList}>
                                 {categoryTasks.slice(0, 3).map((task: Task) => (
-                                    <div 
-                                        key={task.id} 
+                                    <div
+                                        key={task.id}
                                         className={`${styles.taskItem} ${task.concluido ? styles.completed : ''}`}
                                     >
                                         <div className={styles.taskItemContent}>
                                             <h4 className={styles.taskItemTitle}>{task.titulo}</h4>
                                             <p className={styles.taskItemDescription}>{task.descricao}</p>
+                                            <button 
+                                                className={styles.concludeButton}
+                                                onClick={() => handleConcluirTask(task.id)}
+                                                disabled={task.concluido}
+                                            >
+                                                {task.concluido ? 'Concluída' : 'Concluir'}
+                                            </button>
                                             <div className={styles.taskItemMeta}>
                                                 <span className={styles.taskItemDate}>{formatDate(task.dataCreacao)}</span>
                                                 <span className={`${styles.taskStatus} ${task.concluido ? styles.statusCompleted : styles.statusPending}`}>

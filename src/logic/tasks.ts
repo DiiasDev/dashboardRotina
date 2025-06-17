@@ -1,4 +1,4 @@
-type TaskData = {
+export type TaskData = {
   id: number;
   titulo: string;
   categoria: string[];
