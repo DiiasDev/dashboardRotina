@@ -457,8 +457,9 @@
 .advancedStatsCard {
   padding: 20px;
   border-radius: 12px;
-  background: #ffffff;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-md);
 }
 
 .priorityStats {
@@ -489,43 +490,43 @@
 }
 
 .priorityAlta {
-  background: #ffebee;
-  color: #c62828;
+  background: var(--color-status-parado-bg);
+  color: var(--color-status-parado);
 }
 
 .priorityMedia {
-  background: #fff3e0;
-  color: #ef6c00;
+  background: var(--color-status-pausado-bg);
+  color: var(--color-status-pausado);
 }
 
 .priorityBaixa {
-  background: #e8f5e8;
-  color: #2e7d32;
+  background: var(--color-status-iniciado-bg);
+  color: var(--color-status-iniciado);
 }
 
 .priorityCount {
   font-size: 14px;
   font-weight: 600;
-  color: #666;
+  color: var(--color-text-secondary);
 }
 
 .progressBar {
   width: 100%;
   height: 8px;
-  background: #f0f0f0;
+  background: var(--color-bg-secondary);
   border-radius: 4px;
   overflow: hidden;
 }
 
 .progressFill {
   height: 100%;
-  background: linear-gradient(90deg, #4caf50, #66bb6a);
+  background: linear-gradient(90deg, var(--color-card-lembretes), #66bb6a);
   transition: width 0.3s ease;
 }
 
 .progressPercent {
   font-size: 12px;
-  color: #666;
+  color: var(--color-text-secondary);
   align-self: flex-end;
 }
 
@@ -539,9 +540,10 @@
 .overdueCard {
   padding: 20px;
   border-radius: 12px;
-  background: #ffffff;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  border-left: 4px solid #f44336;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-md);
+  border-left: 4px solid var(--color-status-parado);
 }
 
 .overdueLista {
@@ -557,8 +559,8 @@
   align-items: center;
   padding: 12px;
   border-radius: 8px;
-  background: #fff5f5;
-  border: 1px solid #ffcdd2;
+  background: var(--color-status-parado-bg);
+  border: 1px solid var(--color-border);
 }
 
 .overdueInfo {
@@ -569,12 +571,12 @@
 
 .overdueTitle {
   font-weight: 600;
-  color: #d32f2f;
+  color: var(--color-status-parado);
 }
 
 .overdueDate {
   font-size: 12px;
-  color: #666;
+  color: var(--color-text-secondary);
 }
 
 .overdueActions {
@@ -586,8 +588,9 @@
 .recentActivitiesCard {
   padding: 20px;
   border-radius: 12px;
-  background: #ffffff;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-md);
 }
 
 .activitiesList {
@@ -603,8 +606,8 @@
   gap: 12px;
   padding: 12px;
   border-radius: 8px;
-  background: #f8f9fa;
-  border-left: 3px solid #4caf50;
+  background: var(--color-bg-secondary);
+  border-left: 3px solid var(--color-card-lembretes);
 }
 
 .activityIcon {
@@ -619,25 +622,25 @@
 
 .activityTitle {
   font-weight: 600;
-  color: #333;
+  color: var(--color-text);
 }
 
 .activityDate {
   font-size: 12px;
-  color: #666;
+  color: var(--color-text-secondary);
 }
 
 /* Resumo do Mês */
 .monthSummaryCard {
   padding: 20px;
   border-radius: 12px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
   color: white;
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+  box-shadow: var(--shadow-lg);
 }
 
 .monthSummaryCard .sectionTitle {
-  color: white;
+  color: white !important;
   margin-bottom: 16px;
 }
 
@@ -664,6 +667,16 @@
   font-size: 12px;
   color: rgba(255, 255, 255, 0.8);
   margin-top: 4px;
+}
+
+/* Modo escuro específico para gradiente de progresso */
+[data-theme="dark"] .progressFill {
+  background: linear-gradient(90deg, var(--color-card-lembretes), #4ade80);
+}
+
+/* Ajustes específicos para modo escuro */
+[data-theme="dark"] .monthSummaryCard {
+  background: linear-gradient(135deg, var(--color-primary) 0%, #1e40af 100%);
 }
 
 /* Responsividade */
