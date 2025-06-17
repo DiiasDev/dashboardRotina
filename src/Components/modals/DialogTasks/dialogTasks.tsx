@@ -4,11 +4,7 @@ import {
   Checkbox,
   FormControlLabel,
   FormGroup,
-  MenuItem,
-  Select,
   TextField,
-  FormControl,
-  InputLabel,
 } from "@mui/material";
 import { Tasks } from "../../../logic/tasks";
 
@@ -139,34 +135,20 @@ export default function DialogTasks({ open, onClose }: DialogTasksProps) {
 
             <div className={styles.formGroup}>
               <label htmlFor="categoria" className={styles.formLabel}>Categoria *</label>
-              <FormControl className={styles.selectField} required>
-                <InputLabel>Categoria</InputLabel>
-                <Select
-                  id="categoria"
-                  value={formData.categoria}
-                  label="Categoria"
-                  onChange={(e) => handleChange("categoria", e.target.value)}
-                  MenuProps={{
-                    PaperProps: {
-                      style: {
-                        maxHeight: 200,
-                        zIndex: 10000,
-                        marginTop: 4,
-                        borderRadius: 12,
-                        boxShadow: '0 8px 32px rgba(0, 0, 0, 0.12)',
-                        border: '1px solid #e5e7eb',
-                      },
-                    },
-                    disablePortal: true,
-                  }}
-                >
-                  {categorias.map((categoria) => (
-                    <MenuItem key={categoria} value={categoria}>
-                      {categoria}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
+              <select
+                id="categoria"
+                value={formData.categoria}
+                onChange={(e) => handleChange("categoria", e.target.value)}
+                className={styles.nativeSelect}
+                required
+              >
+                <option value="">Selecione uma categoria</option>
+                {categorias.map((categoria) => (
+                  <option key={categoria} value={categoria}>
+                    {categoria}
+                  </option>
+                ))}
+              </select>
             </div>
 
             <div className={styles.formGroup}>
