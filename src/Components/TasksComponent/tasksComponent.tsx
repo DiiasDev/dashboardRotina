@@ -1,6 +1,6 @@
 import styles from './styles.module.css'
 import { Tasks, TaskData } from '../../logic/tasks';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { groupBy } from 'lodash';
 
 interface Task {
@@ -18,6 +18,16 @@ export default function TasksComponent() {
     });
 
     const taskManeger = new Tasks(0, "", [], "", false, "")
+
+    //realtime 
+    useEffect(() => {
+        carregarTasks();
+    })
+
+    const carregarTasks = () => {
+        const savedTasks = JSON.parse(localStorage.getItem("tasks_criadas") || "[]")
+        setTasks(savedTasks)
+    }
 
     const categoryEmojis: { [key: string]: string } = {
         'Casa': '🏠',
@@ -79,9 +89,25 @@ export default function TasksComponent() {
                                         className={`${styles.taskItem} ${task.concluido ? styles.completed : ''}`}
                                     >
                                         <div className={styles.taskItemContent}>
-                                            <h4 className={styles.taskItemTitle}>{task.titulo}</h4>
+                                            <div className={styles.taskHeader}>
+                                                <h4 className={styles.taskItemTitle}>{task.titulo}</h4>
+                                                <div className={styles.taskActions}>
+                                                    <button
+                                                        className={styles.viewMoreButton}
+                                                        title="Ver mais detalhes"
+                                                    >
+                                                        👁️
+                                                    </button>
+                                                    <button
+                                                        className={styles.deleteButton}
+                                                        title="Remover task"
+                                                    >
+                                                        🗑️
+                                                    </button>
+                                                </div>
+                                            </div>
                                             <p className={styles.taskItemDescription}>{task.descricao}</p>
-                                            <button 
+                                            <button
                                                 className={styles.concludeButton}
                                                 onClick={() => handleConcluirTask(task.id)}
                                                 disabled={task.concluido}

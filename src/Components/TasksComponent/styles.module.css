@@ -93,8 +93,51 @@
 
 .taskHeader {
   display: flex;
+  justify-content: space-between;
   align-items: flex-start;
-  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.taskActions {
+  display: flex;
+  gap: 6px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.taskItem:hover .taskActions {
+  opacity: 1;
+}
+
+.viewMoreButton,
+.deleteButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+}
+
+.viewMoreButton:hover {
+  background-color: rgba(59, 130, 246, 0.1);
+  transform: scale(1.1);
+}
+
+.deleteButton:hover {
+  background-color: rgba(239, 68, 68, 0.1);
+  transform: scale(1.1);
+}
+
+.viewMoreButton:active,
+.deleteButton:active {
+  transform: scale(0.95);
 }
 
 .taskEmoji {
