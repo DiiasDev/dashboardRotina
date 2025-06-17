@@ -157,18 +157,20 @@
 }
 
 .lembretesSections {
-  display: grid !important;
-  grid-template-columns: 1fr 1fr !important;
+  display: flex !important;
   gap: 24px !important;
   margin-bottom: 32px !important;
   width: 100%;
   box-sizing: border-box;
+  height: 400px; /* Set a fixed height for the sections container */
 }
 
 .section {
   display: flex !important;
   flex-direction: column !important;
   gap: 16px !important;
+  flex: 1;
+  min-height: 0; /* Allow flex child to shrink */
 }
 
 .sectionHeader {
@@ -199,16 +201,38 @@
   display: flex !important;
   flex-direction: column !important;
   gap: 8px !important;
-  max-height: 300px !important;
+  max-height: 320px; /* Adjust based on section header height */
   overflow-y: auto !important;
+  padding-right: 5px;
+}
+
+.lembretesLista::-webkit-scrollbar {
+  width: 6px;
+}
+
+.lembretesLista::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.lembretesLista::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+.lembretesLista::-webkit-scrollbar-thumb:hover {
+  background: #a1a1a1;
 }
 
 .lembreteCard {
   background: var(--color-bg-secondary) !important;
   border: 1px solid var(--color-border) !important;
-  border-radius: 6px !important;
+  border-radius: 8px !important;
   padding: 12px !important;
   transition: all 0.3s ease !important;
+  margin-bottom: 10px !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+  flex-shrink: 0; /* Prevent cards from shrinking */
 }
 
 .lembreteCard:hover {
@@ -455,6 +479,7 @@
   .lembretesSections {
     grid-template-columns: 1fr !important;
     gap: 20px !important;
+    height: auto;
   }
   
   .statsContainer {
@@ -530,6 +555,15 @@
   
   .lembreteActions {
     align-self: flex-end !important;
+  }
+
+  .lembretesSections {
+    flex-direction: column;
+    height: auto;
+  }
+  
+  .lembretesLista {
+    max-height: 250px;
   }
 }
 
