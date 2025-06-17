@@ -1,28 +1,16 @@
 import { useState, useEffect } from "react";
-import Button from "@mui/material/Button";
-import { styled } from "@mui/material/styles";
-import Dialog from "@mui/material/Dialog";
-import DialogTitle from "@mui/material/DialogTitle";
-import DialogContent from "@mui/material/DialogContent";
-import DialogActions from "@mui/material/DialogActions";
-import IconButton from "@mui/material/IconButton";
-import CloseIcon from "@mui/icons-material/Close";
-import TextField from "@mui/material/TextField";
-import Select from "@mui/material/Select";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import InputLabel from "@mui/material/InputLabel";
-import Box from "@mui/material/Box";
+import styles from "./styles.module.css";
+import {
+  Checkbox,
+  FormControlLabel,
+  FormGroup,
+  MenuItem,
+  Select,
+  TextField,
+  FormControl,
+  InputLabel,
+} from "@mui/material";
 import { Tasks } from "../../../logic/tasks";
-
-const BootstrapDialog = styled(Dialog)(({ theme }) => ({
-  "& .MuiDialogContent-root": {
-    padding: theme.spacing(2),
-  },
-  "& .MuiDialogActions-root": {
-    padding: theme.spacing(1),
-  },
-}));
 
 interface DialogTasksProps {
   open: boolean;
@@ -39,27 +27,52 @@ export default function DialogTasks({ open, onClose }: DialogTasksProps) {
     categoria: "",
   });
 
-  // Gerar novo ID quando dialog abrir
+  const categorias = ["Casa", "Trabalho", "Faculdade"];
+
   useEffect(() => {
     if (open) {
+      document.body.style.overflow = 'hidden';
       const novoId = Math.floor(Math.random() * 90000000) + 10000000;
       setTaskId(novoId);
       setFormData((prev) => ({ ...prev, id: novoId.toString() }));
+    } else {
+      document.body.style.overflow = 'unset';
     }
+
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
   }, [open]);
 
-  const handleChange = async () => {
-    try {
-      // Validações básicas
-      if (!formData.titulo.trim()) {
-        alert("Título é obrigatório!");
-        return;
+  useEffect(() => {
+    const handleEscapeKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        onClose();
       }
-      if (!formData.categoria) {
-        alert("Categoria é obrigatória!");
-        return;
-      }
+    };
 
+    if (open) {
+      document.addEventListener('keydown', handleEscapeKey);
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleEscapeKey);
+    };
+  }, [open, onClose]);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!formData.titulo.trim()) {
+      alert("Título é obrigatório!");
+      return;
+    }
+    if (!formData.categoria) {
+      alert("Categoria é obrigatória!");
+      return;
+    }
+
+    try {
       const newTask = new Tasks(
         taskId,
         formData.titulo,
@@ -87,94 +100,133 @@ export default function DialogTasks({ open, onClose }: DialogTasksProps) {
     }
   };
 
+  const handleChange = (field: string, value: any) => {
+    setFormData(prev => ({ ...prev, [field]: value }));
+  };
+
+  const handleOverlayClick = (e: React.MouseEvent) => {
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  };
+
+  if (!open) return null;
+
   return (
-    <BootstrapDialog
-      onClose={onClose}
-      aria-labelledby="customized-dialog-title"
-      open={open}
-    >
-      <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
-        Nova Task
-      </DialogTitle>
-      <IconButton
-        aria-label="close"
-        onClick={onClose}
-        sx={(theme) => ({
-          position: "absolute",
-          right: 8,
-          top: 8,
-          color: theme.palette.grey[500],
-        })}
-      >
-        <CloseIcon />
-      </IconButton>
-      <DialogContent dividers>
-        <Box
-          component="form"
-          sx={{ display: "flex", flexDirection: "column", gap: 2 }}
-        >
-          {/* Campo ID Read-only */}
-          <TextField
-            label="ID (Gerado automaticamente)"
-            value={formData.id}
-            fullWidth
-            slotProps={{
-              input: {
-                readOnly: true,
-              },
-            }}
-            sx={{
-              "& .MuiInputBase-input": {
-                backgroundColor: "#f5f5f5",
-                cursor: "not-allowed",
-                color: "#666",
-              },
-            }}
-          />
+    <div className={styles.modalOverlay} onClick={handleOverlayClick}>
+      <div className={styles.modalContainer}>
+        <div className={styles.modalHeader}>
+          <h4 className={styles.modalTitle}>Nova Task</h4>
+          <button className={styles.closeButton} onClick={onClose} type="button">
+            ×
+          </button>
+        </div>
 
-          <FormControl fullWidth>
-            <InputLabel>Categoria</InputLabel>
-            <Select
-              value={formData.categoria}
-              label="Categoria"
-              onChange={(e) =>
-                setFormData({ ...formData, categoria: e.target.value })
-              }
+        <form onSubmit={handleSubmit}>
+          <div className={styles.modalBody}>
+            <div className={styles.formGroup}>
+              <label htmlFor="id" className={styles.formLabel}>ID (Gerado automaticamente)</label>
+              <TextField
+                id="id"
+                variant="outlined"
+                className={`${styles.textField} ${styles.readOnlyField}`}
+                value={formData.id}
+                InputProps={{
+                  readOnly: true,
+                }}
+              />
+            </div>
+
+            <div className={styles.formGroup}>
+              <label htmlFor="categoria" className={styles.formLabel}>Categoria *</label>
+              <FormControl className={styles.selectField} required>
+                <InputLabel>Categoria</InputLabel>
+                <Select
+                  id="categoria"
+                  value={formData.categoria}
+                  label="Categoria"
+                  onChange={(e) => handleChange("categoria", e.target.value)}
+                  MenuProps={{
+                    PaperProps: {
+                      style: {
+                        maxHeight: 200,
+                        zIndex: 10000,
+                        marginTop: 4,
+                        borderRadius: 12,
+                        boxShadow: '0 8px 32px rgba(0, 0, 0, 0.12)',
+                        border: '1px solid #e5e7eb',
+                      },
+                    },
+                    disablePortal: true,
+                  }}
+                >
+                  {categorias.map((categoria) => (
+                    <MenuItem key={categoria} value={categoria}>
+                      {categoria}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </div>
+
+            <div className={styles.formGroup}>
+              <label htmlFor="titulo" className={styles.formLabel}>Título da Task *</label>
+              <TextField
+                id="titulo"
+                placeholder="Digite o título da task"
+                variant="outlined"
+                className={styles.textField}
+                value={formData.titulo}
+                onChange={(e) => handleChange("titulo", e.target.value)}
+                required
+                autoFocus
+              />
+            </div>
+
+            <div className={styles.formGroup}>
+              <label htmlFor="descricao" className={styles.formLabel}>Descrição da Task</label>
+              <TextField
+                id="descricao"
+                placeholder="Digite a descrição da task"
+                variant="outlined"
+                className={styles.textField}
+                value={formData.descricao}
+                onChange={(e) => handleChange("descricao", e.target.value)}
+                multiline
+                rows={3}
+              />
+            </div>
+
+            <div className={styles.formGroup}>
+              <FormGroup className={styles.checkboxGroup}>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={formData.concluida}
+                      onChange={(e) => handleChange("concluida", e.target.checked)}
+                      color="primary"
+                    />
+                  }
+                  label="Marcar como concluída"
+                />
+              </FormGroup>
+            </div>
+          </div>
+
+          <div className={styles.modalActions}>
+            <button type="button" className={styles.cancelButton} onClick={onClose}>
+              Cancelar
+            </button>
+            <button 
+              type="submit" 
+              className={styles.submitButton}
+              disabled={!formData.titulo || !formData.categoria}
             >
-              <MenuItem value="Casa">Casa</MenuItem>
-              <MenuItem value="Trabalho">Trabalho</MenuItem>
-              <MenuItem value="Faculdade">Faculdade</MenuItem>
-            </Select>
-          </FormControl>
-
-          <TextField
-            label="Título da Task"
-            value={formData.titulo}
-            onChange={(e) =>
-              setFormData({ ...formData, titulo: e.target.value })
-            }
-            fullWidth
-            required
-          />
-
-          <TextField
-            label="Descrição da Task"
-            value={formData.descricao}
-            onChange={(e) =>
-              setFormData({ ...formData, descricao: e.target.value })
-            }
-            multiline
-            rows={3}
-            fullWidth
-          />
-        </Box>
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={onClose}>Cancelar</Button>
-        <Button autoFocus onClick={handleChange} variant="contained">
-          Salvar Task
-        </Button>
-      </DialogActions>
-    </BootstrapDialog>
+              Salvar Task
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
   );
 }

@@ -1,0 +1,220 @@
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.modalContainer {
+  background: white;
+  border-radius: 12px;
+  min-width: 400px;
+  max-width: 500px;
+  width: 100%;
+  max-height: 90vh;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  animation: modalAppear 0.2s ease-out;
+}
+
+@keyframes modalAppear {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.modalHeader {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+.modalTitle {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  transition: background-color 0.2s;
+}
+
+.closeButton:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.modalBody {
+  padding: 24px;
+  background-color: #fafafa;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.formLabel {
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+  margin: 0;
+}
+
+.textField {
+  width: 100%;
+}
+
+.textField .MuiOutlinedInput-root {
+  background-color: white;
+  border-radius: 8px;
+}
+
+.textField .MuiOutlinedInput-root fieldset {
+  border-color: #e0e0e0;
+}
+
+.textField .MuiOutlinedInput-root:hover fieldset {
+  border-color: #667eea;
+}
+
+.textField .MuiOutlinedInput-root.Mui-focused fieldset {
+  border-color: #667eea;
+}
+
+.textField .MuiInputLabel-root {
+  color: #666;
+}
+
+.textField .MuiInputLabel-root.Mui-focused {
+  color: #667eea;
+}
+
+.selectField {
+  width: 100%;
+}
+
+.selectField .MuiOutlinedInput-root {
+  background-color: white;
+  border-radius: 8px;
+}
+
+.selectField .MuiOutlinedInput-root fieldset {
+  border-color: #e0e0e0;
+}
+
+.selectField .MuiOutlinedInput-root:hover fieldset {
+  border-color: #667eea;
+}
+
+.selectField .MuiOutlinedInput-root.Mui-focused fieldset {
+  border-color: #667eea;
+}
+
+.readOnlyField .MuiInputBase-input {
+  background-color: #f8f9fa !important;
+  cursor: not-allowed !important;
+  color: #666 !important;
+}
+
+.checkboxGroup {
+  margin-top: 8px;
+}
+
+.checkboxGroup .MuiFormControlLabel-root {
+  margin: 0;
+}
+
+.checkboxGroup .MuiCheckbox-root {
+  color: #667eea;
+}
+
+.checkboxGroup .MuiCheckbox-root.Mui-checked {
+  color: #667eea;
+}
+
+.modalActions {
+  padding: 16px 24px;
+  background-color: #fafafa;
+  border-top: 1px solid #e0e0e0;
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+.cancelButton {
+  padding: 10px 24px;
+  border: 1px solid #e0e0e0;
+  background: white;
+  color: #666;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.2s;
+}
+
+.cancelButton:hover {
+  border-color: #667eea;
+  background-color: rgba(102, 126, 234, 0.04);
+}
+
+.submitButton {
+  padding: 10px 24px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.2s;
+}
+
+.submitButton:hover:not(:disabled) {
+  background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.submitButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
