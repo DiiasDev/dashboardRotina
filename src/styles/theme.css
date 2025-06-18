@@ -13,6 +13,16 @@
     --color-text-sidebar-secondary: #64748b;
     --sucess: rgb(11, 141, 11);
     
+    /* Modal Variables */
+    --modal-overlay-bg: transparent;
+    --modal-bg: var(--color-surface);
+    --modal-border-radius: 12px;
+    --modal-max-width: 500px;
+    --modal-padding: 24px;
+    --modal-header-border: var(--color-border);
+    --modal-close-btn-bg: var(--color-bg-secondary);
+    --modal-close-btn-hover: var(--color-border);
+    
     /* Sidebar Variables */
     --sidebar-width: 280px;
     --sidebar-collapsed-width: 60px;
@@ -81,6 +91,11 @@
     --color-status-pausado-bg: #78350f;
     --color-status-parado: #f87171;
     --color-status-parado-bg: #7f1d1d;
+
+    /* Modal Variables Dark */
+    --modal-overlay-bg: transparent;
+    --modal-close-btn-bg: var(--color-bg-secondary);
+    --modal-close-btn-hover: var(--color-border);
 
     /* Remove Button Colors Dark */
     --color-remove-btn: linear-gradient(135deg, #f87171, #dc2626);

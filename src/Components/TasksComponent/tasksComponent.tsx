@@ -2,6 +2,7 @@ import styles from './styles.module.css'
 import { Tasks, TaskData } from '../../logic/tasks';
 import { useState, useEffect } from 'react';
 import { groupBy } from 'lodash';
+import DetalhesTask from '../modals/DetalhesTask/detalhesTask';
 
 interface Task {
     id: number;
@@ -14,6 +15,8 @@ interface Task {
 
 export default function TasksComponent() {
     const [tasksSalvas, setTasks] = useState<TaskData[]>([]);
+    const [modalOpen, setModalOpen] = useState(false);
+    const [selectedTask, setSelectedTask] = useState<TaskData | null>(null);
 
     const taskManeger = new Tasks(0, "", [], "", false, "")
 
@@ -52,8 +55,20 @@ export default function TasksComponent() {
         localStorage.setItem("tasks_criadas", JSON.stringify(tasksAtualizadas))
         setTasks(tasksAtualizadas)
         
-        // Disparar evento para outros componentes
         window.dispatchEvent(new CustomEvent('tasksUpdated'));
+    }
+
+    const exibeDetalhes = (id: number) => {
+        const taskSelecionada = tasksSalvas.find((task) => task.id === id);
+        if (taskSelecionada) {
+            setSelectedTask(taskSelecionada);
+            setModalOpen(true);
+        }
+    }
+
+    const handleCloseModal = () => {
+        setModalOpen(false);
+        setSelectedTask(null);
     }
 
     const categoryEmojis: { [key: string]: string } = {
@@ -75,7 +90,6 @@ export default function TasksComponent() {
         setTasks(tasksAtualizadas);
         localStorage.setItem("tasks_criadas", JSON.stringify(tasksAtualizadas))
         
-        // Disparar evento para outros componentes
         window.dispatchEvent(new CustomEvent('tasksUpdated'));
     }
 
@@ -125,6 +139,7 @@ export default function TasksComponent() {
                                                     <button
                                                         className={styles.viewMoreButton}
                                                         title="Ver mais detalhes"
+                                                        onClick={() => exibeDetalhes(task.id)}
                                                     >
                                                         👁️
                                                     </button>
@@ -164,6 +179,11 @@ export default function TasksComponent() {
                     );
                 })}
             </div>
+            <DetalhesTask 
+                open={modalOpen}
+                onClose={handleCloseModal}
+                taskData={selectedTask}
+            />
         </div>
     )
 }

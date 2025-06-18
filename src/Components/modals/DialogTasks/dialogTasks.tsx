@@ -81,10 +81,8 @@ export default function DialogTasks({ open, onClose }: DialogTasksProps) {
 
       newTask.createTasks();
 
-      // Disparar evento para atualizar outros componentes
       window.dispatchEvent(new CustomEvent('tasksUpdated'));
 
-      // Limpar formulário
       const novoId = Math.floor(Math.random() * 90000000) + 10000000;
       setTaskId(novoId);
       setFormData({
