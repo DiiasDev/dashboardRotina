@@ -13,16 +13,33 @@ interface Task {
 }
 
 export default function TasksComponent() {
-    const [tasksSalvas, setTasks] = useState<TaskData[]>(() => {
-        return JSON.parse(localStorage.getItem('tasks_criadas') || '[]');
-    });
+    const [tasksSalvas, setTasks] = useState<TaskData[]>([]);
 
     const taskManeger = new Tasks(0, "", [], "", false, "")
 
     //realtime 
     useEffect(() => {
         carregarTasks();
-    }, [])
+
+        const handleStorageChange = (e: StorageEvent) => {
+            if (e.key === 'tasks_criadas') {
+                carregarTasks();
+            }
+        };
+
+        const handleTasksUpdate = () => {
+            carregarTasks();
+        };
+
+        window.addEventListener('storage', handleStorageChange);
+        window.addEventListener('tasksUpdated', handleTasksUpdate);
+
+        // Cleanup
+        return () => {
+            window.removeEventListener('storage', handleStorageChange);
+            window.removeEventListener('tasksUpdated', handleTasksUpdate);
+        };
+    }, []);
 
     const carregarTasks = () => {
         const savedTasks = JSON.parse(localStorage.getItem("tasks_criadas") || "[]")
@@ -34,6 +51,9 @@ export default function TasksComponent() {
 
         localStorage.setItem("tasks_criadas", JSON.stringify(tasksAtualizadas))
         setTasks(tasksAtualizadas)
+        
+        // Disparar evento para outros componentes
+        window.dispatchEvent(new CustomEvent('tasksUpdated'));
     }
 
     const categoryEmojis: { [key: string]: string } = {
@@ -54,6 +74,9 @@ export default function TasksComponent() {
 
         setTasks(tasksAtualizadas);
         localStorage.setItem("tasks_criadas", JSON.stringify(tasksAtualizadas))
+        
+        // Disparar evento para outros componentes
+        window.dispatchEvent(new CustomEvent('tasksUpdated'));
     }
 
     const formatDate = (dateString: string) => {

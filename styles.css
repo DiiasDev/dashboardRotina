@@ -1,0 +1,44 @@
+.lembretes-section {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.lembretes-header {
+  flex-shrink: 0;
+  padding: 1rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.lembretes-content {
+  flex: 1;
+  overflow-y: auto;
+  max-height: 400px; /* Adjust based on your layout needs */
+  padding: 0.5rem;
+}
+
+.lembretes-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.lembretes-content::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.lembretes-content::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+.lembretes-content::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+.lembrete-card {
+  margin-bottom: 0.5rem;
+  padding: 1rem;
+  border-radius: 8px;
+  background: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
