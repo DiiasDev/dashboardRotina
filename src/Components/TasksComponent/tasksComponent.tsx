@@ -3,6 +3,7 @@ import { Tasks, TaskData } from '../../logic/tasks';
 import { useState, useEffect } from 'react';
 import { groupBy } from 'lodash';
 import DetalhesTask from '../modals/DetalhesTask/detalhesTask';
+import { localStorageManager } from '../../utils/localStorage';
 
 interface Task {
     id: number;
@@ -18,9 +19,7 @@ export default function TasksComponent() {
     const [modalOpen, setModalOpen] = useState(false);
     const [selectedTask, setSelectedTask] = useState<TaskData | null>(null);
 
-    const taskManeger = new Tasks(0, "", [], "", false, "")
 
-    //realtime 
     useEffect(() => {
         carregarTasks();
 
@@ -37,7 +36,6 @@ export default function TasksComponent() {
         window.addEventListener('storage', handleStorageChange);
         window.addEventListener('tasksUpdated', handleTasksUpdate);
 
-        // Cleanup
         return () => {
             window.removeEventListener('storage', handleStorageChange);
             window.removeEventListener('tasksUpdated', handleTasksUpdate);
@@ -45,14 +43,14 @@ export default function TasksComponent() {
     }, []);
 
     const carregarTasks = () => {
-        const savedTasks = JSON.parse(localStorage.getItem("tasks_criadas") || "[]")
+        const savedTasks = JSON.parse(localStorageManager.getItem("tasks_criadas") || "[]")
         setTasks(savedTasks)
     }
 
     const excluirTask = (id: number) => {
         const tasksAtualizadas = tasksSalvas.filter((task => task.id !== id))
 
-        localStorage.setItem("tasks_criadas", JSON.stringify(tasksAtualizadas))
+        localStorageManager.setItem("tasks_criadas", tasksAtualizadas)
         setTasks(tasksAtualizadas)
         
         window.dispatchEvent(new CustomEvent('tasksUpdated'));
@@ -88,7 +86,7 @@ export default function TasksComponent() {
         const tasksAtualizadas = tasksSalvas.map((task) => task.id === id ? { ...task, concluido: true } : task);
 
         setTasks(tasksAtualizadas);
-        localStorage.setItem("tasks_criadas", JSON.stringify(tasksAtualizadas))
+        localStorageManager.setItem("tasks_criadas", tasksAtualizadas)
         
         window.dispatchEvent(new CustomEvent('tasksUpdated'));
     }

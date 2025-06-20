@@ -1,17 +1,45 @@
-import { Container, Grid, Card, CardContent, Typography } from '@mui/material';
+import { Container, Grid, Card, CardContent, Typography, Box } from '@mui/material';
 import { ResponsiveBar } from '@nivo/bar'
+import { useState, useEffect } from 'react'
+import {ChartData} from '../../logic/chartData'
 
 
 export default function ChartComponent(){
-    const data = [
-        { id: 'Jan', value: 120 },
-        { id: 'Fev', value: 150 },
-        { id: 'Mar', value: 90 },
-        { id: 'Abr', value: 200 },
-        { id: 'Mai', value: 180 },
-        { id: 'Jun', value: 160 }
-    ];
+    const [data, setData] = useState<{id: string, value: number}[]>([])
 
+    const updateChartData = () => {
+        const chartData = new ChartData("", 0)
+        const newData = chartData.data()
+        setData(newData)
+    }
+
+    useEffect(() => {
+        // Carregar dados iniciais
+        updateChartData()
+
+        // Listener para mudanças no localStorage (entre abas)
+        const handleStorageChange = (e: StorageEvent) => {
+            if (e.key === 'tasks_criadas' || e.key === null) {
+                updateChartData()
+            }
+        }
+
+        // Listener customizado para mudanças no mesmo documento
+        const handleCustomStorageChange = (e: CustomEvent) => {
+            if (e.detail?.key === 'tasks_criadas') {
+                updateChartData()
+            }
+        }
+
+        window.addEventListener('storage', handleStorageChange)
+        window.addEventListener('localStorageUpdated', handleCustomStorageChange as EventListener)
+
+        return () => {
+            window.removeEventListener('storage', handleStorageChange)
+            window.removeEventListener('localStorageUpdated', handleCustomStorageChange as EventListener)
+        }
+    }, [])
+    
     return(
         <Container>
             <Grid>
@@ -42,50 +70,72 @@ export default function ChartComponent(){
                             >
                                 Evolução da Produtividade
                             </Typography>
-                            <ResponsiveBar
-                                data={data}
-                                keys={['value']}
-                                indexBy="id"
-                                margin={{ top: 10, right: 60, bottom: 70, left: 60 }}
-                                padding={0.3}
-                                colors={['#7c3aed']}
-                                borderColor={{ from: 'color', modifiers: [['darker', 1.6]] }}
-                                axisTop={null}
-                                axisRight={null}
-                                enableGridY={true}
-                                enableLabel={false}
-                                theme={{
-                                    background: 'var(--color-surface)',
-                                    text: {
-                                        fill: 'var(--color-text)'
-                                    },
-                                    axis: {
-                                        domain: {
-                                            line: {
-                                                stroke: 'var(--color-border)',
-                                                strokeWidth: 1
+                            
+                            {data.length === 0 ? (
+                                <Box 
+                                    display="flex" 
+                                    justifyContent="center" 
+                                    alignItems="center" 
+                                    height="400px"
+                                >
+                                    <Typography 
+                                        variant="h6" 
+                                        style={{
+                                            color: 'var(--color-text-secondary)',
+                                            textAlign: 'center'
+                                        }}
+                                    >
+                                        Não há dados disponíveis no período atual
+                                    </Typography>
+                                </Box>
+                            ) : (
+                                <ResponsiveBar
+                                    data={data}
+                                    keys={['value']}
+                                    indexBy="id"
+                                    margin={{ top: 10, right: 60, bottom: 70, left: 60 }}
+                                    padding={0.3}
+                                    colors={['#7c3aed']}
+                                    borderColor={{ from: 'color', modifiers: [['darker', 1.6]] }}
+                                    axisTop={null}
+                                    axisRight={null}
+                                    enableGridY={true}
+                                    enableLabel={true}
+                                    label={d => `${d.value}`}
+                                    labelTextColor="white"
+                                    theme={{
+                                        background: 'var(--color-surface)',
+                                        text: {
+                                            fill: 'var(--color-text)'
+                                        },
+                                        axis: {
+                                            domain: {
+                                                line: {
+                                                    stroke: 'var(--color-border)',
+                                                    strokeWidth: 1
+                                                }
+                                            },
+                                            ticks: {
+                                                line: {
+                                                    stroke: 'var(--color-border)',
+                                                    strokeWidth: 1
+                                                },
+                                                text: {
+                                                    fill: 'var(--color-text-secondary)',
+                                                    fontSize: 12
+                                                }
                                             }
                                         },
-                                        ticks: {
+                                        grid: {
                                             line: {
                                                 stroke: 'var(--color-border)',
-                                                strokeWidth: 1
-                                            },
-                                            text: {
-                                                fill: 'var(--color-text-secondary)',
-                                                fontSize: 12
+                                                strokeWidth: 1,
+                                                strokeOpacity: 0.5
                                             }
                                         }
-                                    },
-                                    grid: {
-                                        line: {
-                                            stroke: 'var(--color-border)',
-                                            strokeWidth: 1,
-                                            strokeOpacity: 0.5
-                                        }
-                                    }
-                                }}
-                            />
+                                    }}
+                                />
+                            )}
                         </CardContent>
                     </Card>
                 </Grid>

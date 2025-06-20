@@ -1,3 +1,5 @@
+import { localStorageManager } from '../utils/localStorage';
+
 export type TaskData = {
   id: number;
   titulo: string;
@@ -29,7 +31,7 @@ export class Tasks {
 
   private static carregarTasks() {
     try {
-      const dadosSalvos = localStorage.getItem("tasks_criadas");
+      const dadosSalvos = localStorageManager.getItem("tasks_criadas");
       if (dadosSalvos) {
         Tasks.taskCriadas = JSON.parse(dadosSalvos);
       }
@@ -61,7 +63,7 @@ export class Tasks {
 
       Tasks.taskCriadas.push(task);
 
-      localStorage.setItem("tasks_criadas", JSON.stringify(Tasks.taskCriadas));
+      localStorageManager.setItem("tasks_criadas", Tasks.taskCriadas);
 
     } catch (error) {
       console.warn("Erro ao criar task");
@@ -78,7 +80,7 @@ export class Tasks {
       const taskIndex = Tasks.taskCriadas.findIndex(task => task.id === this.id);
       if (taskIndex !== -1) {
         Tasks.taskCriadas[taskIndex].concluido = true;
-        localStorage.setItem("tasks_criadas", JSON.stringify(Tasks.taskCriadas));
+        localStorageManager.setItem("tasks_criadas", Tasks.taskCriadas);
       }
     } catch (error) {
       console.warn("Erro ao marcar task como concluída:", error);
@@ -88,7 +90,7 @@ export class Tasks {
 
   listarTasks(): TaskData[] {
     try {
-      const dadosSalvos = localStorage.getItem("tasks_criadas");
+      const dadosSalvos = localStorageManager.getItem("tasks_criadas");
 
       if (dadosSalvos) {
         Tasks.taskCriadas = JSON.parse(dadosSalvos);
