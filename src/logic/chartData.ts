@@ -1,7 +1,7 @@
 type chartData = {
     mounth: string,
     tasksConcluidas: number
-    tasksSalvas: {concluido: boolean, dataCreacao?: string}[]
+    tasksSalvas: {concluido: boolean, dataConclusao?: string}[]
 }
 
 export class ChartData{
@@ -24,13 +24,11 @@ export class ChartData{
         const currentYear = new Date().getFullYear()
 
         const dataByMonth = monthNames.map((monthName, index) => {
-            const tasksDoMes = tasksSalvas.filter((task: {concluido: boolean, dataCreacao?: string}) => {
-                if (!task.dataCreacao) return false
-                const taskDate = new Date(task.dataCreacao)
+            const tasksConcluidas = tasksSalvas.filter((task: {concluido: boolean, dataConclusao?: string}) => {
+                if (!task.concluido || !task.dataConclusao) return false
+                const taskDate = new Date(task.dataConclusao)
                 return taskDate.getMonth() === index && taskDate.getFullYear() === currentYear
-            })
-
-            const tasksConcluidas = tasksDoMes.filter((task: {concluido: boolean}) => task.concluido === true).length
+            }).length
 
             return {
                 id: monthName,

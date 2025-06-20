@@ -14,17 +14,14 @@ export default function ChartComponent(){
     }
 
     useEffect(() => {
-        // Carregar dados iniciais
         updateChartData()
 
-        // Listener para mudanças no localStorage (entre abas)
         const handleStorageChange = (e: StorageEvent) => {
             if (e.key === 'tasks_criadas' || e.key === null) {
                 updateChartData()
             }
         }
 
-        // Listener customizado para mudanças no mesmo documento
         const handleCustomStorageChange = (e: CustomEvent) => {
             if (e.detail?.key === 'tasks_criadas') {
                 updateChartData()

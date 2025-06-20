@@ -7,6 +7,7 @@ export type TaskData = {
   descricao: string;
   concluido: boolean;
   dataCreacao: string;
+  dataConclusao?: string;
 };
 
 export class Tasks {
@@ -16,17 +17,18 @@ export class Tasks {
   descricao: string;
   concluido: boolean;
   dataCreacao: string;
+  dataConclusao?: string;
 
   private static taskCriadas: TaskData[] = [];
 
-  constructor(id: number,titulo: string,categoria: string[],descricao: string,concluido: boolean, dataCreacao: string) {
-    
+  constructor(id: number, titulo: string, categoria: string[], descricao: string, concluido: boolean, dataCreacao: string, dataConclusao?: string) {
     this.id = id;
     this.titulo = titulo;
     this.categoria = categoria;
     this.descricao = descricao;
     this.concluido = concluido;
     this.dataCreacao = dataCreacao;
+    this.dataConclusao = dataConclusao;
   }
 
   private static carregarTasks() {
@@ -59,6 +61,7 @@ export class Tasks {
         descricao: this.descricao,
         concluido: this.concluido,
         dataCreacao: new Date().toISOString(),
+        dataConclusao: this.concluido ? new Date().toISOString() : undefined,
       };
 
       Tasks.taskCriadas.push(task);
@@ -76,10 +79,12 @@ export class Tasks {
       Tasks.carregarTasks();
       
       this.concluido = true;
+      this.dataConclusao = new Date().toISOString();
       
       const taskIndex = Tasks.taskCriadas.findIndex(task => task.id === this.id);
       if (taskIndex !== -1) {
         Tasks.taskCriadas[taskIndex].concluido = true;
+        Tasks.taskCriadas[taskIndex].dataConclusao = new Date().toISOString();
         localStorageManager.setItem("tasks_criadas", Tasks.taskCriadas);
       }
     } catch (error) {

@@ -12,6 +12,7 @@ interface Task {
     descricao: string;
     concluido: boolean;
     dataCreacao: string;
+    dataConclusao?: string;
 }
 
 export default function TasksComponent() {
@@ -83,7 +84,11 @@ export default function TasksComponent() {
     };
 
     const handleConcluirTask = (id: number) => {
-        const tasksAtualizadas = tasksSalvas.map((task) => task.id === id ? { ...task, concluido: true } : task);
+        const tasksAtualizadas = tasksSalvas.map((task) => 
+            task.id === id 
+                ? { ...task, concluido: true, dataConclusao: new Date().toISOString() } 
+                : task
+        );
 
         setTasks(tasksAtualizadas);
         localStorageManager.setItem("tasks_criadas", tasksAtualizadas)
