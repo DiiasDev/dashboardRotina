@@ -45,9 +45,9 @@ export default function ChartComponent(){
             <Grid>
                 <Grid>
                     <Card style={{ 
-                        height: 520, 
+                        height: 650, 
                         width: '100%',
-                        maxWidth: 700,
+                        maxWidth: 1200,
                         backgroundColor: 'var(--color-surface)',
                         boxShadow: 'var(--shadow-lg)',
                         border: '1px solid var(--color-border)',
@@ -55,7 +55,7 @@ export default function ChartComponent(){
                         marginTop: '26px'
                     }}>
                         <CardContent style={{ 
-                            height: 470, 
+                            height: 580, 
                             width: '100%',
                             backgroundColor: 'var(--color-surface)'
                         }}>
