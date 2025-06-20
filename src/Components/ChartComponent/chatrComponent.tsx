@@ -1,41 +1,53 @@
 import { Container, Grid, Card, CardContent, Typography, Box } from '@mui/material';
 import { ResponsiveBar } from '@nivo/bar'
 import { useState, useEffect } from 'react'
-import {ChartData} from '../../logic/chartData'
+import { TaskData } from '../../logic/tasks';
 
+interface ChartComponentProps {
+    filteredTasks?: TaskData[];
+}
 
-export default function ChartComponent(){
+export default function ChartComponent({ filteredTasks }: ChartComponentProps){
     const [data, setData] = useState<{id: string, value: number}[]>([])
 
-    const updateChartData = () => {
-        const chartData = new ChartData("", 0)
-        const newData = chartData.data()
-        setData(newData)
+    const generateChartData = (tasks: TaskData[]) => {
+        const monthNames = [
+            "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
+            "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
+        ]
+
+        const currentYear = new Date().getFullYear()
+
+        const dataByMonth = monthNames.map((monthName, index) => {
+            const tasksConcluidas = tasks.filter((task) => {
+                if (!task.concluido || !task.dataConclusao) return false
+                const taskDate = new Date(task.dataConclusao)
+                return taskDate.getMonth() === index && taskDate.getFullYear() === currentYear
+            }).length
+
+            return {
+                id: monthName,
+                value: tasksConcluidas,
+                monthIndex: index
+            }
+        })
+        
+        const firstMonthWithData = dataByMonth.find(month => month.value > 0)
+        
+        if (!firstMonthWithData) {
+            return []
+        }
+        
+        return dataByMonth
+            .slice(firstMonthWithData.monthIndex)
+            .map(month => ({ id: month.id, value: month.value }))
     }
 
     useEffect(() => {
-        updateChartData()
-
-        const handleStorageChange = (e: StorageEvent) => {
-            if (e.key === 'tasks_criadas' || e.key === null) {
-                updateChartData()
-            }
-        }
-
-        const handleCustomStorageChange = (e: CustomEvent) => {
-            if (e.detail?.key === 'tasks_criadas') {
-                updateChartData()
-            }
-        }
-
-        window.addEventListener('storage', handleStorageChange)
-        window.addEventListener('localStorageUpdated', handleCustomStorageChange as EventListener)
-
-        return () => {
-            window.removeEventListener('storage', handleStorageChange)
-            window.removeEventListener('localStorageUpdated', handleCustomStorageChange as EventListener)
-        }
-    }, [])
+        const tasksToAnalyze = filteredTasks || JSON.parse(localStorage.getItem("tasks_criadas") || "[]");
+        const newData = generateChartData(tasksToAnalyze);
+        setData(newData);
+    }, [filteredTasks])
     
     return(
         <Container>

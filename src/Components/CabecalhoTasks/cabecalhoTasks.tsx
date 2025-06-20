@@ -3,16 +3,21 @@ import DatePicker from "react-datepicker";
 import styles from "./styles.module.css";
 import "react-datepicker/dist/react-datepicker.css";
 import DialogTasks from "../modals/DialogTasks/dialogTasks";
-import { Call } from "@mui/icons-material";
+import { TaskData } from "../../logic/tasks";
 
-export default function CabecalhoTasks() {
-  const [startDate, setStartDate] = useState<Date | null>(new Date());
-  const [endDate, setEndDate] = useState<Date | null>(new Date());
+interface CabecalhoTasksProps {
+  onFilterApply?: (filteredTasks: TaskData[]) => void;
+  allTasks: TaskData[];
+}
+
+export default function CabecalhoTasks({ onFilterApply, allTasks }: CabecalhoTasksProps) {
+  const [startDate, setStartDate] = useState<Date | null>(null);
+  const [endDate, setEndDate] = useState<Date | null>(null);
   const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const formatDate = (date: Date | null) => {
-    if (!date) return "";
+    if (!date) return "Selecionar";
     return date.toLocaleDateString("pt-BR", {
       day: "2-digit",
       month: "2-digit",
@@ -30,11 +35,30 @@ export default function CabecalhoTasks() {
   };
 
   const handleApplyFilter = () => {
-    // Implement your filter logic here
-    console.log("Applying filter:", { startDate, endDate });
+    if (!startDate || !endDate) {
+      onFilterApply?.(allTasks);
+      return;
+    }
+
+    const normalizedStartDate = new Date(startDate);
+    normalizedStartDate.setHours(0, 0, 0, 0);
+    
+    const normalizedEndDate = new Date(endDate);
+    normalizedEndDate.setHours(23, 59, 59, 999);
+
+    const filteredTasks = allTasks.filter((task) => {
+      const taskDate = new Date(task.dataCreacao);
+      return taskDate >= normalizedStartDate && taskDate <= normalizedEndDate;
+    });
+
+    onFilterApply?.(filteredTasks);
   };
 
-
+  const handleClearFilter = () => {
+    setStartDate(null);
+    setEndDate(null);
+    onFilterApply?.(allTasks);
+  };
 
   function openDialog() {
     setIsModalOpen(true);
@@ -76,6 +100,9 @@ export default function CabecalhoTasks() {
         </div>
         <button className={styles.applyButton} onClick={handleApplyFilter}>
           Aplicar
+        </button>
+        <button className={styles.applyButton} onClick={handleClearFilter}>
+          Limpar
         </button>
       </div>
       <DialogTasks open={isModalOpen} onClose={closeDialog} />

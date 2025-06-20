@@ -1,3 +1,5 @@
+import { TaskData } from './tasks';
+
 type chartData = {
     mounth: string,
     tasksConcluidas: number
@@ -13,8 +15,8 @@ export class ChartData{
         this.tasksConcluidas = tasksConcluidas; 
     }
 
-    data(){
-        const tasksSalvas = JSON.parse(localStorage.getItem("tasks_criadas") || "[]")
+    data(tasks?: TaskData[]){
+        const tasksSalvas = tasks || JSON.parse(localStorage.getItem("tasks_criadas") || "[]")
         
         const monthNames = [
             "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",

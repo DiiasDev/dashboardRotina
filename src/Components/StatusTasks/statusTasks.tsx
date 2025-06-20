@@ -1,35 +1,16 @@
 import { Card, Container } from "@mui/material";
 import styles from './style.module.css'
-import { useState, useEffect } from 'react';
+import { TaskData } from '../../logic/tasks';
 
-export default function StatusTasks() {
-    const [tasksSalvas, setTasksSalvas] = useState(() => {
-        return JSON.parse(localStorage.getItem("tasks_criadas") || "[]");
-    });
+interface StatusTasksProps {
+    filteredTasks?: TaskData[];
+}
 
-    const updateTasks = () => {
-        setTasksSalvas(JSON.parse(localStorage.getItem("tasks_criadas") || "[]"));
-    };
+export default function StatusTasks({ filteredTasks }: StatusTasksProps) {
+    const tasksToAnalyze = filteredTasks || [];
 
-    useEffect(() => {
-        const onStorageChange = (e: StorageEvent) => {
-            if (e.key === 'tasks_criadas') {
-                updateTasks();
-            }
-        };
-        window.addEventListener('storage', onStorageChange);
-
-        window.addEventListener('tasksUpdated', updateTasks);
-
-        return () => {
-            window.removeEventListener('storage', onStorageChange);
-            window.removeEventListener('tasksUpdated', updateTasks);
-        };
-    }, []);
-
-
-    const totalTasks = tasksSalvas.length;
-    const completedTasks = tasksSalvas.filter((task: { concluido: boolean; }) => task.concluido === true).length || 0;
+    const totalTasks = tasksToAnalyze.length;
+    const completedTasks = tasksToAnalyze.filter((task: { concluido: boolean; }) => task.concluido === true).length || 0;
     const todoTasks = totalTasks - completedTasks;
     const completionPercentage = totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
 

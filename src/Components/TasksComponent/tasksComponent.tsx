@@ -1,6 +1,6 @@
 import styles from './styles.module.css'
 import { Tasks, TaskData } from '../../logic/tasks';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { groupBy } from 'lodash';
 import DetalhesTask from '../modals/DetalhesTask/detalhesTask';
 import { localStorageManager } from '../../utils/localStorage';
@@ -15,50 +15,27 @@ interface Task {
     dataConclusao?: string;
 }
 
-export default function TasksComponent() {
-    const [tasksSalvas, setTasks] = useState<TaskData[]>([]);
+interface TasksComponentProps {
+    filteredTasks?: Task[];
+}
+
+export default function TasksComponent({ filteredTasks }: TasksComponentProps) {
     const [modalOpen, setModalOpen] = useState(false);
     const [selectedTask, setSelectedTask] = useState<TaskData | null>(null);
 
-
-    useEffect(() => {
-        carregarTasks();
-
-        const handleStorageChange = (e: StorageEvent) => {
-            if (e.key === 'tasks_criadas') {
-                carregarTasks();
-            }
-        };
-
-        const handleTasksUpdate = () => {
-            carregarTasks();
-        };
-
-        window.addEventListener('storage', handleStorageChange);
-        window.addEventListener('tasksUpdated', handleTasksUpdate);
-
-        return () => {
-            window.removeEventListener('storage', handleStorageChange);
-            window.removeEventListener('tasksUpdated', handleTasksUpdate);
-        };
-    }, []);
-
-    const carregarTasks = () => {
-        const savedTasks = JSON.parse(localStorageManager.getItem("tasks_criadas") || "[]")
-        setTasks(savedTasks)
-    }
+    const tasksToDisplay = filteredTasks || [];
 
     const excluirTask = (id: number) => {
-        const tasksAtualizadas = tasksSalvas.filter((task => task.id !== id))
+        const currentTasks = JSON.parse(localStorageManager.getItem("tasks_criadas") || "[]");
+        const tasksAtualizadas = currentTasks.filter((task: TaskData) => task.id !== id);
 
-        localStorageManager.setItem("tasks_criadas", tasksAtualizadas)
-        setTasks(tasksAtualizadas)
+        localStorageManager.setItem("tasks_criadas", tasksAtualizadas);
         
         window.dispatchEvent(new CustomEvent('tasksUpdated'));
     }
 
     const exibeDetalhes = (id: number) => {
-        const taskSelecionada = tasksSalvas.find((task) => task.id === id);
+        const taskSelecionada = tasksToDisplay.find((task) => task.id === id);
         if (taskSelecionada) {
             setSelectedTask(taskSelecionada);
             setModalOpen(true);
@@ -84,14 +61,14 @@ export default function TasksComponent() {
     };
 
     const handleConcluirTask = (id: number) => {
-        const tasksAtualizadas = tasksSalvas.map((task) => 
+        const currentTasks = JSON.parse(localStorageManager.getItem("tasks_criadas") || "[]");
+        const tasksAtualizadas = currentTasks.map((task: TaskData) => 
             task.id === id 
                 ? { ...task, concluido: true, dataConclusao: new Date().toISOString() } 
                 : task
         );
 
-        setTasks(tasksAtualizadas);
-        localStorageManager.setItem("tasks_criadas", tasksAtualizadas)
+        localStorageManager.setItem("tasks_criadas", tasksAtualizadas);
         
         window.dispatchEvent(new CustomEvent('tasksUpdated'));
     }
@@ -101,7 +78,7 @@ export default function TasksComponent() {
     };
 
     const groupTasksByCategory = (): { [key: string]: Task[] } => {
-        return groupBy(tasksSalvas, (task: Task) => task.categoria[0] || 'Outros') as { [key: string]: Task[] };
+        return groupBy(tasksToDisplay, (task: Task) => task.categoria[0] || 'Outros') as { [key: string]: Task[] };
     };
 
     const groupedTasks = groupTasksByCategory();
