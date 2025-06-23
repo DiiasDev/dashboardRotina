@@ -1,0 +1,295 @@
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 20px;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from { 
+        opacity: 0;
+        transform: translateY(-20px) scale(0.95);
+    }
+    to { 
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.modalContainer {
+    background: var(--modal-bg);
+    border-radius: var(--modal-border-radius);
+    width: 100%;
+    max-width: 550px;
+    max-height: 90vh;
+    overflow: hidden;
+    box-shadow: var(--shadow-xl);
+    border: 1px solid var(--color-border);
+    animation: slideIn 0.3s ease;
+}
+
+.modalHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 24px 16px 24px;
+    border-bottom: 1px solid var(--modal-header-border);
+    background: var(--color-bg-secondary);
+}
+
+.modalTitleSection {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.modalIcon {
+    font-size: 1.5rem;
+}
+
+.modalTitle {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--color-text);
+}
+
+.closeButton {
+    background: var(--modal-close-btn-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 18px;
+    color: var(--color-text-secondary);
+    transition: all 0.2s ease;
+}
+
+.closeButton:hover {
+    background: var(--modal-close-btn-hover);
+    color: var(--color-text);
+}
+
+.modalBody {
+    padding: 24px;
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+.formGroup {
+    margin-bottom: 20px;
+}
+
+.formLabel {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+    color: var(--color-text);
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.labelIcon {
+    font-size: 16px;
+}
+
+.textField {
+    width: 100%;
+}
+
+.textField .MuiOutlinedInput-root {
+    background-color: var(--color-surface);
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.textField .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
+    border-color: var(--color-border);
+}
+
+.textField .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+    border-color: var(--color-primary);
+}
+
+.textField .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: var(--color-primary);
+    border-width: 2px;
+}
+
+.textField .MuiInputBase-input {
+    color: var(--color-text);
+    padding: 12px 14px;
+}
+
+.textField .MuiInputBase-input::placeholder {
+    color: var(--color-text-secondary);
+    opacity: 1;
+}
+
+.nativeSelect {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    background-color: var(--color-surface);
+    color: var(--color-text);
+    font-size: 14px;
+    font-family: inherit;
+    cursor: pointer;
+    transition: border-color 0.2s ease;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+    background-position: right 12px center;
+    background-repeat: no-repeat;
+    background-size: 16px;
+    padding-right: 40px;
+}
+
+.nativeSelect:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.nativeSelect:hover {
+    border-color: var(--color-primary);
+}
+
+.infoBox {
+    display: flex;
+    gap: 12px;
+    padding: 16px;
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    margin-top: 8px;
+}
+
+.infoIcon {
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.infoContent {
+    flex: 1;
+}
+
+.infoTitle {
+    margin: 0 0 4px 0;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-text);
+}
+
+.infoText {
+    margin: 0;
+    font-size: 13px;
+    color: var(--color-text-secondary);
+    line-height: 1.4;
+}
+
+.modalActions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    padding: 16px 24px 24px 24px;
+    border-top: 1px solid var(--modal-header-border);
+    background: var(--color-bg-secondary);
+}
+
+.cancelButton {
+    padding: 10px 20px;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    background: var(--color-surface);
+    color: var(--color-text);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.cancelButton:hover {
+    background: var(--color-bg-secondary);
+    border-color: var(--color-text-secondary);
+}
+
+.submitButton {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: var(--shadow-md);
+}
+
+.submitButton:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-lg);
+}
+
+.submitButton:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.buttonIcon {
+    font-size: 14px;
+}
+
+@media (max-width: 768px) {
+    .modalOverlay {
+        padding: 10px;
+    }
+    
+    .modalContainer {
+        max-width: 100%;
+        max-height: 95vh;
+    }
+    
+    .modalHeader {
+        padding: 20px 20px 12px 20px;
+    }
+    
+    .modalBody {
+        padding: 20px;
+    }
+    
+    .modalActions {
+        padding: 12px 20px 20px 20px;
+        flex-direction: column;
+    }
+    
+    .cancelButton,
+    .submitButton {
+        width: 100%;
+        justify-content: center;
+    }
+}

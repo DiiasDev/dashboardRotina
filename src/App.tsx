@@ -15,6 +15,7 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 import Tasks from "./Pages/Tasks/tasks";
 import ObjetivosPage from "./Pages/ObjetivosPage/objetivosPage";
 import FinanceiroPage from "./Pages/FinanceiroPage/financeiroPage";
+import ProjetosPage from "./Pages/ProjetosPage/projetosPage";
 
 function AppContent() {
   const location = useLocation();
@@ -30,6 +31,7 @@ function AppContent() {
         <Route path="/Lembretes" element={<Lembretes />} />
         <Route path="/Objetivos" element={<ObjetivosPage />} />
         <Route path="/Financeiro" element={<FinanceiroPage />} />
+        <Route path="/Projetos" element={<ProjetosPage />} />
       </Routes>
     </div>
   );
