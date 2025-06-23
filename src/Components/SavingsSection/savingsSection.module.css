@@ -1,0 +1,93 @@
+.section {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+}
+
+.sectionHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.sectionHeader h2 {
+    margin: 0;
+    color: #111827;
+    font-size: 1.25rem;
+}
+
+.savingsActions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.addButton, .removeButton {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.addButton {
+    background: #10b981;
+    color: white;
+}
+
+.addButton:hover {
+    background: #059669;
+}
+
+.removeButton {
+    background: #ef4444;
+    color: white;
+}
+
+.removeButton:hover {
+    background: #dc2626;
+}
+
+.savingsOverview {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.savingsCard {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: #f9fafb;
+    border-radius: 8px;
+}
+
+.savingsIcon {
+    font-size: 1.5rem;
+    background: white;
+    padding: 0.5rem;
+    border-radius: 50%;
+}
+
+.savingsContent h3 {
+    margin: 0 0 0.25rem 0;
+    font-size: 0.875rem;
+    color: #6b7280;
+}
+
+.savingsValue {
+    margin: 0 0 0.25rem 0;
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #111827;
+}
+
+.savingsChange, .savingsProgress {
+    font-size: 0.75rem;
+    color: #10b981;
+}

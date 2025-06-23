@@ -1,0 +1,160 @@
+.container {
+  background: var(--color-surface);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--color-border);
+  margin-bottom: 2rem;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.title {
+  color: var(--color-text);
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.addButton {
+  background: var(--color-primary);
+  color: white;
+}
+
+.addButton:hover {
+  background: var(--color-primary-dark);
+  transform: translateY(-1px);
+}
+
+.removeButton {
+  background: var(--color-remove-btn);
+  color: white;
+  box-shadow: 0 2px 8px var(--color-remove-btn-shadow);
+}
+
+.removeButton:hover {
+  background: var(--color-remove-btn-hover);
+  box-shadow: 0 4px 12px var(--color-remove-btn-shadow-hover);
+  transform: translateY(-1px);
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: center;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.amount {
+  color: var(--color-text);
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.description {
+  color: var(--color-text-secondary);
+  font-size: 1rem;
+  margin: 0;
+}
+
+.chartContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.progressRing {
+  transform: rotate(-90deg);
+}
+
+.progressBackground {
+  fill: none;
+  stroke: var(--color-bg-secondary);
+  stroke-width: 8;
+}
+
+.progressForeground {
+  fill: none;
+  stroke: var(--color-primary);
+  stroke-width: 8;
+  stroke-linecap: round;
+  transition: stroke-dasharray 0.3s ease;
+}
+
+.centerText {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.percentage {
+  color: var(--color-text);
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.label {
+  color: var(--color-text-secondary);
+  font-size: 0.75rem;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .content {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .actions {
+    width: 100%;
+    justify-content: stretch;
+  }
+  
+  .button {
+    flex: 1;
+    justify-content: center;
+  }
+}

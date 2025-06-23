@@ -1,0 +1,137 @@
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    overflow: auto;
+    padding: 1rem;
+}
+
+.modal {
+    background: white;
+    border-radius: 12px;
+    padding: 0;
+    max-width: 500px;
+    width: 100%;
+    max-height: calc(100vh - 2rem);
+    overflow-y: auto;
+    margin: auto;
+    box-sizing: border-box;
+}
+
+.modalHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.modalHeader h3 {
+    margin: 0;
+    color: #111827;
+}
+
+.closeButton {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #6b7280;
+    padding: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modalForm {
+    padding: 1.5rem;
+}
+
+.formGroup {
+    margin-bottom: 1rem;
+}
+
+.formGroup label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #374151;
+}
+
+.formInput, .formSelect {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    transition: border-color 0.2s ease;
+    box-sizing: border-box;
+}
+
+.formInput:focus, .formSelect:focus {
+    outline: none;
+    border-color: #3b82f6;
+}
+
+.modalActions {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.cancelButton, .saveButton {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 100px;
+}
+
+.cancelButton {
+    background: #f3f4f6;
+    color: #374151;
+}
+
+.cancelButton:hover {
+    background: #e5e7eb;
+}
+
+.saveButton {
+    background: #3b82f6;
+    color: white;
+}
+
+.saveButton:hover {
+    background: #2563eb;
+}
+
+@media (max-width: 480px) {
+    .modalOverlay {
+        padding: 0.5rem;
+    }
+    
+    .modal {
+        max-height: calc(100vh - 1rem);
+    }
+    
+    .modalActions {
+        flex-direction: column;
+    }
+    
+    .cancelButton, .saveButton {
+        width: 100%;
+    }
+}
