@@ -13,6 +13,7 @@ import Navigation from "./Components/Navigation/navigation";
 import Lembretes from "./Pages/Lembretes/lembretes";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Tasks from "./Pages/Tasks/tasks";
+import ObjetivosPage from "./Pages/ObjetivosPage/objetivosPage";
 
 function AppContent() {
   const location = useLocation();
@@ -26,6 +27,7 @@ function AppContent() {
         <Route path="/homepage" element={<HomePage />} />
         <Route path="/Tasks" element={<Tasks />} />
         <Route path="/Lembretes" element={<Lembretes />} />
+        <Route path="/Objetivos" element={<ObjetivosPage />} />
       </Routes>
     </div>
   );
