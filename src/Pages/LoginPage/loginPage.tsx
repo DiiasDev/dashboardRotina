@@ -16,7 +16,6 @@ export default function LoginPage() {
             alt="DSYS Logo" 
             className={styles.logo}
           />
-          <h1 className={styles.brandName}>DSYS</h1>
         </div>
         <FormLogin />
       </div>
