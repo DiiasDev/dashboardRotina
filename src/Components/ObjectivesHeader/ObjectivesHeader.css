@@ -1,0 +1,92 @@
+.objectives-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+  gap: 1rem;
+  width: 100%;
+  max-width: none; /* Remove max-width constraints */
+}
+
+.header-content h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+  color: var(--text-primary);
+}
+
+.header-content p {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.add-objective-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.add-objective-btn:hover {
+  background: var(--primary-hover);
+  transform: translateY(-1px);
+}
+
+.add-objective-btn span {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .objectives-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .header-content h1 {
+    font-size: 1.5rem;
+  }
+  
+  .add-objective-btn {
+    align-self: flex-start;
+  }
+}
+
+@media (max-width: 480px) {
+  .objectives-header {
+    margin-bottom: 1.5rem;
+  }
+  
+  .header-content h1 {
+    font-size: 1.25rem;
+  }
+  
+  .header-content p {
+    font-size: 0.9rem;
+  }
+  
+  .add-objective-btn {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.85rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .objectives-header {
+    gap: 2rem;
+  }
+  
+  .header-content h1 {
+    font-size: 2.25rem;
+  }
+}

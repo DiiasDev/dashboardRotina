@@ -1,9 +1,30 @@
+.objetivos-page-container {
+  margin-left: 250px;
+  width: calc(100vw - 250px);
+  min-height: 100vh;
+  background: var(--background-color);
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.objetivos-page-container.sidebar-collapsed {
+  margin-left: 70px;
+  width: calc(100vw - 70px);
+}
+
 .objetivos-page {
+  max-width: none;
+  margin: 0;
   padding: 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
   background: var(--color-bg);
   min-height: 100vh;
+}
+
+.objetivos-content {
+  width: 100%;
+  transition: all 0.3s ease;
 }
 
 .objetivos-header {
@@ -480,6 +501,44 @@
   background: var(--color-primary-dark);
 }
 
+/* Responsive adjustments for sidebar */
+@media (min-width: 1024px) {
+  .sidebar-open .objetivos-page-container {
+    margin-left: 250px;
+    width: calc(100% - 250px);
+  }
+  
+  .sidebar-minimized .objetivos-page-container {
+    margin-left: 70px;
+    width: calc(100% - 70px);
+  }
+  
+  .sidebar-closed .objetivos-page-container {
+    margin-left: 0;
+    width: 100%;
+  }
+}
+
+/* Alternative approach using CSS custom properties */
+.objetivos-page-container {
+  margin-left: var(--sidebar-width, 250px);
+  width: calc(100% - var(--sidebar-width, 250px));
+}
+
+/* Fallback for when sidebar classes are not available */
+@media (min-width: 1024px) {
+  body:not(.sidebar-closed):not(.sidebar-minimized) .objetivos-page-container {
+    margin-left: 250px;
+    width: calc(100% - 250px);
+  }
+}
+
+@media (max-width: 1023px) {
+  .objetivos-page {
+    padding: 1.5rem;
+  }
+}
+
 @media (max-width: 768px) {
   .objetivos-page {
     padding: 1rem;
@@ -503,4 +562,40 @@
     width: 95%;
     margin: 1rem;
   }
+}
+
+@media (max-width: 480px) {
+  .objetivos-page {
+    padding: 0.75rem;
+  }
+}
+
+/* Dark mode support - ensure variables are defined in theme.css */
+:root {
+  --background-color: #ffffff;
+  --card-background: #ffffff;
+  --text-primary: #1a1a1a;
+  --text-secondary: #666666;
+  --border-color: #e0e0e0;
+  --primary-color: #007bff;
+  --primary-hover: #0056b3;
+  --card-shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="dark"] {
+  --background-color: #1a1a1a;
+  --card-background: #2d2d2d;
+  --text-primary: #ffffff;
+  --text-secondary: #cccccc;
+  --border-color: #404040;
+  --primary-color: #0084ff;
+  --primary-hover: #0066cc;
+  --card-shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Force override for testing - remove after confirming it works */
+.objetivos-page-container.sidebar-collapsed {
+  margin-left: 70px !important;
+  width: calc(100vw - 70px) !important;
+  background: var(--background-color) !important;
 }

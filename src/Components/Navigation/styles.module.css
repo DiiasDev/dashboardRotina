@@ -15,9 +15,10 @@
 }
 
 .sidebar {
+  --sidebar-width: 250px;
   background-color: var(--color-sidebar) !important;
   color: var(--color-text-sidebar) !important;
-  width: 270px;
+  width: var(--sidebar-width);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -34,7 +35,8 @@
 }
 
 .sidebar.collapsed {
-  width: 80px;
+  --sidebar-width: 70px;
+  width: var(--sidebar-width);
   padding: 2.5rem 0.8rem 2rem 0.8rem;
   align-items: center;
 }

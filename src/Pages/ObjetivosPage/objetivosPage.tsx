@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import './objetivosPage.css';
-import ObjectiveModal from './ObjectiveModal';
-import ObjectiveCard from './ObjectiveCard';
+import ObjectiveModal from '../../Components/modals/ObjectiveModal';
+import ObjectivesHeader from '../../Components/ObjectivesHeader/ObjectivesHeader';
+import ObjectivesStats from '../../Components/ObjectivesStats/ObjectivesStats';
+import ObjectivesGrid from '../../Components/ObjectivesGrid/ObjectivesGrid';
+import ObjectivesEmptyState from '../../Components/ObjectivesEmptyState/ObjectivesEmptyState';
 
 interface Objective {
   id: string;
@@ -17,6 +20,7 @@ export default function ObjetivosPage() {
   const [objectives, setObjectives] = useState<Objective[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingObjective, setEditingObjective] = useState<Objective | null>(null);
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
 
   useEffect(() => {
     const savedObjectives = localStorage.getItem('objectives');
@@ -28,6 +32,30 @@ export default function ObjetivosPage() {
   useEffect(() => {
     localStorage.setItem('objectives', JSON.stringify(objectives));
   }, [objectives]);
+
+  useEffect(() => {
+    const handleSidebarToggle = (event: CustomEvent) => {
+      console.log('Sidebar toggle event received:', event.detail);
+      setIsSidebarCollapsed(event.detail.collapsed);
+    };
+
+    // Also check initial state
+    const checkSidebarState = () => {
+      const sidebar = document.querySelector(`.sidebar, [class*="sidebar"]`);
+      if (sidebar) {
+        const isCollapsed = sidebar.classList.contains('collapsed') || 
+                           sidebar.classList.toString().includes('collapsed');
+        setIsSidebarCollapsed(isCollapsed);
+      }
+    };
+
+    checkSidebarState();
+    window.addEventListener('sidebarToggle', handleSidebarToggle as EventListener);
+    
+    return () => {
+      window.removeEventListener('sidebarToggle', handleSidebarToggle as EventListener);
+    };
+  }, []);
 
   const handleAddObjective = (objectiveData: Omit<Objective, 'id' | 'createdAt' | 'completed' | 'currentValue'>) => {
     const newObjective: Objective = {
@@ -82,94 +110,51 @@ export default function ObjetivosPage() {
   const completedObjectives = objectives.filter(obj => obj.completed);
   const activeObjectives = objectives.filter(obj => !obj.completed);
 
+  console.log('Sidebar collapsed state:', isSidebarCollapsed);
+
   return (
-    <div className="objetivos-page">
-      <div className="objetivos-header">
-        <div className="header-content">
-          <h1>Meus Objetivos</h1>
-          <p>Acompanhe o progresso dos seus objetivos financeiros</p>
-        </div>
-        <button 
-          className="add-objective-btn"
-          onClick={() => setIsModalOpen(true)}
-        >
-          <span>+</span>
-          Novo Objetivo
-        </button>
-      </div>
-
-      <div className="objetivos-stats">
-        <div className="stat-card">
-          <div className="stat-number">{objectives.length}</div>
-          <div className="stat-label">Total</div>
-        </div>
-        <div className="stat-card">
-          <div className="stat-number">{activeObjectives.length}</div>
-          <div className="stat-label">Em Progresso</div>
-        </div>
-        <div className="stat-card">
-          <div className="stat-number">{completedObjectives.length}</div>
-          <div className="stat-label">Concluídos</div>
-        </div>
-      </div>
-
-      <div className="objetivos-content">
-        {activeObjectives.length > 0 && (
-          <div className="objectives-section">
-            <h2>Em Progresso</h2>
-            <div className="objectives-grid">
-              {activeObjectives.map(objective => (
-                <ObjectiveCard
-                  key={objective.id}
-                  objective={objective}
-                  onEdit={() => openEditModal(objective)}
-                  onDelete={() => handleDeleteObjective(objective.id)}
-                  onUpdateProgress={(value) => handleUpdateProgress(objective.id, value)}
-                />
-              ))}
-            </div>
-          </div>
-        )}
-
-        {completedObjectives.length > 0 && (
-          <div className="objectives-section">
-            <h2>Concluídos</h2>
-            <div className="objectives-grid">
-              {completedObjectives.map(objective => (
-                <ObjectiveCard
-                  key={objective.id}
-                  objective={objective}
-                  onEdit={() => openEditModal(objective)}
-                  onDelete={() => handleDeleteObjective(objective.id)}
-                  onUpdateProgress={(value) => handleUpdateProgress(objective.id, value)}
-                />
-              ))}
-            </div>
-          </div>
-        )}
-
-        {objectives.length === 0 && (
-          <div className="empty-state">
-            <div className="empty-icon">🎯</div>
-            <h3>Nenhum objetivo criado</h3>
-            <p>Comece criando seu primeiro objetivo financeiro</p>
-            <button 
-              className="empty-state-btn"
-              onClick={() => setIsModalOpen(true)}
-            >
-              Criar Primeiro Objetivo
-            </button>
-          </div>
-        )}
-      </div>
-
-      {isModalOpen && (
-        <ObjectiveModal
-          objective={editingObjective}
-          onSave={editingObjective ? handleEditObjective : handleAddObjective}
-          onClose={closeModal}
+    <div className={`objetivos-page-container ${isSidebarCollapsed ? 'sidebar-collapsed' : ''}`}>
+      <div className="objetivos-page">
+        <ObjectivesHeader onAddObjective={() => setIsModalOpen(true)} />
+        
+        <ObjectivesStats 
+          total={objectives.length}
+          inProgress={activeObjectives.length}
+          completed={completedObjectives.length}
         />
-      )}
+
+        <div className="objetivos-content">
+          {objectives.length === 0 ? (
+            <ObjectivesEmptyState onCreateFirst={() => setIsModalOpen(true)} />
+          ) : (
+            <>
+              <ObjectivesGrid
+                title="Em Progresso"
+                objectives={activeObjectives}
+                onEdit={openEditModal}
+                onDelete={handleDeleteObjective}
+                onUpdateProgress={handleUpdateProgress}
+              />
+              
+              <ObjectivesGrid
+                title="Concluídos"
+                objectives={completedObjectives}
+                onEdit={openEditModal}
+                onDelete={handleDeleteObjective}
+                onUpdateProgress={handleUpdateProgress}
+              />
+            </>
+          )}
+        </div>
+
+        {isModalOpen && (
+          <ObjectiveModal
+            objective={editingObjective}
+            onSave={editingObjective ? handleEditObjective : handleAddObjective}
+            onClose={closeModal}
+          />
+        )}
+      </div>
     </div>
   );
 }
