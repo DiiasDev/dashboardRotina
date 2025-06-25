@@ -15,12 +15,6 @@ interface Props {
 }
 
 export default function CategoryGrid({ categories, onAddTransaction }: Props) {
-    const getProgressClass = (percentage: number) => {
-        if (percentage >= 80) return styles.progressHigh;
-        if (percentage >= 50) return styles.progressMedium;
-        return styles.progressLow;
-    };
-
     const getCategoryKey = (name: string) => {
         const categoryMap: { [key: string]: string } = {
             'Moradia': 'moradia',
@@ -46,7 +40,7 @@ export default function CategoryGrid({ categories, onAddTransaction }: Props) {
                 {categories.map(category => (
                     <div 
                         key={category.id} 
-                        className={`${styles.categoryCard} ${getProgressClass(category.percentage)}`}
+                        className={styles.categoryCard}
                         data-category={category.categoryKey || getCategoryKey(category.name)}
                     >
                         <div className={styles.categoryIcon}>
