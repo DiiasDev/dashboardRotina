@@ -19,22 +19,19 @@
 }
 
 .container {
-  min-height: 100vh;
-  width: 100%;
-  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
   padding: 2rem;
-  transition: margin-left 0.3s ease, width 0.3s ease;
-  box-sizing: border-box;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  min-height: 100vh;
+  transition: margin-left 0.3s ease, padding-left 0.3s ease, background-color 0.3s ease, color 0.3s ease;
 }
 
 .container.sidebarCollapsed {
-  margin-left: 80px; /* Adjust based on your collapsed sidebar width */
-  width: calc(100% - 80px);
+  margin-left: var(--sidebar-collapsed-width);
 }
 
 .container.sidebarExpanded {
-  margin-left: 240px; /* Adjust based on your sidebar width */
-  width: calc(100% - 240px);
+  margin-left: var(--sidebar-width);
 }
 
 .header {
@@ -42,18 +39,18 @@
 }
 
 .pageTitle {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: #ffffff;
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--color-text);
   margin: 0 0 0.5rem 0;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  transition: color 0.3s ease;
 }
 
 .pageSubtitle {
-  font-size: 1.1rem;
-  color: #94a3b8;
+  font-size: 1rem;
+  color: var(--color-text-secondary);
   margin: 0;
-  opacity: 0.9;
+  transition: color 0.3s ease;
 }
 
 /* Summary Cards */
@@ -133,44 +130,6 @@
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  width: 100%;
-}
-
-.section {
-  background: var(--card-bg);
-  border-radius: 16px;
-  padding: 24px;
-  box-shadow: var(--shadow-md);
-  border: 1px solid var(--border-color);
-}
-
-.sectionHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 24px;
-}
-
-.sectionHeader h2 {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: var(--text-primary);
-  margin: 0;
-}
-
-.addButton {
-  background: var(--color-primary);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 8px 16px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-.addButton:hover {
-  background: var(--color-primary-dark);
 }
 
 /* Category Grid */
@@ -744,17 +703,21 @@
 
 @media (max-width: 768px) {
   .container {
-    margin-left: 0 !important;
-    width: 100% !important;
+    margin-left: 0;
     padding: 1rem;
   }
   
-  .pageTitle {
-    font-size: 2rem;
+  .sidebarExpanded,
+  .sidebarCollapsed {
+    margin-left: 0;
   }
   
-  .pageSubtitle {
-    font-size: 1rem;
+  .pageTitle {
+    font-size: 1.5rem;
+  }
+  
+  .mainContent {
+    gap: 1.5rem;
   }
   
   .summaryCards {
