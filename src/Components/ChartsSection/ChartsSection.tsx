@@ -1,4 +1,4 @@
-import styles from './ChartsSection.module.css'
+import styles from './chartsSection.module.css'
 
 interface Transaction {
     id: string
