@@ -1,4 +1,5 @@
 import styles from './savingsSection.module.css'
+import { useTheme } from '../../contexts/ThemeContext'
 
 interface Props {
     onAddSavings: () => void
@@ -6,8 +7,10 @@ interface Props {
 }
 
 export default function SavingsSection({ onAddSavings, onRemoveSavings }: Props) {
+    const { theme } = useTheme()
+
     return (
-        <div className={styles.section}>
+        <div className={styles.section} data-theme={theme}>
             <div className={styles.sectionHeader}>
                 <h2>💰 Dinheiro Guardado</h2>
                 <div className={styles.savingsActions}>

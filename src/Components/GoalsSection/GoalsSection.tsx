@@ -1,4 +1,5 @@
 import styles from './goalsSection.module.css'
+import { useTheme } from '../../contexts/ThemeContext'
 
 interface Goal {
     id: string
@@ -23,6 +24,8 @@ interface GoalsSectionProps {
 }
 
 export default function GoalsSection({ goals, reports }: GoalsSectionProps) {
+    const { theme } = useTheme()
+    
     const formatCurrency = (value: number) => {
         return new Intl.NumberFormat('pt-BR', {
             style: 'currency',
@@ -31,7 +34,7 @@ export default function GoalsSection({ goals, reports }: GoalsSectionProps) {
     }
 
     return (
-        <div className={styles.container}>
+        <div className={styles.container} data-theme={theme}>
             <div className={styles.goalsCard}>
                 <h2 className={styles.title}>Metas Financeiras</h2>
                 <div className={styles.goalsList}>
