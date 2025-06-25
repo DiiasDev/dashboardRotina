@@ -1,35 +1,38 @@
 .container {
-    background: var(--color-surface);
+    background: var(--color-card-financial);
     border-radius: 16px;
     padding: 1.5rem;
-    box-shadow: var(--shadow-md);
-    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--color-card-financial-border);
     margin-bottom: 2rem;
-  }
-  
-  .header {
+    transition: all 0.3s ease;
+}
+
+.header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 1.5rem;
-  }
-  
-  .title {
-    color: var(--color-text);
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.title {
+    color: var(--color-financial-text-primary);
     font-size: 1.25rem;
     font-weight: 600;
     margin: 0;
     display: flex;
     align-items: center;
     gap: 0.5rem;
-  }
-  
-  .actions {
+}
+
+.actions {
     display: flex;
     gap: 0.75rem;
-  }
-  
-  .button {
+}
+
+.button {
     padding: 0.5rem 1rem;
     border: none;
     border-radius: 8px;
@@ -40,98 +43,310 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
-  }
-  
-  .addButton {
+}
+
+.addButton {
     background: var(--color-primary);
     color: white;
-  }
-  
-  .addButton:hover {
+}
+
+.addButton:hover {
     background: var(--color-primary-dark);
     transform: translateY(-1px);
-  }
-  
-  .removeButton {
-    background: var(--color-remove-btn);
+    box-shadow: var(--shadow-md);
+}
+
+.removeButton {
+    background: linear-gradient(135deg, #ff6b6b, #ee5a52);
     color: white;
-    box-shadow: 0 2px 8px var(--color-remove-btn-shadow);
-  }
-  
-  .removeButton:hover {
-    background: var(--color-remove-btn-hover);
-    box-shadow: 0 4px 12px var(--color-remove-btn-shadow-hover);
+    box-shadow: 0 2px 8px rgba(238, 90, 82, 0.2);
+}
+
+.removeButton:hover {
+    background: linear-gradient(135deg, #ff5252, #d32f2f);
+    box-shadow: 0 4px 12px rgba(238, 90, 82, 0.4);
     transform: translateY(-1px);
-  }
-  
-  .content {
+}
+
+.content {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
+    grid-template-columns: 1fr auto;
+    gap: 3rem;
     align-items: center;
-  }
-  
-  .info {
+}
+
+.cardsContainer {
     display: flex;
     flex-direction: column;
+    gap: 1.25rem;
+}
+
+.card {
+    background: var(--color-savings-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: 1.25rem;
+    display: flex;
+    align-items: center;
     gap: 1rem;
-  }
-  
-  .amount {
-    color: var(--color-text);
-    font-size: 2.5rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--color-savings);
+    border-radius: 2px;
+}
+
+.card:hover {
+    background: var(--color-savings-light);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--color-savings);
+}
+
+.cardIcon {
+    font-size: 2rem;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-savings);
+    color: white;
+    border-radius: 12px;
+    flex-shrink: 0;
+    box-shadow: var(--shadow-sm);
+}
+
+.cardContent {
+    flex: 1;
+}
+
+.cardTitle {
+    color: var(--color-financial-text-secondary);
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin: 0 0 0.5rem 0;
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+}
+
+.cardAmount {
+    color: var(--color-financial-text-primary);
+    font-size: 1.5rem;
     font-weight: 700;
-    margin: 0;
-  }
-  
-  .description {
-    color: var(--color-text-secondary);
-    font-size: 1rem;
-    margin: 0;
-  }
-  
-  .chartContainer {
+    margin: 0 0 0.25rem 0;
+}
+
+.cardProgress {
+    color: var(--color-income);
+    font-size: 0.75rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.cardProgress::before {
+    content: '↗';
+    font-size: 0.875rem;
+}
+
+.chartContainer {
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
-  }
-  
-  .progressRing {
+    width: 220px;
+    height: 220px;
+    flex-shrink: 0;
+}
+
+.progressRing {
     transform: rotate(-90deg);
-  }
-  
-  @media (max-width: 768px) {
-      .section {
-          padding: 1.5rem;
-          margin: 1rem 0;
-      }
-      
-      .sectionHeader {
-          flex-direction: column;
-          gap: 1rem;
-          align-items: stretch;
-      }
-      
-      .savingsActions {
-          justify-content: center;
-      }
-      
-      .savingsOverview {
-          grid-template-columns: 1fr;
-      }
-      
-      .savingsCard {
-          padding: 1rem;
-      }
-      
-      .savingsIcon {
-          width: 50px;
-          height: 50px;
-          font-size: 1.5rem;
-      }
-      
-      .savingsValue {
-          font-size: 1.25rem;
-      }
-  }
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+}
+
+.progressBackground {
+    fill: none;
+    stroke: var(--color-financial-progress);
+    stroke-width: 12;
+}
+
+.progressBar {
+    fill: none;
+    stroke: url(#savingsGradient);
+    stroke-width: 12;
+    stroke-linecap: round;
+    transition: stroke-dasharray 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.chartCenter {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.chartPercentage {
+    color: var(--color-financial-text-primary);
+    font-size: 2.25rem;
+    font-weight: 800;
+    margin: 0;
+    line-height: 1;
+}
+
+.chartLabel {
+    color: var(--color-financial-text-secondary);
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin: 0.25rem 0 0 0;
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+}
+
+/* Specific card styling for each type */
+.card:nth-child(1) {
+    background: var(--color-balance-bg);
+    border-color: var(--color-balance);
+}
+
+.card:nth-child(1)::before {
+    background: var(--color-balance);
+}
+
+.card:nth-child(1) .cardIcon {
+    background: var(--color-balance);
+}
+
+.card:nth-child(2) {
+    background: var(--color-income-bg);
+    border-color: var(--color-income);
+}
+
+.card:nth-child(2)::before {
+    background: var(--color-income);
+}
+
+.card:nth-child(2) .cardIcon {
+    background: var(--color-income);
+}
+
+.card:nth-child(3) {
+    background: var(--color-savings-bg);
+    border-color: var(--color-savings);
+}
+
+.card:nth-child(3)::before {
+    background: var(--color-savings);
+}
+
+.card:nth-child(3) .cardIcon {
+    background: var(--color-savings);
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+        margin: 1rem 0;
+    }
+    
+    .header {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: stretch;
+        padding-bottom: 0.75rem;
+    }
+    
+    .actions {
+        justify-content: center;
+    }
+    
+    .content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .cardsContainer {
+        gap: 1rem;
+    }
+    
+    .card {
+        padding: 1rem;
+    }
+    
+    .cardIcon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+    }
+    
+    .cardAmount {
+        font-size: 1.25rem;
+    }
+
+    .chartContainer {
+        width: 180px;
+        height: 180px;
+        margin: 0 auto;
+    }
+
+    .chartPercentage {
+        font-size: 1.75rem;
+    }
+
+    .progressBackground,
+    .progressBar {
+        stroke-width: 10;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0.875rem;
+    }
+    
+    .cardsContainer {
+        gap: 0.875rem;
+    }
+    
+    .card {
+        padding: 0.875rem;
+        gap: 0.75rem;
+    }
+    
+    .cardIcon {
+        width: 45px;
+        height: 45px;
+        font-size: 1.25rem;
+    }
+    
+    .cardAmount {
+        font-size: 1.125rem;
+    }
+
+    .chartContainer {
+        width: 160px;
+        height: 160px;
+    }
+
+    .chartPercentage {
+        font-size: 1.5rem;
+    }
+
+    .progressBackground,
+    .progressBar {
+        stroke-width: 8;
+    }
+}
