@@ -1,4 +1,4 @@
-.section {
+.container {
   background: var(--color-surface);
   border-radius: 16px;
   padding: 1.5rem;
@@ -7,14 +7,14 @@
   margin-bottom: 2rem;
 }
 
-.sectionHeader {
+.header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 1.5rem;
 }
 
-.sectionHeader h2 {
+.title {
   color: var(--color-text);
   font-size: 1.25rem;
   font-weight: 600;
@@ -24,12 +24,12 @@
   gap: 0.5rem;
 }
 
-.savingsActions {
+.actions {
   display: flex;
   gap: 0.75rem;
 }
 
-.addButton {
+.button {
   padding: 0.5rem 1rem;
   border: none;
   border-radius: 8px;
@@ -40,6 +40,9 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
+}
+
+.addButton {
   background: var(--color-primary);
   color: white;
 }
@@ -47,90 +50,55 @@
 .addButton:hover {
   background: var(--color-primary-dark);
   transform: translateY(-1px);
-  background: var(--color-primary-dark);
 }
 
 .removeButton {
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 8px;
-  font-size: 0.875rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  background: var(--color-status-parado);
+  background: var(--color-remove-btn);
   color: white;
+  box-shadow: 0 2px 8px var(--color-remove-btn-shadow);
 }
 
 .removeButton:hover {
-  background: var(--color-status-parado-dark, #dc2626);
+  background: var(--color-remove-btn-hover);
+  box-shadow: 0 4px 12px var(--color-remove-btn-shadow-hover);
+  transform: translateY(-1px);
 }
 
-.savingsOverview {
+.content {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: center;
 }
 
-.savingsCard {
-  background: var(--color-bg-secondary);
-  border-radius: 12px;
-  padding: 1.5rem;
-  border: 1px solid var(--color-border);
+.info {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   gap: 1rem;
-  transition: all 0.3s ease;
 }
 
-.savingsCard:hover {
-  box-shadow: var(--shadow-md);
-  transform: translateY(-2px);
-}
-
-.savingsIcon {
-  font-size: 2rem;
-  width: 60px;
-  height: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--color-surface);
-  border-radius: 12px;
-  border: 1px solid var(--color-border);
-}
-
-.savingsContent {
-  flex: 1;
-}
-
-.savingsContent h3 {
+.amount {
   color: var(--color-text);
-  font-size: 1rem;
-  font-weight: 600;
-  margin: 0 0 0.5rem 0;
-}
-
-.savingsValue {
-  color: var(--color-text);
-  font-size: 1.5rem;
+  font-size: 2.5rem;
   font-weight: 700;
-  margin: 0 0 0.25rem 0;
+  margin: 0;
 }
 
-.savingsChange {
-  color: var(--color-status-iniciado);
-  font-size: 0.75rem;
-  font-weight: 500;
+.description {
+  color: var(--color-text-secondary);
+  font-size: 1rem;
+  margin: 0;
 }
 
-.savingsProgress {
-  color: var(--color-primary);
-  font-size: 0.75rem;
-  font-weight: 500;
+.chartContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.progressRing {
+  transform: rotate(-90deg);
 }
 
 .progressBackground {
