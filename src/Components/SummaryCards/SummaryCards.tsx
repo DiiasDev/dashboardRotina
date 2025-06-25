@@ -1,4 +1,4 @@
-import styles from './summaryCards.module.css'
+import styles from './SummaryCards.module.css'
 
 interface SummaryData {
     income: number
