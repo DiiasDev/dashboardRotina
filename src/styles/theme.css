@@ -54,8 +54,31 @@
     --color-remove-btn-hover: linear-gradient(135deg, #ff5252, #d32f2f);
     --color-remove-btn-shadow: rgba(238, 90, 82, 0.2);
     --color-remove-btn-shadow-hover: rgba(238, 90, 82, 0.4);
+    
+    /* Financial Component Colors */
+    --color-income: #10b981;
+    --color-income-bg: #ecfdf5;
+    --color-income-light: #d1fae5;
+    --color-expense: #ef4444;
+    --color-expense-bg: #fef2f2;
+    --color-expense-light: #fecaca;
+    --color-balance: #3b82f6;
+    --color-balance-bg: #eff6ff;
+    --color-balance-light: #dbeafe;
+    --color-savings: #f59e0b;
+    --color-savings-bg: #fffbeb;
+    --color-savings-light: #fef3c7;
+    
+    /* Financial Cards */
+    --color-card-financial: #ffffff;
+    --color-card-financial-border: #e2e8f0;
+    --color-card-financial-shadow: rgba(0, 0, 0, 0.1);
+    --color-financial-progress: #e2e8f0;
+    --color-financial-text-primary: #1e293b;
+    --color-financial-text-secondary: #64748b;
+    --color-financial-text-muted: #94a3b8;
 }
-  
+
 /* Dark Theme */
 [data-theme="dark"] {
     --color-primary: #4dabf7;
@@ -102,4 +125,27 @@
     --color-remove-btn-hover: linear-gradient(135deg, #ef4444, #b91c1c);
     --color-remove-btn-shadow: rgba(0, 0, 0, 0.4);
     --color-remove-btn-shadow-hover: rgba(0, 0, 0, 0.6);
+    
+    /* Financial Component Colors Dark */
+    --color-income: #34d399;
+    --color-income-bg: #065f46;
+    --color-income-light: #047857;
+    --color-expense: #f87171;
+    --color-expense-bg: #7f1d1d;
+    --color-expense-light: #991b1b;
+    --color-balance: #60a5fa;
+    --color-balance-bg: #1e3a8a;
+    --color-balance-light: #1e40af;
+    --color-savings: #fbbf24;
+    --color-savings-bg: #78350f;
+    --color-savings-light: #92400e;
+    
+    /* Financial Cards Dark */
+    --color-card-financial: #1f2937;
+    --color-card-financial-border: #374151;
+    --color-card-financial-shadow: rgba(0, 0, 0, 0.3);
+    --color-financial-progress: #374151;
+    --color-financial-text-primary: #f9fafb;
+    --color-financial-text-secondary: #d1d5db;
+    --color-financial-text-muted: #9ca3af;
 }

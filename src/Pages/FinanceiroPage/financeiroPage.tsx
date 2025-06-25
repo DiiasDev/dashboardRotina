@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import styles from "./style.module.css"
 import SummaryCards from "../../Components/SummaryCards/SummaryCards"
 import SavingsSection from "../../Components/SavingsSection/SavingsSection"
@@ -12,6 +12,7 @@ export default function FinanceiroPage() {
     const [showTransactionModal, setShowTransactionModal] = useState(false)
     const [showSavingsModal, setShowSavingsModal] = useState(false)
     const [savingsAction, setSavingsAction] = useState<'add' | 'remove'>('add')
+    const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
 
     const summaryData = {
         income: 5250,
@@ -19,7 +20,10 @@ export default function FinanceiroPage() {
         balance: 1360,
         savingsProgress: 68,
         savingsAmount: 680,
-        savingsGoal: 1000
+        savingsGoal: 1000,
+        totalSaved: 3450,
+        monthlyAverage: 287.50,
+        annualGoal: 10000
     }
 
     const categories = [
@@ -40,9 +44,33 @@ export default function FinanceiroPage() {
     ]
 
     const goals = [
-        { id: '1', title: 'Fundo de Emergência', current: 2400, target: 5000 },
-        { id: '2', title: 'Viagem de Férias', current: 800, target: 2000 },
-        { id: '3', title: 'Novo Computador', current: 1200, target: 3500 }
+        { 
+            id: '1', 
+            title: 'Fundo de Emergência', 
+            current: 2400, 
+            target: 5000,
+            color: '#10B981',
+            percentage: 48,
+            description: 'R$ 2.400 de R$ 5.000'
+        },
+        { 
+            id: '2', 
+            title: 'Viagem de Férias', 
+            current: 800, 
+            target: 2000,
+            color: '#10B981',
+            percentage: 40,
+            description: 'R$ 800 de R$ 2.000'
+        },
+        { 
+            id: '3', 
+            title: 'Novo Computador', 
+            current: 1200, 
+            target: 3500,
+            color: '#10B981',
+            percentage: 34,
+            description: 'R$ 1.200 de R$ 3.500'
+        }
     ]
 
     const reports = [
@@ -69,8 +97,20 @@ export default function FinanceiroPage() {
         console.log('Savings submitted:', data)
     }
 
+    useEffect(() => {
+        const handleSidebarToggle = (event: CustomEvent) => {
+            setSidebarCollapsed(event.detail.collapsed);
+        };
+
+        window.addEventListener('sidebarToggle', handleSidebarToggle as EventListener);
+        
+        return () => {
+            window.removeEventListener('sidebarToggle', handleSidebarToggle as EventListener);
+        };
+    }, []);
+
     return (
-        <div className={styles.container}>
+        <div className={`${styles.container} ${sidebarCollapsed ? styles.sidebarCollapsed : styles.sidebarExpanded}`}>
             <div className={styles.header}>
                 <h1 className={styles.pageTitle}>Controle Financeiro</h1>
                 <p className={styles.pageSubtitle}>Gerencie suas finanças e acompanhe seus gastos</p>

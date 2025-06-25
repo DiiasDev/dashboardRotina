@@ -1,8 +1,9 @@
 .section {
-    background: white;
+    background: var(--color-card-financial);
+    border: 1px solid var(--color-card-financial-border);
     border-radius: 12px;
     padding: 1.5rem;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 10px var(--color-card-financial-shadow);
     margin-bottom: 2rem;
 }
 
@@ -15,13 +16,13 @@
 
 .sectionHeader h2 {
     margin: 0;
-    color: #111827;
+    color: var(--color-financial-text-primary);
     font-size: 1.25rem;
 }
 
 .addButton {
     padding: 0.5rem 1rem;
-    background: #3b82f6;
+    background: var(--color-primary);
     color: white;
     border: none;
     border-radius: 6px;
@@ -32,7 +33,7 @@
 }
 
 .addButton:hover {
-    background: #2563eb;
+    background: var(--color-primary-dark);
 }
 
 .categoryGrid {
@@ -68,8 +69,11 @@
 .categoryCard {
     text-align: center;
     padding: 1.5rem 1rem;
-    background: #f9fafb;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
     border-radius: 8px;
+    box-shadow: var(--shadow-md);
+    color: var(--color-financial-text-primary);
     transition: transform 0.2s ease;
 }
 
@@ -84,21 +88,25 @@
 
 .categoryCard h4 {
     margin: 0 0 0.5rem 0;
-    color: #374151;
+    color: var(--color-financial-text-secondary);
     font-size: 0.875rem;
+}
+
+.categoryName {
+    color: var(--color-financial-text-secondary);
 }
 
 .categoryAmount {
     margin: 0 0 1rem 0;
     font-size: 1.125rem;
     font-weight: 600;
-    color: #111827;
+    color: var(--color-financial-text-primary);
 }
 
 .progressBar {
     width: 100%;
     height: 6px;
-    background: #e5e7eb;
+    background: var(--color-financial-progress);
     border-radius: 3px;
     overflow: hidden;
     margin-bottom: 0.5rem;
@@ -106,11 +114,15 @@
 
 .progressFill {
     height: 100%;
-    background: #3b82f6;
+    background: var(--color-primary);
     transition: width 0.3s ease;
 }
 
 .categoryPercent {
     font-size: 0.75rem;
-    color: #6b7280;
+    color: var(--color-financial-text-muted);
+}
+
+.progressText {
+    color: var(--color-financial-text-muted);
 }

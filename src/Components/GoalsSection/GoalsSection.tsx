@@ -5,6 +5,9 @@ interface Goal {
     title: string
     current: number
     target: number
+    color: string
+    percentage: number
+    description: string
 }
 
 interface Report {
@@ -14,48 +17,57 @@ interface Report {
     description: string
 }
 
-interface Props {
+interface GoalsSectionProps {
     goals: Goal[]
     reports: Report[]
 }
 
-export default function GoalsSection({ goals, reports }: Props) {
+export default function GoalsSection({ goals, reports }: GoalsSectionProps) {
+    const formatCurrency = (value: number) => {
+        return new Intl.NumberFormat('pt-BR', {
+            style: 'currency',
+            currency: 'BRL'
+        }).format(value)
+    }
+
     return (
-        <div className={styles.goalsSection}>
+        <div className={styles.container}>
             <div className={styles.goalsCard}>
-                <h3>Metas Financeiras</h3>
+                <h2 className={styles.title}>Metas Financeiras</h2>
                 <div className={styles.goalsList}>
-                    {goals.map((goal) => {
-                        const percentage = Math.round((goal.current / goal.target) * 100)
-                        return (
-                            <div key={goal.id} className={styles.goalItem}>
-                                <div className={styles.goalInfo}>
-                                    <h4>{goal.title}</h4>
-                                    <p>R$ {goal.current.toLocaleString('pt-BR')} de R$ {goal.target.toLocaleString('pt-BR')}</p>
-                                </div>
-                                <div className={styles.goalProgress}>
-                                    <div className={styles.goalBar}>
-                                        <div className={styles.goalFill} style={{width: `${percentage}%`}}></div>
-                                    </div>
-                                    <span>{percentage}%</span>
-                                </div>
+                    {goals.map((goal) => (
+                        <div key={goal.id} className={styles.goalItem}>
+                            <div className={styles.goalHeader}>
+                                <h3 className={styles.goalTitle}>{goal.title}</h3>
+                                <span className={styles.percentage}>{goal.percentage}%</span>
                             </div>
-                        )
-                    })}
+                            <div className={styles.goalDescription}>
+                                {formatCurrency(goal.current)} de {formatCurrency(goal.target)}
+                            </div>
+                            <div className={styles.progressBarContainer}>
+                                <div 
+                                    className={styles.progressBar}
+                                    style={{ 
+                                        width: `${goal.percentage}%`,
+                                        backgroundColor: goal.color 
+                                    }}
+                                />
+                            </div>
+                        </div>
+                    ))}
                 </div>
             </div>
 
             <div className={styles.reportsCard}>
-                <h3>Relatórios Rápidos</h3>
+                <h2 className={styles.title}>Relatórios</h2>
                 <div className={styles.reportsList}>
                     {reports.map((report) => (
                         <div key={report.id} className={styles.reportItem}>
-                            <div className={styles.reportIcon}>{report.icon}</div>
+                            <span className={styles.reportIcon}>{report.icon}</span>
                             <div className={styles.reportContent}>
-                                <h4>{report.title}</h4>
-                                <p>{report.description}</p>
+                                <h3 className={styles.reportTitle}>{report.title}</h3>
+                                <p className={styles.reportDescription}>{report.description}</p>
                             </div>
-                            <button className={styles.reportButton}>Ver</button>
                         </div>
                     ))}
                 </div>
