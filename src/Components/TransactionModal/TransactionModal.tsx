@@ -1,4 +1,4 @@
-import styles from './transactionModal.module.css'
+import styles from './TransactionModal.module.css'
 
 interface Props {
     isOpen: boolean

@@ -1,4 +1,4 @@
-import styles from './savingsModal.module.css'
+import styles from './SavingsModal.module.css'
 
 interface Props {
     isOpen: boolean

@@ -1,4 +1,4 @@
-import styles from './goalsSection.module.css'
+import styles from './GoalsSection.module.css'
 import { useTheme } from '../../contexts/ThemeContext'
 
 interface Goal {

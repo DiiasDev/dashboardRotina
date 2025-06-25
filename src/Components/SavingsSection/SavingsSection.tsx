@@ -1,4 +1,4 @@
-import styles from './savingsSection.module.css'
+import styles from './SavingsSection.module.css'
 import { useTheme } from '../../contexts/ThemeContext'
 
 interface Props {
