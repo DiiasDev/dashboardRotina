@@ -40,7 +40,7 @@ export default function ChartsSection({ transactions }: Props) {
                                 <p className={styles.transactionName}>{transaction.name}</p>
                                 <span className={styles.transactionDate}>{transaction.date}</span>
                             </div>
-                            <span className={`${styles.transactionAmount} ${transaction.isIncome ? styles.income : ''}`}>
+                            <span className={`${styles.transactionAmount} ${transaction.isIncome ? styles.income : styles.expense}`}>
                                 {transaction.isIncome ? '+' : '-'}R$ {transaction.amount.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
                             </span>
                         </div>
