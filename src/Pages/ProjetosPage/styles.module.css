@@ -4,6 +4,16 @@
     margin: 0 auto;
     background-color: var(--color-bg);
     min-height: 100vh;
+    margin-left: 280px; /* Default expanded sidebar width */
+    transition: margin-left 0.3s ease;
+}
+
+.container.sidebarCollapsed {
+    margin-left: 80px; /* Collapsed sidebar width */
+}
+
+.container.sidebarExpanded {
+    margin-left: 280px; /* Expanded sidebar width */
 }
 
 .header {
@@ -55,6 +65,34 @@
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 20px;
     margin-bottom: 32px;
+}
+
+.container.sidebarExpanded .statsGrid {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-areas: 
+        "total active completed"
+        "progress progress progress";
+}
+
+.container.sidebarExpanded .statCard:nth-child(1) {
+    grid-area: total;
+}
+
+.container.sidebarExpanded .statCard:nth-child(2) {
+    grid-area: active;
+}
+
+.container.sidebarExpanded .statCard:nth-child(3) {
+    grid-area: completed;
+}
+
+.container.sidebarExpanded .statCard:nth-child(4) {
+    grid-area: progress;
+}
+
+.container.sidebarCollapsed .statsGrid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 }
 
 .statCard {
@@ -326,6 +364,12 @@
 @media (max-width: 768px) {
     .container {
         padding: 16px;
+        margin-left: 0; /* No sidebar margin on mobile */
+    }
+    
+    .container.sidebarCollapsed,
+    .container.sidebarExpanded {
+        margin-left: 0;
     }
     
     .header {

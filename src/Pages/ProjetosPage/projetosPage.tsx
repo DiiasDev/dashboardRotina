@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from './styles.module.css';
 import DialogProjects from '../../Components/modals/DialogProjects/dialogProjects';
 
@@ -23,6 +23,7 @@ interface ProjectFormData {
 
 export default function ProjetosPage() {
     const [modalOpen, setModalOpen] = useState(false);
+    const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
     // Mock data - will be replaced with real data later
     const [projects, setProjects] = useState<Project[]>([
         {
@@ -125,8 +126,20 @@ export default function ProjetosPage() {
         'Lazer': '🎮'
     };
 
+    useEffect(() => {
+        const handleSidebarToggle = (event: CustomEvent) => {
+            setSidebarCollapsed(event.detail.collapsed);
+        };
+
+        window.addEventListener('sidebarToggle', handleSidebarToggle as EventListener);
+        
+        return () => {
+            window.removeEventListener('sidebarToggle', handleSidebarToggle as EventListener);
+        };
+    }, []);
+
     return (
-        <div className={styles.container}>
+        <div className={`${styles.container} ${sidebarCollapsed ? styles.sidebarCollapsed : styles.sidebarExpanded}`}>
             <div className={styles.header}>
                 <h1 className={styles.pageTitle}>
                     <span className={styles.pageIcon}>🚀</span>
