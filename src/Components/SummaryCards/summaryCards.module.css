@@ -1,97 +1,227 @@
-.container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
-    margin-bottom: 2rem;
+.summaryContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.topCards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.card {
+  background: var(--color-card-financial);
+  border: 1px solid var(--color-card-financial-border);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px -1px var(--color-card-financial-shadow);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.card:hover {
+  box-shadow: 0 10px 15px -3px var(--color-card-financial-shadow);
+  transform: translateY(-2px);
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-primary-dark));
+}
+
+.cardIcon {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.cardContent h3 {
+  color: var(--color-financial-text-secondary);
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin: 0 0 0.5rem 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.cardValue {
+  color: var(--color-financial-text-primary);
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem 0;
+  line-height: 1.2;
+}
+
+.cardChange {
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+  display: inline-block;
+}
+
+.positive {
+  color: var(--color-income);
+  background: var(--color-income-bg);
+}
+
+.negative {
+  color: var(--color-expense);
+  background: var(--color-expense-bg);
+}
+
+.savingsCard {
+  background: var(--color-card-financial);
+  border: 1px solid var(--color-card-financial-border);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px -1px var(--color-card-financial-shadow);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.savingsCard:hover {
+  box-shadow: 0 10px 15px -3px var(--color-card-financial-shadow);
+  transform: translateY(-2px);
+}
+
+.savingsCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--color-savings), var(--color-savings-light));
+}
+
+.savingsIcon {
+  font-size: 3rem;
+  flex-shrink: 0;
+}
+
+.savingsContent {
+  flex: 1;
+}
+
+.savingsContent h3 {
+  color: var(--color-financial-text-secondary);
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0 0 0.75rem 0;
+}
+
+.savingsValueContainer {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.savingsPercentage {
+  color: var(--color-financial-text-primary);
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.savingsSubtext {
+  color: var(--color-financial-text-muted);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.progressBar {
+  width: 100%;
+  height: 12px;
+  background: var(--color-financial-progress);
+  border-radius: 6px;
+  overflow: hidden;
+  position: relative;
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-savings), var(--color-savings-light));
+  border-radius: 6px;
+  position: relative;
+  transition: width 0.3s ease;
+}
+
+.progressFill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+@media (max-width: 1200px) {
+  .topCards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .topCards {
+    grid-template-columns: 1fr;
   }
   
-  .card {
-    background: var(--color-surface);
-    border-radius: 16px;
-    padding: 1.5rem;
-    box-shadow: var(--shadow-md);
-    border: 1px solid var(--color-border);
-    transition: all 0.3s ease;
+  .savingsCard {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
   }
   
-  .card:hover {
-    box-shadow: var(--shadow-md);
-    transform: translateY(-2px);
-  }
-  
-  .cardHeader {
-    display: flex;
+  .savingsValueContainer {
+    flex-direction: column;
+    gap: 0.5rem;
     align-items: center;
-    justify-content: space-between;
-    margin-bottom: 1rem;
-  }
-  
-  .cardTitle {
-    color: var(--color-text-secondary);
-    font-size: 0.875rem;
-    font-weight: 500;
-    margin: 0;
-  }
-  
-  .cardIcon {
-    font-size: 1.25rem;
   }
   
   .cardValue {
-    color: var(--color-text);
+    font-size: 1.75rem;
+  }
+  
+  .savingsPercentage {
     font-size: 2rem;
-    font-weight: 700;
-    margin: 0 0 0.5rem 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .summaryContainer {
+    gap: 1rem;
   }
   
-  .cardSubtext {
-    color: var(--color-text-secondary);
-    font-size: 0.875rem;
-    margin: 0;
+  .card, .savingsCard {
+    padding: 1rem;
   }
   
-  .progressBar {
-    width: 100%;
-    height: 8px;
-    background: var(--color-bg-secondary);
-    border-radius: 4px;
-    overflow: hidden;
-    margin-top: 0.75rem;
+  .cardValue {
+    font-size: 1.5rem;
   }
   
-  .progressFill {
-    height: 100%;
-    background: linear-gradient(90deg, var(--color-savings), var(--color-savings-light));
-    border-radius: 4px;
-    position: relative;
+  .savingsPercentage {
+    font-size: 1.75rem;
   }
-  
-  .progressFill::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-    animation: shimmer 2s infinite;
-  }
-  
-  @keyframes shimmer {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
-  }
-  
-  @media (max-width: 1200px) {
-    .topCards {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-  
-  .positive {
-    color: var(--color-status-iniciado);
-  }
-  
-  .negative {
-    color: var(--color-status-parado);
-  }
+}

@@ -47,7 +47,9 @@ export default function SummaryCards({ data }: Props) {
                     <div className={styles.cardContent}>
                         <h3>Saldo Atual</h3>
                         <p className={styles.cardValue}>R$ {formatCurrency(data.balance)}</p>
-                        <span className={`${styles.cardChange} ${styles.positive}`}>+8,3% este mês</span>
+                        <span className={`${styles.cardChange} ${data.balance >= 0 ? styles.positive : styles.negative}`}>
+                            {data.balance >= 0 ? '+' : ''}8,3% este mês
+                        </span>
                     </div>
                 </div>
             </div>
