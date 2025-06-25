@@ -29,6 +29,7 @@
 }
 
 .title {
+.title {
   color: var(--color-text);
   font-size: 1.25rem;
   font-weight: 600;
@@ -265,4 +266,5 @@
   [data-theme="dark"] .transactionsList::-webkit-scrollbar-thumb:hover {
     background: #6b7280;
   }
+}
 }

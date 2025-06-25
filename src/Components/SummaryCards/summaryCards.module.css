@@ -15,8 +15,8 @@
 }
 
 .card:hover {
-    box-shadow: var(--shadow-md);
-    transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
 }
 
 .cardHeader {
@@ -60,33 +60,32 @@
 }
 
 .progressFill {
-    height: 100%;
-    background: linear-gradient(90deg, var(--color-savings), var(--color-savings-light));
-    border-radius: 8px;
-    transition: width 0.8s ease;
-    position: relative;
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-savings), var(--color-savings-light));
+  border-radius: 4px;
+  position: relative;
 }
 
 .progressFill::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-    animation: shimmer 2s infinite;
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  animation: shimmer 2s infinite;
 }
 
 @keyframes shimmer {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
 }
 
 @media (max-width: 1200px) {
-    .topCards {
-        grid-template-columns: repeat(2, 1fr);
-    }
+  .topCards {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 .positive {
