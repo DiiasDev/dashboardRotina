@@ -15,7 +15,7 @@ export default function Footer() {
             alt="DSYS Logo" 
             className={styles.footerLogo}
           />
-          <span className={styles.brandText}>DiiasDev</span>
+          <span className={styles.brandText}>DilasDev</span>
         </div>
         
         <div className={styles.socialLinks}>
