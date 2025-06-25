@@ -51,8 +51,7 @@ export default function GoalsSection({ goals, reports }: GoalsSectionProps) {
                                 <div 
                                     className={styles.progressBar}
                                     style={{ 
-                                        width: `${goal.percentage}%`,
-                                        backgroundColor: goal.color 
+                                        width: `${goal.percentage}%`
                                     }}
                                 />
                             </div>

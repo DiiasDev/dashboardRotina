@@ -4,7 +4,7 @@
     --color-primary-dark: #0056b3;
     --color-bg: #ffffff;
     --color-bg-secondary: #f1f5f9;
-    --color-surface: #ffffff;
+    --color-surface: #1e2532;
     --color-text: #1e293b;
     --color-text-secondary: #64748b;
     --color-border: #cbd5e1;
@@ -68,6 +68,20 @@
     --color-savings: #f59e0b;
     --color-savings-bg: #fffbeb;
     --color-savings-light: #fef3c7;
+
+    /* Expense Category Colors */
+    --color-moradia: #3b82f6;
+    --color-moradia-bg: #eff6ff;
+    --color-alimentacao: #10b981;
+    --color-alimentacao-bg: #f0fdf4;
+    --color-transporte: #ef4444;
+    --color-transporte-bg: #fef2f2;
+    --color-lazer: #8b5cf6;
+    --color-lazer-bg: #f5f3ff;
+    --color-saude: #f59e0b;
+    --color-saude-bg: #fffbeb;
+    --color-vestuario: #06b6d4;
+    --color-vestuario-bg: #f0fdfa;
     
     /* Financial Cards */
     --color-card-financial: #ffffff;
@@ -85,7 +99,7 @@
     --color-primary-dark: #339af0;
     --color-bg: #121212;
     --color-bg-secondary: #1e1e1e;
-    --color-surface: #2d2d2d;
+    --color-surface: #1e2532;
     --color-text: #ffffff;
     --color-text-secondary: #b3b3b3;
     --color-border: #404040;
@@ -139,6 +153,20 @@
     --color-savings: #fbbf24;
     --color-savings-bg: #78350f;
     --color-savings-light: #92400e;
+
+    /* Expense Category Colors Dark */
+    --color-moradia: #60a5fa;
+    --color-moradia-bg: #1e3a8a;
+    --color-alimentacao: #34d399;
+    --color-alimentacao-bg: #064e3b;
+    --color-transporte: #f87171;
+    --color-transporte-bg: #7f1d1d;
+    --color-lazer: #a78bfa;
+    --color-lazer-bg: #4c1d95;
+    --color-saude: #fbbf24;
+    --color-saude-bg: #78350f;
+    --color-vestuario: #22d3ee;
+    --color-vestuario-bg: #164e63;
     
     /* Financial Cards Dark */
     --color-card-financial: #1f2937;

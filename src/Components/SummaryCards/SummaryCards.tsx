@@ -14,6 +14,13 @@ interface Props {
 }
 
 export default function SummaryCards({ data }: Props) {
+    const formatCurrency = (value: number) => {
+        return value.toLocaleString('pt-BR', { 
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2 
+        })
+    }
+
     return (
         <div className={styles.summaryContainer}>
             <div className={styles.topCards}>
@@ -21,8 +28,8 @@ export default function SummaryCards({ data }: Props) {
                     <div className={styles.cardIcon}>💰</div>
                     <div className={styles.cardContent}>
                         <h3>Receita Total</h3>
-                        <p className={styles.cardValue}>R$ {data.income.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</p>
-                        <span className={styles.cardChange}>+2,5% este mês</span>
+                        <p className={styles.cardValue}>R$ {formatCurrency(data.income)}</p>
+                        <span className={`${styles.cardChange} ${styles.positive}`}>+2,5% este mês</span>
                     </div>
                 </div>
 
@@ -30,8 +37,8 @@ export default function SummaryCards({ data }: Props) {
                     <div className={styles.cardIcon}>💸</div>
                     <div className={styles.cardContent}>
                         <h3>Gastos Totais</h3>
-                        <p className={styles.cardValue}>R$ {data.expenses.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</p>
-                        <span className={styles.cardChange}>-1,2% este mês</span>
+                        <p className={styles.cardValue}>R$ {formatCurrency(data.expenses)}</p>
+                        <span className={`${styles.cardChange} ${styles.negative}`}>-1,2% este mês</span>
                     </div>
                 </div>
 
@@ -39,8 +46,8 @@ export default function SummaryCards({ data }: Props) {
                     <div className={styles.cardIcon}>📊</div>
                     <div className={styles.cardContent}>
                         <h3>Saldo Atual</h3>
-                        <p className={styles.cardValue}>R$ {data.balance.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</p>
-                        <span className={styles.cardChange}>+8,3% este mês</span>
+                        <p className={styles.cardValue}>R$ {formatCurrency(data.balance)}</p>
+                        <span className={`${styles.cardChange} ${styles.positive}`}>+8,3% este mês</span>
                     </div>
                 </div>
             </div>
@@ -52,13 +59,13 @@ export default function SummaryCards({ data }: Props) {
                     <div className={styles.savingsValueContainer}>
                         <span className={styles.savingsPercentage}>{data.savingsProgress}%</span>
                         <span className={styles.savingsSubtext}>
-                            R$ {data.savingsAmount} de R$ {data.savingsGoal}
+                            R$ {formatCurrency(data.savingsAmount)} de R$ {formatCurrency(data.savingsGoal)}
                         </span>
                     </div>
                     <div className={styles.progressBar}>
                         <div 
                             className={styles.progressFill} 
-                            style={{ width: `${data.savingsProgress}%` }}
+                            style={{ width: `${Math.min(data.savingsProgress, 100)}%` }}
                         ></div>
                     </div>
                 </div>
