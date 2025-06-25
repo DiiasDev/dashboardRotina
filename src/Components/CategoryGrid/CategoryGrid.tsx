@@ -1,4 +1,4 @@
-import styles from './CategoryGrid.module.css'
+import styles from './categoryGrid.module.css'
 
 interface Category {
     id: string
