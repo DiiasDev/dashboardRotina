@@ -1,35 +1,54 @@
+:root {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8f9fa;
+  --text-primary: #2c3e50;
+  --text-secondary: #6c757d;
+  --border-color: #e9ecef;
+  --card-bg: #ffffff;
+  --card-shadow: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="dark"] {
+  --bg-primary: #1a1a1a;
+  --bg-secondary: #2d2d2d;
+  --text-primary: #ffffff;
+  --text-secondary: #b0b0b0;
+  --border-color: #404040;
+  --card-bg: #2d2d2d;
+  --card-shadow: rgba(0, 0, 0, 0.3);
+}
+
 .section {
-    background: var(--color-card-financial);
-    border: 1px solid var(--color-card-financial-border);
-    border-radius: 12px;
-    padding: 1.5rem;
-    box-shadow: 0 2px 10px var(--color-card-financial-shadow);
-    margin-bottom: 2rem;
+    background: var(--card-bg);
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: var(--card-shadow);
+    border: 1px solid var(--border-color);
 }
 
 .sectionHeader {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 1.5rem;
+    margin-bottom: 24px;
 }
 
 .sectionHeader h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-primary);
     margin: 0;
-    color: var(--color-financial-text-primary);
-    font-size: 1.25rem;
 }
 
 .addButton {
-    padding: 0.5rem 1rem;
     background: var(--color-primary);
     color: white;
     border: none;
-    border-radius: 6px;
-    font-size: 0.875rem;
+    border-radius: 8px;
+    padding: 8px 16px;
     font-weight: 500;
     cursor: pointer;
-    transition: background 0.2s ease;
+    transition: background-color 0.2s ease;
 }
 
 .addButton:hover {
@@ -38,91 +57,128 @@
 
 .categoryGrid {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 1rem;
-}
-
-@media (max-width: 1200px) {
-    .categoryGrid {
-        grid-template-columns: repeat(4, 1fr);
-    }
-}
-
-@media (max-width: 900px) {
-    .categoryGrid {
-        grid-template-columns: repeat(3, 1fr);
-    }
-}
-
-@media (max-width: 600px) {
-    .categoryGrid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 400px) {
-    .categoryGrid {
-        grid-template-columns: 1fr;
-    }
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
 }
 
 .categoryCard {
-    text-align: center;
-    padding: 1.5rem 1rem;
-    background: var(--color-surface);
-    border: 1px solid var(--color-border);
-    border-radius: 8px;
-    box-shadow: var(--shadow-md);
-    color: var(--color-financial-text-primary);
-    transition: transform 0.2s ease;
+    background: var(--bg-secondary);
+    border-radius: 12px;
+    padding: 20px;
+    border: 1px solid var(--border-color);
+    transition: all 0.2s ease;
 }
 
 .categoryCard:hover {
-    transform: translateY(-2px);
+    transform: translateY(-1px);
+    box-shadow: var(--card-shadow);
 }
 
 .categoryIcon {
     font-size: 2rem;
-    margin-bottom: 0.5rem;
+    margin-bottom: 12px;
 }
 
 .categoryCard h4 {
-    margin: 0 0 0.5rem 0;
-    color: var(--color-financial-text-secondary);
-    font-size: 0.875rem;
-}
-
-.categoryName {
-    color: var(--color-financial-text-secondary);
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0 0 8px 0;
 }
 
 .categoryAmount {
-    margin: 0 0 1rem 0;
-    font-size: 1.125rem;
-    font-weight: 600;
-    color: var(--color-financial-text-primary);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 0 12px 0;
 }
 
 .progressBar {
-    width: 100%;
+    background: var(--border-color);
     height: 6px;
-    background: var(--color-financial-progress);
     border-radius: 3px;
     overflow: hidden;
-    margin-bottom: 0.5rem;
+    margin-bottom: 8px;
 }
 
 .progressFill {
-    height: 100%;
     background: var(--color-primary);
+    height: 100%;
+    border-radius: 3px;
     transition: width 0.3s ease;
 }
 
 .categoryPercent {
-    font-size: 0.75rem;
-    color: var(--color-financial-text-muted);
+    font-size: 0.9rem;
+    color: var(--text-secondary);
 }
 
-.progressText {
-    color: var(--color-financial-text-muted);
+@media (max-width: 768px) {
+    .categoryGrid {
+        grid-template-columns: 1fr;
+    }
+    
+    .sectionHeader {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .categoryGrid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+}
+
+
+.categoryAmount {
+  color: var(--color-text);
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.progressBar {
+  width: 100%;
+  height: 6px;
+  background: var(--color-border);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-top: 0.5rem;
+}
+
+.progressFill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+.progressLow {
+  background: var(--color-status-iniciado);
+}
+
+.progressMedium {
+  background: var(--color-status-pausado);
+}
+
+.progressHigh {
+  background: var(--color-status-parado);
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .addButton {
+    width: 100%;
+    justify-content: center;
+  }
 }
