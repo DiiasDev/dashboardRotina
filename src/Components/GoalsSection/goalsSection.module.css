@@ -2,11 +2,9 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 2rem;
-  margin-bottom: 2rem;
 }
 
-.goalsCard,
-.reportsCard {
+.section {
   background: var(--color-surface);
   border-radius: 16px;
   padding: 1.5rem;
@@ -49,107 +47,6 @@
   font-size: 0.875rem;
   font-weight: 500;
   margin: 0;
-}
-
-.percentage {
-  color: var(--color-primary);
-  font-size: 0.875rem;
-  font-weight: 600;
-}
-
-.goalDescription {
-  color: var(--color-text-secondary);
-  font-size: 0.75rem;
-  margin-bottom: 0.75rem;
-}
-
-.progressBarContainer {
-  width: 100%;
-  height: 6px;
-  background: var(--color-border);
-  border-radius: 3px;
-  overflow: hidden;
-}
-
-.progressBar {
-  height: 100%;
-  border-radius: 3px;
-  transition: width 0.3s ease;
-}
-
-.reportsList {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.reportItem {
-  display: flex;
-  align-items: center;
-  padding: 1rem;
-  background: var(--color-bg-secondary);
-  border-radius: 12px;
-  border: 1px solid var(--color-border);
-  transition: all 0.3s ease;
-  cursor: pointer;
-}
-
-.reportItem:hover {
-  background: var(--color-surface);
-  box-shadow: var(--shadow-sm);
-}
-
-.reportIcon {
-  font-size: 1.5rem;
-  margin-right: 1rem;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--color-surface);
-  border-radius: 10px;
-  border: 1px solid var(--color-border);
-}
-
-.reportContent {
-  flex: 1;
-}
-
-.reportTitle {
-  color: var(--color-text);
-  font-size: 0.875rem;
-  font-weight: 500;
-  margin: 0 0 0.25rem 0;
-}
-
-.reportDescription {
-  color: var(--color-text-secondary);
-  font-size: 0.75rem;
-  margin: 0;
-}
-
-@media (max-width: 768px) {
-  .container {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-  }
-  
-  .goalsCard,
-  .reportsCard {
-    padding: 1rem;
-  }
-  
-  .goalItem,
-  .reportItem {
-    padding: 0.75rem;
-  }
-  
-  .reportIcon {
-    width: 35px;
-    height: 35px;
-    margin-right: 0.75rem;
-  }
 }
 
 .goalPercentage {
