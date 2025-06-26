@@ -61,12 +61,14 @@ export default function ChartComponent({ filteredTasks }: ChartComponentProps){
                         boxShadow: 'var(--shadow-lg)',
                         border: '1px solid var(--color-border)',
                         borderRadius: '12px',
-                        marginTop: '26px'
+                        marginTop: '26px',
+                        transition: 'background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease'
                     }}>
                         <CardContent style={{ 
                             height: 580, 
                             width: '100%',
-                            backgroundColor: 'var(--color-surface)'
+                            backgroundColor: 'var(--color-surface)',
+                            transition: 'background-color 0.3s ease'
                         }}>
                             <Typography 
                                 variant='h5' 
@@ -104,18 +106,19 @@ export default function ChartComponent({ filteredTasks }: ChartComponentProps){
                                     indexBy="id"
                                     margin={{ top: 10, right: 60, bottom: 70, left: 60 }}
                                     padding={0.3}
-                                    colors={['#7c3aed']}
+                                    colors={['var(--color-primary)']}
                                     borderColor={{ from: 'color', modifiers: [['darker', 1.6]] }}
                                     axisTop={null}
                                     axisRight={null}
                                     enableGridY={true}
                                     enableLabel={true}
                                     label={d => `${d.value}`}
-                                    labelTextColor="white"
+                                    labelTextColor="var(--color-text)"
                                     theme={{
-                                        background: 'var(--color-surface)',
+                                        background: 'transparent',
                                         text: {
-                                            fill: 'var(--color-text)'
+                                            fill: 'var(--color-text)',
+                                            fontSize: 12
                                         },
                                         axis: {
                                             domain: {
@@ -139,7 +142,16 @@ export default function ChartComponent({ filteredTasks }: ChartComponentProps){
                                             line: {
                                                 stroke: 'var(--color-border)',
                                                 strokeWidth: 1,
-                                                strokeOpacity: 0.5
+                                                strokeOpacity: 0.3
+                                            }
+                                        },
+                                        tooltip: {
+                                            container: {
+                                                background: 'var(--color-surface)',
+                                                color: 'var(--color-text)',
+                                                border: '1px solid var(--color-border)',
+                                                borderRadius: '8px',
+                                                boxShadow: 'var(--shadow-lg)'
                                             }
                                         }
                                     }}
