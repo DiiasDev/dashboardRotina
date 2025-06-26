@@ -1,7 +1,6 @@
 .container {
   padding: 20px;
-  width: 100%;
-  /* Remove background override to inherit from parent */
+  width: 90%;
   transition: all 0.3s ease;
 }
 

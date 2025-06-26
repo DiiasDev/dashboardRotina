@@ -51,7 +51,6 @@ export default function ChartComponent({ filteredTasks }: ChartComponentProps){
     
     return(
         <Container>
-            <Grid>
                 <Grid>
                     <Card style={{ 
                         height: 650, 
@@ -62,13 +61,13 @@ export default function ChartComponent({ filteredTasks }: ChartComponentProps){
                         border: '1px solid var(--color-border)',
                         borderRadius: '12px',
                         marginTop: '26px',
-                        transition: 'background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease'
+                        transition: 'all 0.3s ease'
                     }}>
                         <CardContent style={{ 
                             height: 580, 
                             width: '100%',
-                            backgroundColor: 'var(--color-surface)',
-                            transition: 'background-color 0.3s ease'
+                            backgroundColor: 'transparent',
+                            transition: 'all 0.3s ease'
                         }}>
                             <Typography 
                                 variant='h5' 
@@ -100,67 +99,84 @@ export default function ChartComponent({ filteredTasks }: ChartComponentProps){
                                     </Typography>
                                 </Box>
                             ) : (
-                                <ResponsiveBar
-                                    data={data}
-                                    keys={['value']}
-                                    indexBy="id"
-                                    margin={{ top: 10, right: 60, bottom: 70, left: 60 }}
-                                    padding={0.3}
-                                    colors={['var(--color-primary)']}
-                                    borderColor={{ from: 'color', modifiers: [['darker', 1.6]] }}
-                                    axisTop={null}
-                                    axisRight={null}
-                                    enableGridY={true}
-                                    enableLabel={true}
-                                    label={d => `${d.value}`}
-                                    labelTextColor="var(--color-text)"
-                                    theme={{
-                                        background: 'transparent',
-                                        text: {
-                                            fill: 'var(--color-text)',
-                                            fontSize: 12
-                                        },
-                                        axis: {
-                                            domain: {
-                                                line: {
-                                                    stroke: 'var(--color-border)',
-                                                    strokeWidth: 1
+                                <div style={{ 
+                                    height: '500px', 
+                                    width: '100%', 
+                                    backgroundColor: 'var(--color-surface) !important',
+                                    background: 'var(--color-surface) !important'
+                                }}>
+                                    <style>
+                                        {`
+                                        .nivo-bar-container svg {
+                                            background: var(--color-surface) !important;
+                                            background-color: var(--color-surface) !important;
+                                        }
+                                        .nivo-bar-container svg rect:first-child {
+                                            fill: var(--color-surface) !important;
+                                        }
+                                        `}
+                                    </style>
+                                    <ResponsiveBar
+                                        data={data}
+                                        keys={['value']}
+                                        indexBy="id"
+                                        margin={{ top: 10, right: 60, bottom: 70, left: 60 }}
+                                        padding={0.3}
+                                        colors={['var(--color-primary)']}
+                                        borderColor={{ from: 'color', modifiers: [['darker', 1.6]] }}
+                                        axisTop={null}
+                                        axisRight={null}
+                                        enableGridY={true}
+                                        enableLabel={true}
+                                        label={d => `${d.value}`}
+                                        labelTextColor="var(--color-text)"
+                                        theme={{
+                                            background: 'var(--color-surface)',
+                                            text: {
+                                                fill: 'var(--color-text)',
+                                                fontSize: 12
+                                            },
+                                            axis: {
+                                                domain: {
+                                                    line: {
+                                                        stroke: 'var(--color-border)',
+                                                        strokeWidth: 1
+                                                    }
+                                                },
+                                                ticks: {
+                                                    line: {
+                                                        stroke: 'var(--color-border)',
+                                                        strokeWidth: 1
+                                                    },
+                                                    text: {
+                                                        fill: 'var(--color-text-secondary)',
+                                                        fontSize: 12
+                                                    }
                                                 }
                                             },
-                                            ticks: {
+                                            grid: {
                                                 line: {
                                                     stroke: 'var(--color-border)',
-                                                    strokeWidth: 1
-                                                },
-                                                text: {
-                                                    fill: 'var(--color-text-secondary)',
-                                                    fontSize: 12
+                                                    strokeWidth: 1,
+                                                    strokeOpacity: 0.3
+                                                }
+                                            },
+                                            tooltip: {
+                                                container: {
+                                                    background: 'var(--color-surface)',
+                                                    color: 'var(--color-text)',
+                                                    border: '1px solid var(--color-border)',
+                                                    borderRadius: '8px',
+                                                    boxShadow: 'var(--shadow-lg)'
                                                 }
                                             }
-                                        },
-                                        grid: {
-                                            line: {
-                                                stroke: 'var(--color-border)',
-                                                strokeWidth: 1,
-                                                strokeOpacity: 0.3
-                                            }
-                                        },
-                                        tooltip: {
-                                            container: {
-                                                background: 'var(--color-surface)',
-                                                color: 'var(--color-text)',
-                                                border: '1px solid var(--color-border)',
-                                                borderRadius: '8px',
-                                                boxShadow: 'var(--shadow-lg)'
-                                            }
-                                        }
-                                    }}
-                                />
+                                        }}
+                                    />
+                                </div>
                             )}
                         </CardContent>
                     </Card>
                 </Grid>
-            </Grid>
         </Container>
     )
 }
