@@ -9,11 +9,10 @@ CORS(app)
 setup_routes(app)
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5001)  # ou 3001, 8000, etc.
+    app.run(debug=True, port=5001)  
     print("🚀 Iniciando servidor...")
     print("📊 Testando conexão com banco...")
     
-    # Testa conexão na inicialização
     if test_connection():
         print("✅ Banco conectado!")
     else:
