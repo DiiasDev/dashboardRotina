@@ -1,87 +1,213 @@
-📊 Dashboard de Rotina Pessoal
-Bem-vindo ao projeto Dashboard de Rotina Pessoal! Esta aplicação tem como objetivo ser o seu centro de organização diária e semanal, reunindo em um só lugar todas as ferramentas necessárias para planejar, acompanhar e alcançar suas metas pessoais.
+<div align="center">
 
-✨ O que é o projeto?
-Este dashboard é uma plataforma web pensada para quem deseja melhorar a produtividade, manter o foco e ter uma visão clara sobre suas tarefas e objetivos. A proposta é oferecer uma experiência fluida, visual e intuitiva, trazendo recursos que facilitam o gerenciamento da rotina, o acompanhamento de metas e o registro do progresso ao longo do tempo.
+# 📊 Dashboard de Rotina Pessoal
 
-🏗️ Tecnologias Utilizadas
-React com TypeScript para interface dinâmica e type-safe
-Arquitetura Modular com componentes reutilizáveis
-Sistema de Contextos para gerenciamento de estado global
-Styling Moderno com CSS customizado
-Backend Integrado para persistência de dados
-Sistema de Assets otimizado para performance
-📁 Estrutura do Projeto
-Components - Componentes reutilizáveis da interface
-Pages - Páginas principais da aplicação
-contexts - Contextos React para gerenciamento de estado
-logic - Lógica de negócio e utilitários
-backend - Serviços de backend e API
-types - Definições de tipos TypeScript
-styles - Estilos globais e temas
-utils - Funções utilitárias
-images - Recursos visuais da aplicação
-🛠️ Funcionalidades Principais
-Autenticação Segura 🔐
-Login para garantir que seus dados e configurações estejam protegidos e acessíveis apenas por você.
+*Seu centro de organização diária e semanal*
 
-Tarefas Diárias 📋
-Visualize, marque e organize suas tarefas do dia com praticidade. Tenha a satisfação de marcar cada tarefa concluída!
+[![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)](https://www.w3.org/Style/CSS/Overview.en.html)
 
-Metas e Progresso 🎯
-Defina metas pessoais e acompanhe seu progresso através de barras e indicadores visuais. Saiba o quanto falta para atingir cada objetivo.
+</div>
 
-Visualização Semanal 🗓️
-Veja suas tarefas organizadas por semana, facilitando o planejamento e o acompanhamento do que foi feito e do que ainda está pendente.
+---
 
-Navegação Simples e Intuitiva 🧭
-Acesse facilmente as diferentes áreas do dashboard com menus claros e acessíveis.
+## 🎯 **Sobre o Projeto**
 
-Filtro por Data 📅
-Filtre tarefas e metas por datas específicas para focar apenas no que importa em cada momento.
+O **Dashboard de Rotina Pessoal** é uma plataforma web completa para quem deseja melhorar a produtividade e manter o foco em suas metas. Reúne em um só lugar todas as ferramentas necessárias para planejar, acompanhar e alcançar objetivos pessoais com uma experiência fluida, visual e intuitiva.
 
-Tema Claro/Escuro 🌙
-Altere o visual da aplicação conforme sua preferência ou necessidade, tornando o uso confortável em qualquer ambiente.
+> 💡 **Ideal para:** Estudantes, profissionais, autônomos, ou qualquer pessoa que queira ter mais controle sobre seu tempo, tarefas e objetivos pessoais.
 
-Feedback Visual 🔔
-Receba notificações e mensagens de feedback para cada ação realizada, como conclusão de tarefas ou alcance de metas.
+---
 
-Estatísticas de Produtividade 📊
-Acompanhe gráficos e relatórios que mostram sua evolução, ajudando a identificar padrões e melhorar a performance.
+## 🛠️ **Tecnologias**
 
-Sistema de Prioridades 🚩
-Classifique tarefas por prioridade (alta, média, baixa) para saber onde concentrar seus esforços.
+<table>
+<tr>
+<td align="center">
+  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original.svg" width="40" height="40"/>
+  <br><strong>React</strong>
+  <br><sub>Interface dinâmica</sub>
+</td>
+<td align="center">
+  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/typescript/typescript-original.svg" width="40" height="40"/>
+  <br><strong>TypeScript</strong>
+  <br><sub>Type-safe</sub>
+</td>
+<td align="center">
+  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original.svg" width="40" height="40"/>
+  <br><strong>CSS3</strong>
+  <br><sub>Styling moderno</sub>
+</td>
+</tr>
+</table>
 
-Tags e Categorias 🏷️
-Utilize tags coloridas para organizar tarefas e metas por categorias, facilitando buscas e agrupamentos.
+### **Stack Técnica:**
+- ⚛️ **React com TypeScript** - Interface dinâmica e type-safe
+- 🏗️ **Arquitetura Modular** - Componentes reutilizáveis
+- 🔄 **Sistema de Contextos** - Gerenciamento de estado global
+- 🎨 **Styling Customizado** - CSS moderno e responsivo
+- 🔧 **Backend Integrado** - Persistência de dados
+- ⚡ **Assets Otimizados** - Performance aprimorada
 
-Responsividade 📱
-Use o dashboard no computador, tablet ou celular, com uma experiência otimizada para cada dispositivo.
+---
 
-🚀 Como Executar o Projeto
-Pré-requisitos
-Node.js (versão 14 ou superior)
-npm ou yarn
-Instalação
-A aplicação estará disponível em http://localhost:3000
+## 📁 **Estrutura do Projeto**
 
-🚀 Por que usar este dashboard?
-Centraliza toda sua rotina em um só lugar;
-Ajuda a manter o foco e a disciplina;
-Facilita o acompanhamento do progresso de metas de curto e longo prazo;
-Permite personalização de acordo com suas preferências;
-Incentiva a produtividade e a organização diária.
-💡 Para quem é este projeto?
-Ideal para estudantes, profissionais, autônomos, ou qualquer pessoa que queira ter mais controle sobre seu tempo, tarefas e objetivos pessoais.
+```
+├── 📂 components/     # Componentes reutilizáveis
+├── 📂 pages/         # Páginas principais
+├── 📂 contexts/      # Contextos React
+├── 📂 logic/         # Lógica de negócio
+├── 📂 backend/       # Serviços e API
+├── 📂 types/         # Definições TypeScript
+├── 📂 styles/        # Estilos globais
+├── 📂 utils/         # Funções utilitárias
+└── 📂 images/        # Recursos visuais
+```
 
-🧪 Testes
-O projeto inclui testes automatizados configurados com Jest e Testing Library:
+---
 
-📦 Scripts Disponíveis
-Conforme definido no package.json:
+## ✨ **Funcionalidades**
 
-npm start - Executa o app em modo de desenvolvimento
-npm run build - Cria o build de produção
-npm test - Executa os testes
-npm run eject - Remove a abstração do Create React App (irreversível)
-Transforme sua rotina, alcance seus objetivos e tenha controle total do seu dia a dia com o Dashboard de Rotina Pessoal! 🚀
+<details>
+<summary><strong>🔐 Autenticação & Segurança</strong></summary>
+
+- Login seguro para proteção dos dados
+- Configurações personalizadas por usuário
+- Acesso restrito e controlado
+
+</details>
+
+<details>
+<summary><strong>📋 Gerenciamento de Tarefas</strong></summary>
+
+- Visualização e organização de tarefas diárias
+- Sistema de check-list intuitivo
+- Feedback visual para conclusões
+
+</details>
+
+<details>
+<summary><strong>🎯 Metas & Progresso</strong></summary>
+
+- Definição de objetivos pessoais
+- Barras de progresso visuais
+- Acompanhamento em tempo real
+
+</details>
+
+<details>
+<summary><strong>🗓️ Visualização Temporal</strong></summary>
+
+- Organização semanal de tarefas
+- Filtros por data específica
+- Planejamento de longo prazo
+
+</details>
+
+<details>
+<summary><strong>🎨 Interface & Experiência</strong></summary>
+
+- Navegação simples e intuitiva
+- Tema claro/escuro
+- Design responsivo (desktop, tablet, mobile)
+- Feedback visual em tempo real
+
+</details>
+
+<details>
+<summary><strong>📊 Produtividade & Organização</strong></summary>
+
+- Estatísticas detalhadas
+- Sistema de prioridades (alta, média, baixa)
+- Tags coloridas e categorias
+- Relatórios de evolução
+
+</details>
+
+---
+
+## 🚀 **Como Executar**
+
+### **Pré-requisitos**
+- Node.js (versão 14+)
+- npm ou yarn
+
+### **Instalação**
+
+1. **Clone o repositório:**
+   ```bash
+   git clone https://github.com/seu-usuario/dashboard-rotina-pessoal.git
+   cd dashboard-rotina-pessoal
+   ```
+
+2. **Instale as dependências:**
+   ```bash
+   npm install
+   ```
+
+3. **Execute a aplicação:**
+   ```bash
+   npm start
+   ```
+
+4. **Acesse no navegador:**
+   ```
+   http://localhost:3000
+   ```
+
+---
+
+## 📦 **Scripts Disponíveis**
+
+| Comando | Descrição |
+|---------|-----------|
+| `npm start` | Executa em modo desenvolvimento |
+| `npm run build` | Cria build de produção |
+| `npm test` | Executa testes automatizados |
+| `npm run eject` | Remove abstração CRA ⚠️ |
+
+---
+
+## 🧪 **Testes**
+
+O projeto inclui testes automatizados configurados com:
+- **Jest** - Framework de testes
+- **Testing Library** - Testes de componentes React
+
+```bash
+npm test
+```
+
+---
+
+## 🌟 **Por que usar?**
+
+<div align="center">
+
+| ✅ Vantagem | 📝 Descrição |
+|-------------|--------------|
+| **Centralização** | Toda sua rotina em um só lugar |
+| **Foco** | Mantém disciplina e concentração |
+| **Progresso** | Acompanhamento de metas em tempo real |
+| **Personalização** | Adaptável às suas preferências |
+| **Produtividade** | Incentiva organização diária |
+
+</div>
+
+---
+
+<div align="center">
+
+## 🎉 **Transforme sua rotina!**
+
+*Alcance seus objetivos e tenha controle total do seu dia a dia*
+
+**[⭐ Dê uma estrela se este projeto foi útil!](https://github.com/seu-usuario/dashboard-rotina-pessoal)**
+
+---
+
+*Desenvolvido com ❤️ por [DiiasDev](https://github.com/DiiasDev)*
+
+</div>
