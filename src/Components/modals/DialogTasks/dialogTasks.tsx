@@ -6,7 +6,7 @@ import {
   FormGroup,
   TextField,
 } from "@mui/material";
-import { Tasks } from "../../../logic/tasks";
+import { createTask, TaskData } from "../../../backend/api";
 
 interface DialogTasksProps {
   open: boolean;
@@ -14,36 +14,46 @@ interface DialogTasksProps {
 }
 
 export default function DialogTasks({ open, onClose }: DialogTasksProps) {
-  const [taskId, setTaskId] = useState<number>(0);
   const [formData, setFormData] = useState({
     id: "",
     titulo: "",
     descricao: "",
-    concluida: false,
+    concluido: false,
     categoria: "",
-    dataCreacao: ""
+    data_criacao: "",
+    prioridade: "media" as 'alta' | 'media' | 'baixa'
   });
+
+  const [isLoadding, setIsLoadding] = useState(false);
+  const [error, setError] = useState<string | null>(null)
+
 
   const categorias = ["Casa", "Trabalho", "Faculdade"];
 
   useEffect(() => {
     if (open) {
       document.body.style.overflow = 'hidden';
-      const novoId = Math.floor(Math.random() * 90000000) + 10000000;
-      setTaskId(novoId);
-      setFormData((prev) => ({ ...prev, id: novoId.toString() }));
+      setFormData({
+        id: "",
+        titulo: "",
+        descricao: "",
+        concluido: false,
+        categoria: "",
+        data_criacao: "",
+        prioridade: "media"
+      });
+      setError(null)
     } else {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = 'unset'
     }
-
     return () => {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = 'unset'
     };
   }, [open]);
 
   useEffect(() => {
     const handleEscapeKey = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
+      if (event.key === 'Escape' && !isLoadding) {
         onClose();
       }
     };
@@ -55,53 +65,92 @@ export default function DialogTasks({ open, onClose }: DialogTasksProps) {
     return () => {
       document.removeEventListener('keydown', handleEscapeKey);
     };
-  }, [open, onClose]);
+  }, [open, onClose, isLoadding]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!formData.titulo.trim()) {
-      alert("Título é obrigatório!");
+      setError("Título é obrigatório!");
       return;
     }
     if (!formData.categoria) {
-      alert("Categoria é obrigatória!");
+      setError("Categoria é obrigatória!");
       return;
     }
 
+    setIsLoadding(true);
+    setError(null);
+
     try {
-      const newTask = new Tasks(
-        taskId,
-        formData.titulo,
-        [formData.categoria],
-        formData.descricao,
-        formData.concluida,
-        formData.dataCreacao
-      );
+      const taskData = {
+        titulo: formData.titulo.trim(),
+        categoria: [formData.categoria],
+        descricao: formData.descricao.trim(),
+        concluido: formData.concluido,
+        prioridade: formData.prioridade
+      };
 
-      newTask.createTasks();
+      // Validate required fields
+      if (!taskData.titulo) {
+        throw new Error("Título não pode estar vazio");
+      }
+      if (!taskData.categoria || taskData.categoria.length === 0) {
+        throw new Error("Categoria é obrigatória");
+      }
 
-      window.dispatchEvent(new CustomEvent('tasksUpdated'));
-
-      const novoId = Math.floor(Math.random() * 90000000) + 10000000;
-      setTaskId(novoId);
-      setFormData({
-        id: novoId.toString(),
-        titulo: "",
-        descricao: "",
-        categoria: "",
-        concluida: false,
-        dataCreacao: ""
+      console.log("Dados sendo enviados:", JSON.stringify(taskData, null, 2));
+      console.log("Tipo de dados:", {
+        titulo: typeof taskData.titulo,
+        categoria: typeof taskData.categoria,
+        descricao: typeof taskData.descricao,
+        concluido: typeof taskData.concluido,
+        prioridade: typeof taskData.prioridade
       });
 
+      const createdTask = await createTask(taskData);
+
+      console.log("TASK CRIADA COM SUCESSO: ", createdTask);
+
+      window.dispatchEvent(new CustomEvent('taskUpdated', {
+        detail: createdTask
+      }));
+
+      // Reset form após sucesso
+      setFormData({
+        id: "",
+        titulo: "",
+        descricao: "",
+        concluido: false,
+        categoria: "",
+        data_criacao: "",
+        prioridade: "media"
+      });
+
+      // Fechar modal
       onClose();
+
     } catch (error) {
-      console.warn("Erro ao criar task:", error);
+      console.error("Erro completo:", error);
+      console.error("Stack trace:", error instanceof Error ? error.stack : 'No stack trace');
+      
+      let errorMessage = "Erro ao criar task";
+      if (error instanceof Error) {
+        errorMessage = error.message;
+      } else if (typeof error === 'string') {
+        errorMessage = error;
+      }
+      
+      setError(errorMessage);
+    } finally {
+      setIsLoadding(false);
     }
   };
 
   const handleChange = (field: string, value: any) => {
     setFormData(prev => ({ ...prev, [field]: value }));
+
+    if(error) setError(null)
   };
 
   const handleOverlayClick = (e: React.MouseEvent) => {
@@ -124,6 +173,11 @@ export default function DialogTasks({ open, onClose }: DialogTasksProps) {
 
         <form onSubmit={handleSubmit}>
           <div className={styles.modalBody}>
+            {error && (
+              <div className={styles.errorMessage}>
+                {error}
+              </div>
+            )}
             <div className={styles.formGroup}>
               <label htmlFor="id" className={styles.formLabel}>ID (Gerado automaticamente)</label>
               <TextField
@@ -184,12 +238,26 @@ export default function DialogTasks({ open, onClose }: DialogTasksProps) {
             </div>
 
             <div className={styles.formGroup}>
+              <label htmlFor="prioridade" className={styles.formLabel}>Prioridade</label>
+              <select
+                id="prioridade"
+                value={formData.prioridade}
+                onChange={(e) => handleChange("prioridade", e.target.value)}
+                className={styles.nativeSelect}
+              >
+                <option value="baixa">Baixa</option>
+                <option value="media">Média</option>
+                <option value="alta">Alta</option>
+              </select>
+            </div>
+
+            <div className={styles.formGroup}>
               <FormGroup className={styles.checkboxGroup}>
                 <FormControlLabel
                   control={
                     <Checkbox
-                      checked={formData.concluida}
-                      onChange={(e) => handleChange("concluida", e.target.checked)}
+                      checked={formData.concluido}
+                      onChange={(e) => handleChange("concluido", e.target.checked)}
                       color="primary"
                     />
                   }
@@ -200,15 +268,20 @@ export default function DialogTasks({ open, onClose }: DialogTasksProps) {
           </div>
 
           <div className={styles.modalActions}>
-            <button type="button" className={styles.cancelButton} onClick={onClose}>
+            <button 
+              type="button" 
+              className={styles.cancelButton} 
+              onClick={onClose}
+              disabled={isLoadding}
+            >
               Cancelar
             </button>
-            <button 
-              type="submit" 
+            <button
+              type="submit"
               className={styles.submitButton}
-              disabled={!formData.titulo || !formData.categoria}
+              disabled={!formData.titulo || !formData.categoria || isLoadding}
             >
-              Salvar Task
+              {isLoadding ? "Salvando..." : "Salvar Task"}
             </button>
           </div>
         </form>

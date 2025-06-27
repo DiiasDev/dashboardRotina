@@ -4,7 +4,7 @@ try:
     conn = mysql.connector.connect(
         host='localhost',
         user='root',
-        password='new@H9e8s3w2',
+        password='Gabgrv123',
         database='dashboard'  # Que você criou no DBeaver
     )
     
