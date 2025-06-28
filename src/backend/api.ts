@@ -3,7 +3,7 @@ const API_BASE_URL = "http://localhost:5001"
 export type TaskData = {
     id: number;
     titulo: string;
-    categoria: string[];
+    categoria: string; // Alterado de string[] para string
     descricao: string;
     concluido: boolean;
     data_criacao: string;
@@ -30,15 +30,20 @@ export const fetchTasks = async (): Promise<TaskData[]> => {
 //criar nova task 
 export const createTask = async (taskData: Omit<TaskData, 'id' | 'data_criacao' | 'created_at' | 'updated_at'>): Promise<TaskData> => {
     try {
+      // Remove conversão, pois categoria já é string
+      const payload = {
+        ...taskData
+      };
+
       console.log('Sending request to:', `${API_BASE_URL}/tasks`);
-      console.log('Request payload:', JSON.stringify(taskData, null, 2));
+      console.log('Request payload:', JSON.stringify(payload, null, 2));
       
       const response = await fetch(`${API_BASE_URL}/tasks`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(taskData),
+        body: JSON.stringify(payload),
       });
   
       console.log('Response status:', response.status);
@@ -75,5 +80,37 @@ export const createTask = async (taskData: Omit<TaskData, 'id' | 'data_criacao' 
         throw error;
       }
       throw new Error('Erro desconhecido ao criar task');
+    }
+}
+
+export const deleteTask = async (taskId: number): Promise<void> => {
+    try {
+        const response = await fetch(`${API_BASE_URL}/tasks/${taskId}`, {
+            method: 'DELETE',
+        });
+
+        if (!response.ok) {
+            throw new Error(`Erro ao excluir task: ${response.status}`);
+        }
+    } catch (error) {
+        console.error("Erro ao excluir task:", error);
+        throw error;
+    }
+}
+
+export const concluirTask = async (taskId: number): Promise<TaskData> => {
+    try {
+        const response = await fetch(`${API_BASE_URL}/tasks/${taskId}/concluir`, {
+            method: 'POST',
+        });
+
+        if (!response.ok) {
+            throw new Error(`Erro ao concluir task: ${response.status}`);
+        }
+
+        return await response.json();
+    } catch (error) {
+        console.error("Erro ao concluir task:", error);
+        throw error;
     }
 }

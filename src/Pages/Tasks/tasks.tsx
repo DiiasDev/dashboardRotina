@@ -4,7 +4,7 @@ import TasksComponent from '../../Components/TasksComponent/tasksComponent';
 import styles from './styles.module.css'
 import ChartComponent from '../../Components/ChartComponent/chatrComponent';
 import StatusTasks from '../../Components/StatusTasks/statusTasks';
-import { TaskData } from '../../logic/tasks';
+import type { TaskData } from '../../backend/api';
 import { localStorageManager } from '../../utils/localStorage';
 
 export default function Tasks() {
@@ -16,7 +16,7 @@ export default function Tasks() {
         const handleSidebarToggle = (event: CustomEvent) => {
             setIsSidebarCollapsed(event.detail.collapsed);
         };
-
+ 
         window.addEventListener('sidebarToggle', handleSidebarToggle as EventListener);
 
         return () => {
@@ -47,13 +47,13 @@ export default function Tasks() {
     }, []);
 
     const loadTasks = () => {
-        const savedTasks = JSON.parse(localStorageManager.getItem("tasks_criadas") || "[]");
+        const savedTasks: TaskData[] = JSON.parse(localStorageManager.getItem("tasks_criadas") || "[]");
         setAllTasks(savedTasks);
         setFilteredTasks(savedTasks);
     };
 
-    const handleFilterApply = (filtered: TaskData[]) => {
-        setFilteredTasks(filtered);
+    const handleFilterApply = (filteredTasks: TaskData[]) => {
+        setFilteredTasks(filteredTasks);
     };
 
     return (

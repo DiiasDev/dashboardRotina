@@ -85,7 +85,7 @@ export default function DialogTasks({ open, onClose }: DialogTasksProps) {
     try {
       const taskData = {
         titulo: formData.titulo.trim(),
-        categoria: [formData.categoria],
+        categoria: formData.categoria,
         descricao: formData.descricao.trim(),
         concluido: formData.concluido,
         prioridade: formData.prioridade

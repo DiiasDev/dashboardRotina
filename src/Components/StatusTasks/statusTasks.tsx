@@ -1,6 +1,6 @@
 import { Card, Container } from "@mui/material";
 import styles from './style.module.css'
-import { TaskData } from '../../logic/tasks';
+import { TaskData } from "../../backend/api";
 
 interface StatusTasksProps {
     filteredTasks?: TaskData[];

@@ -1,7 +1,7 @@
 import { Container, Grid, Card, CardContent, Typography, Box } from '@mui/material';
 import { ResponsiveBar } from '@nivo/bar'
 import { useState, useEffect } from 'react'
-import { TaskData } from '../../logic/tasks';
+import { TaskData } from "../../backend/api";
 
 interface ChartComponentProps {
     filteredTasks?: TaskData[];
@@ -20,8 +20,8 @@ export default function ChartComponent({ filteredTasks }: ChartComponentProps){
 
         const dataByMonth = monthNames.map((monthName, index) => {
             const tasksConcluidas = tasks.filter((task) => {
-                if (!task.concluido || !task.dataConclusao) return false
-                const taskDate = new Date(task.dataConclusao)
+                if (!task.concluido || !task.data_conclusao) return false
+                const taskDate = new Date(task.data_conclusao)
                 return taskDate.getMonth() === index && taskDate.getFullYear() === currentYear
             }).length
 

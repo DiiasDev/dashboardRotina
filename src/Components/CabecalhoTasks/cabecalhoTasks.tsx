@@ -3,7 +3,7 @@ import DatePicker from "react-datepicker";
 import styles from "./styles.module.css";
 import "react-datepicker/dist/react-datepicker.css";
 import DialogTasks from "../modals/DialogTasks/dialogTasks";
-import { TaskData } from "../../logic/tasks";
+import { TaskData } from "../../backend/api";
 
 interface CabecalhoTasksProps {
   onFilterApply?: (filteredTasks: TaskData[]) => void;
@@ -47,7 +47,7 @@ export default function CabecalhoTasks({ onFilterApply, allTasks }: CabecalhoTas
     normalizedEndDate.setHours(23, 59, 59, 999);
 
     const filteredTasks = allTasks.filter((task) => {
-      const taskDate = new Date(task.dataCreacao);
+      const taskDate = new Date(task.data_criacao);
       return taskDate >= normalizedStartDate && taskDate <= normalizedEndDate;
     });
 

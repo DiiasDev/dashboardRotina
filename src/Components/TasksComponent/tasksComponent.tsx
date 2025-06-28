@@ -1,19 +1,11 @@
 import styles from './styles.module.css'
-import { Tasks, TaskData } from '../../logic/tasks';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { groupBy } from 'lodash';
 import DetalhesTask from '../modals/DetalhesTask/detalhesTask';
-import { localStorageManager } from '../../utils/localStorage';
+import { fetchTasks, TaskData, deleteTask, createTask, concluirTask } from '../../backend/api';
 
-interface Task {
-    id: number;
-    titulo: string;
-    categoria: string[];
-    descricao: string;
-    concluido: boolean;
-    dataCreacao: string;
-    dataConclusao?: string;
-}
+// Ajuste a interface para refletir o formato do banco
+type Task = TaskData;
 
 interface TasksComponentProps {
     filteredTasks?: Task[];
@@ -21,17 +13,98 @@ interface TasksComponentProps {
 
 export default function TasksComponent({ filteredTasks }: TasksComponentProps) {
     const [modalOpen, setModalOpen] = useState(false);
-    const [selectedTask, setSelectedTask] = useState<TaskData | null>(null);
+    const [selectedTask, setSelectedTask] = useState<Task | null>(null);
+    const [tasks, setTasks] = useState<Task[]>([]);
 
-    const tasksToDisplay = filteredTasks || [];
+    useEffect(() => {
+        const carregarTasks = () => {
+            fetchTasks()
+                .then((data) => {
+                    const mapped = data.map((task: any) => ({
+                        ...task,
+                        categoria: Array.isArray(task.categoria) ? task.categoria[0] : task.categoria,
+                        concluido: !!task.concluido,
+                        data_criacao: task.data_criacao || task.dataCreacao,
+                        descricao: task.descricao || '',
+                        titulo: task.titulo || '',
+                        id: task.id,
+                    }));
+                    setTasks(mapped);
+                })
+                .catch((err) => {
+                    setTasks([]);
+                    console.error("Erro ao carregar tasks:", err);
+                });
+        };
+
+        carregarTasks();
+
+        const handleTasksUpdated = () => {
+            carregarTasks();
+        };
+
+        // Novo handler para adicionar task imediatamente
+        const handleTaskCreated = (event: Event) => {
+            const customEvent = event as CustomEvent;
+            const newTask = customEvent.detail;
+            if (newTask) {
+                setTasks(prevTasks => [
+                    {
+                        ...newTask,
+                        categoria: Array.isArray(newTask.categoria) ? newTask.categoria[0] : newTask.categoria,
+                        concluido: !!newTask.concluido,
+                        data_criacao: newTask.data_criacao || newTask.dataCreacao,
+                        descricao: newTask.descricao || '',
+                        titulo: newTask.titulo || '',
+                        id: newTask.id,
+                    },
+                    ...prevTasks
+                ]);
+            }
+        };
+
+        window.addEventListener('tasksUpdated', handleTasksUpdated);
+        window.addEventListener('taskUpdated', handleTaskCreated);
+
+        return () => {
+            window.removeEventListener('tasksUpdated', handleTasksUpdated);
+            window.removeEventListener('taskUpdated', handleTaskCreated);
+        };
+    }, []);
+
+    const rawTasksToDisplay =
+        filteredTasks && filteredTasks.length > 0 ? filteredTasks : tasks;
+
+
+    const tasksToDisplay = rawTasksToDisplay.map((task: any) => ({
+        ...task,
+        categoria: Array.isArray(task.categoria) ? task.categoria[0] : task.categoria,
+        concluido: !!task.concluido,
+        data_criacao: task.data_criacao || task.dataCreacao,
+        descricao: task.descricao || '',
+        titulo: task.titulo || '',
+        id: task.id,
+    }));
+
+    const handleCreateTask = async (novaTask: Task) => {
+        try {
+            await createTask(novaTask);
+            window.dispatchEvent(new CustomEvent('tasksUpdated'));
+            // Limpe o formulário ou feche o modal se necessário
+        } catch (err) {
+            // Trate o erro
+        }
+    };
 
     const excluirTask = (id: number) => {
-        const currentTasks = JSON.parse(localStorageManager.getItem("tasks_criadas") || "[]");
-        const tasksAtualizadas = currentTasks.filter((task: TaskData) => task.id !== id);
-
-        localStorageManager.setItem("tasks_criadas", tasksAtualizadas);
-        
-        window.dispatchEvent(new CustomEvent('tasksUpdated'));
+        deleteTask(id)
+            .then(() => {
+                setTasks(prevTasks => prevTasks.filter(task => task.id !== id));
+                window.dispatchEvent(new CustomEvent('tasksUpdated'));
+            })
+            .catch((error) => {
+                console.error(`Erro ao excluir task ${id}:`, error);
+            });
     }
 
     const exibeDetalhes = (id: number) => {
@@ -39,6 +112,22 @@ export default function TasksComponent({ filteredTasks }: TasksComponentProps) {
         if (taskSelecionada) {
             setSelectedTask(taskSelecionada);
             setModalOpen(true);
+        }
+    }
+
+    const handleConcluirTask = async (id: number) => {
+        try {
+            const updatedTask = await concluirTask(id);
+            setTasks(prevTasks =>
+                prevTasks.map(task =>
+                    task.id === id
+                        ? { ...task, concluido: true, data_conclusao: updatedTask.data_conclusao }
+                        : task
+                )
+            );
+            window.dispatchEvent(new CustomEvent('tasksUpdated'));
+        } catch (error) {
+            console.error(`Erro ao concluir task ${id}:`, error);
         }
     }
 
@@ -51,6 +140,7 @@ export default function TasksComponent({ filteredTasks }: TasksComponentProps) {
         'Casa': '🏠',
         'Trabalho': '💼',
         'Estudos': '📚',
+        'Faculdade': '🎓',
         'Saúde': '🏥',
         'Exercício': '💪',
         'Lazer': '🎮',
@@ -60,25 +150,12 @@ export default function TasksComponent({ filteredTasks }: TasksComponentProps) {
         'Amigos': '👥'
     };
 
-    const handleConcluirTask = (id: number) => {
-        const currentTasks = JSON.parse(localStorageManager.getItem("tasks_criadas") || "[]");
-        const tasksAtualizadas = currentTasks.map((task: TaskData) => 
-            task.id === id 
-                ? { ...task, concluido: true, dataConclusao: new Date().toISOString() } 
-                : task
-        );
-
-        localStorageManager.setItem("tasks_criadas", tasksAtualizadas);
-        
-        window.dispatchEvent(new CustomEvent('tasksUpdated'));
-    }
-
     const formatDate = (dateString: string) => {
         return new Date(dateString).toLocaleDateString('pt-BR');
     };
 
     const groupTasksByCategory = (): { [key: string]: Task[] } => {
-        return groupBy(tasksToDisplay, (task: Task) => task.categoria[0] || 'Outros') as { [key: string]: Task[] };
+        return groupBy(tasksToDisplay, (task: Task) => task.categoria || 'Outros') as { [key: string]: Task[] };
     };
 
     const groupedTasks = groupTasksByCategory();
@@ -86,6 +163,11 @@ export default function TasksComponent({ filteredTasks }: TasksComponentProps) {
     return (
         <div className={styles.container}>
             <div className={styles.cardsRow}>
+                {tasksToDisplay.length === 0 && (
+                    <div style={{ color: 'red', padding: 16 }}>
+                        Nenhuma task encontrada.
+                    </div>
+                )}
                 {Object.entries(groupedTasks).map(([category, categoryTasks]) => {
                     const completedTasks = categoryTasks.filter(task => task.concluido).length;
                     const totalTasks = categoryTasks.length;
@@ -141,7 +223,7 @@ export default function TasksComponent({ filteredTasks }: TasksComponentProps) {
                                                 {task.concluido ? 'Concluída' : 'Concluir'}
                                             </button>
                                             <div className={styles.taskItemMeta}>
-                                                <span className={styles.taskItemDate}>{formatDate(task.dataCreacao)}</span>
+                                                <span className={styles.taskItemDate}>{formatDate(task.data_criacao)}</span>
                                                 <span className={`${styles.taskStatus} ${task.concluido ? styles.statusCompleted : styles.statusPending}`}>
                                                     {task.concluido ? 'Concluído' : 'Pendente'}
                                                 </span>
@@ -159,10 +241,18 @@ export default function TasksComponent({ filteredTasks }: TasksComponentProps) {
                     );
                 })}
             </div>
-            <DetalhesTask 
+            <DetalhesTask
                 open={modalOpen}
                 onClose={handleCloseModal}
-                taskData={selectedTask}
+                taskData={
+                    selectedTask
+                        ? {
+                            ...selectedTask,
+                            categoria: Array.isArray(selectedTask.categoria) ? selectedTask.categoria : [selectedTask.categoria],
+                            dataCreacao: (selectedTask as any).dataCreacao ?? selectedTask.data_criacao
+                        }
+                        : null
+                }
             />
         </div>
     )
