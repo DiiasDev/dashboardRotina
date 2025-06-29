@@ -1,14 +1,50 @@
 import { Container, Grid, Card, CardContent, Typography, Box } from '@mui/material';
 import { ResponsiveBar } from '@nivo/bar'
 import { useState, useEffect } from 'react'
-import { TaskData } from "../../backend/api";
+import { fetchTasks } from "../../backend/api";
+import { set } from 'lodash';
 
-interface ChartComponentProps {
-    filteredTasks?: TaskData[];
+type TaskData = {
+    id: number;
+    titulo: string;
+    categoria: string; 
+    descricao: string;
+    concluido: boolean;
+    data_criacao: string;
+    data_conclusao?: string;
+    prioridade?: 'alta' | 'media' | 'baixa';
+    created_at?: string;
+    updated_at?: string;
 }
 
-export default function ChartComponent({ filteredTasks }: ChartComponentProps){
+export default function ChartComponent(){
     const [data, setData] = useState<{id: string, value: number}[]>([])
+    const [tasks, setTasks] = useState<TaskData[]>([])
+
+    useEffect(() => {
+
+        const loadTasks = async () => {
+            fetchTasks().then((data: TaskData[]) => setTasks(data));
+        }
+
+        loadTasks();
+
+        const handleTasksUpdate = () => {
+            loadTasks();
+        }
+
+        window.addEventListener('tasksUpdated', handleTasksUpdate);
+
+        return () => {
+            window.removeEventListener('tasksUpdated', handleTasksUpdate);
+        }
+
+    }, [])
+
+    // Atualiza o estado 'data' sempre que as tasks mudarem
+    useEffect(() => {
+        setData(generateChartData(tasks));
+    }, [tasks]);
 
     const generateChartData = (tasks: TaskData[]) => {
         const monthNames = [
@@ -20,7 +56,7 @@ export default function ChartComponent({ filteredTasks }: ChartComponentProps){
 
         const dataByMonth = monthNames.map((monthName, index) => {
             const tasksConcluidas = tasks.filter((task) => {
-                if (!task.concluido || !task.data_conclusao) return false
+                if (!task || !task.data_conclusao) return false
                 const taskDate = new Date(task.data_conclusao)
                 return taskDate.getMonth() === index && taskDate.getFullYear() === currentYear
             }).length
@@ -43,12 +79,6 @@ export default function ChartComponent({ filteredTasks }: ChartComponentProps){
             .map(month => ({ id: month.id, value: month.value }))
     }
 
-    useEffect(() => {
-        const tasksToAnalyze = filteredTasks || JSON.parse(localStorage.getItem("tasks_criadas") || "[]");
-        const newData = generateChartData(tasksToAnalyze);
-        setData(newData);
-    }, [filteredTasks])
-    
     return(
         <Container>
                 <Grid>
