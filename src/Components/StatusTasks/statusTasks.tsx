@@ -1,16 +1,37 @@
 import { Card, Container } from "@mui/material";
 import styles from './style.module.css'
-import { TaskData } from "../../backend/api";
+import { fetchTasks } from "../../backend/api";
+import React, { useEffect, useState } from "react";
 
-interface StatusTasksProps {
-    filteredTasks?: TaskData[];
-}
+type TaskData = {
+    concluido: boolean;
+};
 
-export default function StatusTasks({ filteredTasks }: StatusTasksProps) {
-    const tasksToAnalyze = filteredTasks || [];
+export default function StatusTasks() {
+    const [tasks, setTasks] = useState<TaskData[]>([]);
 
-    const totalTasks = tasksToAnalyze.length;
-    const completedTasks = tasksToAnalyze.filter((task: { concluido: boolean; }) => task.concluido === true).length || 0;
+    useEffect(() => {
+        // Função para carregar tasks
+        const loadTasks = () => {
+            fetchTasks().then((data: TaskData[]) => setTasks(data));
+        };
+
+        loadTasks();
+
+        // Listener para atualizar tasks em tempo real
+        const handleTasksUpdate = () => {
+            loadTasks();
+        };
+
+        window.addEventListener('tasksUpdated', handleTasksUpdate);
+
+        return () => {
+            window.removeEventListener('tasksUpdated', handleTasksUpdate);
+        };
+    }, []);
+
+    const totalTasks = tasks.length;
+    const completedTasks = tasks.filter((task) => task.concluido == true).length || 0;
     const todoTasks = totalTasks - completedTasks;
     const completionPercentage = totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
 

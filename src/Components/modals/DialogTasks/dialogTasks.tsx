@@ -112,9 +112,7 @@ export default function DialogTasks({ open, onClose }: DialogTasksProps) {
 
       console.log("TASK CRIADA COM SUCESSO: ", createdTask);
 
-      window.dispatchEvent(new CustomEvent('taskUpdated', {
-        detail: createdTask
-      }));
+      window.dispatchEvent(new CustomEvent('tasksUpdated'));
 
       // Reset form após sucesso
       setFormData({
@@ -133,14 +131,14 @@ export default function DialogTasks({ open, onClose }: DialogTasksProps) {
     } catch (error) {
       console.error("Erro completo:", error);
       console.error("Stack trace:", error instanceof Error ? error.stack : 'No stack trace');
-      
+
       let errorMessage = "Erro ao criar task";
       if (error instanceof Error) {
         errorMessage = error.message;
       } else if (typeof error === 'string') {
         errorMessage = error;
       }
-      
+
       setError(errorMessage);
     } finally {
       setIsLoadding(false);
@@ -150,7 +148,7 @@ export default function DialogTasks({ open, onClose }: DialogTasksProps) {
   const handleChange = (field: string, value: any) => {
     setFormData(prev => ({ ...prev, [field]: value }));
 
-    if(error) setError(null)
+    if (error) setError(null)
   };
 
   const handleOverlayClick = (e: React.MouseEvent) => {
@@ -268,9 +266,9 @@ export default function DialogTasks({ open, onClose }: DialogTasksProps) {
           </div>
 
           <div className={styles.modalActions}>
-            <button 
-              type="button" 
-              className={styles.cancelButton} 
+            <button
+              type="button"
+              className={styles.cancelButton}
               onClick={onClose}
               disabled={isLoadding}
             >
@@ -289,3 +287,4 @@ export default function DialogTasks({ open, onClose }: DialogTasksProps) {
     </div>
   );
 }
+

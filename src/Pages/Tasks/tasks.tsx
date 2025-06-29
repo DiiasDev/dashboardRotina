@@ -65,7 +65,7 @@ export default function Tasks() {
                 </div>
                 <div className={styles.chartsContainer}>
                         <ChartComponent filteredTasks={filteredTasks} />
-                        <StatusTasks filteredTasks={filteredTasks} />
+                        <StatusTasks/>
                 </div>
             </div>
         </div>
