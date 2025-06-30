@@ -185,8 +185,9 @@ export default function TasksComponent({ filteredTasks }: TasksComponentProps) {
                                 </div>
                             </div>
 
-                            <div className={styles.tasksList}>
-                                {categoryTasks.slice(0, 3).map((task: Task) => (
+                            {/* Adicione um wrapper com scroll para as tasks */}
+                            <div className={styles.tasksListScrollable}>
+                                {categoryTasks.map((task: Task) => (
                                     <div
                                         key={task.id}
                                         className={`${styles.taskItem} ${task.concluido ? styles.completed : ''}`}
@@ -228,12 +229,8 @@ export default function TasksComponent({ filteredTasks }: TasksComponentProps) {
                                         </div>
                                     </div>
                                 ))}
-                                {categoryTasks.length > 3 && (
-                                    <div className={styles.moreTasksIndicator}>
-                                        +{categoryTasks.length - 3} mais task{categoryTasks.length - 3 !== 1 ? 's' : ''}
-                                    </div>
-                                )}
                             </div>
+                            {/* Remova o indicador "+x mais tasks" pois agora todas aparecem com scroll */}
                         </div>
                     );
                 })}
