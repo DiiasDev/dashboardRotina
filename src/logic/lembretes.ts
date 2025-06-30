@@ -47,9 +47,7 @@ export class Lembretes {
       localStorage.setItem('lembretes', JSON.stringify(lembretesExistentes));
       Lembretes.lembretesCriados = lembretesExistentes;
 
-      console.log("Lembretes adicionados: ", Lembretes.lembretesCriados);
     } catch (error) {
-      console.warn("Erro ao adicionar lembrete", error);
     }
   }
 
@@ -68,7 +66,6 @@ export class Lembretes {
       return dataLembrete >= now && dataLembrete <= filterTrintaDias;
     });
 
-    console.log("Lembretes mensais:", lembretesMensais);
     return lembretesMensais;
   }
 
@@ -83,7 +80,6 @@ export class Lembretes {
       return dataLembrete >= now && dataLembrete <= filterSemana;
     });
 
-    console.log("Lembretes Semanais:", lembretesSemanais);
     return lembretesSemanais;
   }
 
@@ -100,7 +96,6 @@ export class Lembretes {
       return dataLembrete >= now && dataLembrete <= fimDia;
     });
 
-    console.log("Lembretes Hoje:", lembretesDiario);
     return lembretesDiario;
   }
 }

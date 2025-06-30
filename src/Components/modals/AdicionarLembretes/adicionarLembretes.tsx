@@ -10,8 +10,7 @@ import {
 } from "@mui/material";
 
 import { useState, useEffect } from "react";
-
-import { Lembretes } from "../../../logic/lembretes";
+import { createLembrete } from '../../../backend/api'
 
 interface AdicionarLembretesProps {
   isOpen: boolean;
@@ -21,13 +20,15 @@ interface AdicionarLembretesProps {
 
 export default function AdicionarLembretes({ isOpen, onClose, onSubmit }: AdicionarLembretesProps) {
   const [formData, setFormData] = useState({
-    id: 0,
-    titulo: "",
-    data: "",
-    hora: "",
-    prioridade: "",
+    id: '',
+    titulo: '',
+    date: '',
+    horario: '',
+    prioridade: 'Média' as 'Alta' | 'Média' | 'Baixa',
     concluido: false,
-  });
+    data_criacao: '',
+    data_conclusao: ''
+  })
 
   const prioridades = ["Alta", "Média", "Baixa"];
 
@@ -59,30 +60,52 @@ export default function AdicionarLembretes({ isOpen, onClose, onSubmit }: Adicio
     };
   }, [isOpen, onClose]);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (formData.titulo && formData.data && formData.hora && formData.prioridade) {
-      const horarioNumerico = parseInt(formData.hora.replace(':', ''));
-      
-      const newLembrete = new Lembretes(
-        Date.now(),
-        new Date(`${formData.data}T${formData.hora}`),
-        formData.titulo,
-        horarioNumerico,
-        formData.prioridade
-      );
+  const handleChange = (field: string, value: any) => {
+    setFormData(prev => ({ ...prev, [field]: value }))
+  }
 
-      newLembrete.createLembrate();
-      
-      onSubmit?.();
-      setFormData({ id: 0, titulo: "", data: "", hora: "", prioridade: "", concluido: false });
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!formData.titulo.trim()) {
+      alert('titulo é necessário')
+      return;
+    }
+
+    try {
+      const prioridadeMap: Record<'Alta' | 'Média' | 'Baixa', 'alta' | 'media' | 'baixa'> = {
+        'Alta': 'alta',
+        'Média': 'media',
+        'Baixa': 'baixa'
+      };
+
+      // Combine date and horario to ISO string
+      // formData.date: 'YYYY-MM-DD', formData.horario: 'HH:mm'
+      const dateTimeString = `${formData.date}T${formData.horario}:00`;
+      const dateISO = new Date(dateTimeString).toISOString();
+
+      const lembretesData = {
+        titulo: formData.titulo.trim(),
+        date: dateISO,
+        horario: Number(formData.horario.replace(':', '')), // convert 'HH:mm' to number like 930 for 09:30
+        prioridade: prioridadeMap[formData.prioridade],
+        concluido: formData.concluido,
+        data_criacao: formData.data_criacao,
+        data_conclusao: formData.data_conclusao
+      }
+
+      const createdLembretes = await createLembrete(lembretesData);
+
+      console.log('Lembrete criado com sucesso:', createdLembretes);
+
+      if (onSubmit) onSubmit();
       onClose();
+
+    } catch (error) {
+      console.warn('Erro ao criar lembrete:', error)
     }
   };
 
-  const handleChange = (field: string, value: any) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
-  };
+
 
   const handleOverlayClick = (e: React.MouseEvent) => {
     if (e.target === e.currentTarget) {
@@ -125,8 +148,8 @@ export default function AdicionarLembretes({ isOpen, onClose, onSubmit }: Adicio
                 type="date"
                 variant="outlined"
                 className={styles.textField}
-                value={formData.data}
-                onChange={(e) => handleChange("data", e.target.value)}
+                value={formData.date}
+                onChange={(e) => handleChange("date", e.target.value)}
                 required
                 InputLabelProps={{
                   shrink: true,
@@ -141,8 +164,8 @@ export default function AdicionarLembretes({ isOpen, onClose, onSubmit }: Adicio
                 type="time"
                 variant="outlined"
                 className={styles.textField}
-                value={formData.hora}
-                onChange={(e) => handleChange("hora", e.target.value)}
+                value={formData.horario}
+                onChange={(e) => handleChange("horario", e.target.value)}
                 required
                 InputLabelProps={{
                   shrink: true,
@@ -215,10 +238,10 @@ export default function AdicionarLembretes({ isOpen, onClose, onSubmit }: Adicio
             <button type="button" className={styles.cancelButton} onClick={onClose}>
               Cancelar
             </button>
-            <button 
-              type="submit" 
+            <button
+              type="submit"
               className={styles.submitButton}
-              disabled={!formData.titulo || !formData.data || !formData.hora || !formData.prioridade}
+              disabled={!formData.titulo || !formData.date || !formData.horario || !formData.prioridade}
             >
               Adicionar Lembrete
             </button>

@@ -22,6 +22,7 @@ def setup_routes(app):
             return "conexão com o banco OK!"
         return "Erro na conexão com o banco!"
 
+    # Tasks Routes
     @app.route('/tasks', methods=['GET'])
     def get_tasks():
         conn = get_db_connection()
@@ -81,7 +82,7 @@ def setup_routes(app):
             return jsonify({
                 'id': task_id,
                 'titulo': titulo,
-                'categoria': data['categoria'], 
+                'categoria': data['categoria'],
                 'descricao': descricao,
                 'concluido': concluido,
                 'data_criacao': data_criacao,
@@ -97,7 +98,81 @@ def setup_routes(app):
                 cursor.close()
             if conn:
                 conn.close()
-    
+
+    @app.route('/lembretes', methods=['POST'])
+    def create_lembretes():
+        conn = get_db_connection()
+        if not conn:
+            return jsonify({'error': 'Erro na conexão'}), 500
+
+        try:
+            data = request.get_json()
+
+            import random
+            lembrete_id = random.randint(10000000, 99999999)
+
+            titulo = data['titulo']
+            date_iso = data['date']
+            horario = data['horario']
+            concluido = data.get('concluido', False)
+
+            prioridade = data['prioridade']
+            if isinstance(prioridade, list):
+                import json
+                prioridade = json.dumps(prioridade)
+
+            # Converter date_iso (ex: '2024-06-10T09:30:00.000Z') para 'YYYY-MM-DD'
+            from datetime import datetime
+            try:
+                date_obj = datetime.fromisoformat(date_iso.replace('Z', '+00:00'))
+                date_mysql = date_obj.date().isoformat()  # 'YYYY-MM-DD'
+            except Exception as e:
+                return jsonify({'error': f'Formato de data inválido: {str(e)}'}), 400
+
+            data_criacao = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            data_conclusao = data_criacao if concluido else None
+
+            cursor = conn.cursor()
+
+            query = """
+                INSERT INTO lembretes (id, titulo, date, horario, concluido, prioridade, data_criacao, data_conclusao)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+            """
+
+            values = (
+                lembrete_id,
+                titulo,
+                date_mysql,
+                horario,
+                concluido,
+                prioridade,
+                data_criacao,
+                data_conclusao
+            )
+
+            cursor.execute(query, values)
+            conn.commit()
+
+            return jsonify({
+                'id': lembrete_id,
+                'titulo': titulo,
+                'date': date_mysql,
+                'horario': horario,
+                'concluido': concluido,
+                'prioridade': prioridade,
+                'data_criacao': data_criacao,
+                'data_conclusao': data_conclusao,
+            })
+
+        except Error as e:
+            conn.rollback()
+            return jsonify({"error": f"Erro no banco de dados: {str(e)}"}), 500
+        finally:
+            if cursor:
+                cursor.close()
+            if conn:
+                conn.close()
+
     @app.route('/tasks/<int:task_id>', methods=['OPTIONS'])
     def options_task(task_id):
         response = make_response()
@@ -171,3 +246,17 @@ def setup_routes(app):
                 cursor.close()
             if conn:
                 conn.close()
+
+    # Lembretes routes
+    @app.route('/lembretes', methods=['GET'])
+    def get_lembretes():
+        conn = get_db_connection()
+        if not conn:
+            return jsonify({'error': 'Erro na conexão'}), 500
+        try:
+            cursor = conn.cursor(dictionary=True)
+            cursor.execute("SELECT * FROM lembretes")
+            lembretes = cursor.fetchall()
+            return jsonify(lembretes)
+        except Error as e:
+            return jsonify({'error': str(e)}), 500
