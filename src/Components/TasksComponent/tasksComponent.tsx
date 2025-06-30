@@ -72,11 +72,8 @@ export default function TasksComponent({ filteredTasks }: TasksComponentProps) {
         };
     }, []);
 
-    const rawTasksToDisplay =
-        filteredTasks && filteredTasks.length > 0 ? filteredTasks : tasks;
-
-
-    const tasksToDisplay = rawTasksToDisplay.map((task: any) => ({
+    // Use filteredTasks diretamente, sem fallback para tasks
+    const tasksToDisplay = (filteredTasks !== undefined ? filteredTasks : tasks).map((task: any) => ({
         ...task,
         categoria: Array.isArray(task.categoria) ? task.categoria[0] : task.categoria,
         concluido: !!task.concluido,

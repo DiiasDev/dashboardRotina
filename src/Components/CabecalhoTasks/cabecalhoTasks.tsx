@@ -6,7 +6,7 @@ import DialogTasks from "../modals/DialogTasks/dialogTasks";
 import { TaskData } from "../../backend/api";
 
 interface CabecalhoTasksProps {
-  onFilterApply?: (filteredTasks: TaskData[]) => void;
+  onFilterApply?: (filteredTasks: TaskData[], start?: Date|null, end?: Date|null) => void;
   allTasks: TaskData[];
 }
 
@@ -29,14 +29,11 @@ export default function CabecalhoTasks({ onFilterApply, allTasks }: CabecalhoTas
     const [start, end] = dates;
     setStartDate(start);
     setEndDate(end);
-    if (start && end) {
-      setIsDatePickerOpen(false);
-    }
   };
 
   const handleApplyFilter = () => {
     if (!startDate || !endDate) {
-      onFilterApply?.(allTasks);
+      onFilterApply?.(allTasks, null, null);
       return;
     }
 
@@ -51,13 +48,13 @@ export default function CabecalhoTasks({ onFilterApply, allTasks }: CabecalhoTas
       return taskDate >= normalizedStartDate && taskDate <= normalizedEndDate;
     });
 
-    onFilterApply?.(filteredTasks);
+    onFilterApply?.(filteredTasks, startDate, endDate);
   };
 
   const handleClearFilter = () => {
     setStartDate(null);
     setEndDate(null);
-    onFilterApply?.(allTasks);
+    onFilterApply?.(allTasks, null, null);
   };
 
   function openDialog() {
@@ -94,6 +91,7 @@ export default function CabecalhoTasks({ onFilterApply, allTasks }: CabecalhoTas
                 selectsRange
                 inline
                 dateFormat="dd/MM/yy"
+                onCalendarClose={() => setIsDatePickerOpen(false)}
               />
             </div>
           )}

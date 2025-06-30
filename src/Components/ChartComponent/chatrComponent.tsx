@@ -17,31 +17,14 @@ type TaskData = {
     updated_at?: string;
 }
 
-export default function ChartComponent(){
+interface ChartComponentProps {
+    tasks?: TaskData[];
+    period?: { start: Date|null, end: Date|null };
+}
+
+export default function ChartComponent({ tasks = [], period }: ChartComponentProps){
     const [data, setData] = useState<{id: string, value: number}[]>([])
-    const [tasks, setTasks] = useState<TaskData[]>([])
 
-    useEffect(() => {
-
-        const loadTasks = async () => {
-            fetchTasks().then((data: TaskData[]) => setTasks(data));
-        }
-
-        loadTasks();
-
-        const handleTasksUpdate = () => {
-            loadTasks();
-        }
-
-        window.addEventListener('tasksUpdated', handleTasksUpdate);
-
-        return () => {
-            window.removeEventListener('tasksUpdated', handleTasksUpdate);
-        }
-
-    }, [])
-
-    // Atualiza o estado 'data' sempre que as tasks mudarem
     useEffect(() => {
         setData(generateChartData(tasks));
     }, [tasks]);

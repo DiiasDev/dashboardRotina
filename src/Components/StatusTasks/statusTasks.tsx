@@ -1,35 +1,17 @@
 import { Card, Container } from "@mui/material";
 import styles from './style.module.css'
-import { fetchTasks } from "../../backend/api";
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 type TaskData = {
     concluido: boolean;
 };
 
-export default function StatusTasks() {
-    const [tasks, setTasks] = useState<TaskData[]>([]);
+interface StatusTasksProps {
+    tasks?: TaskData[];
+    period?: { start: Date|null, end: Date|null };
+}
 
-    useEffect(() => {
-        // Função para carregar tasks
-        const loadTasks = () => {
-            fetchTasks().then((data: TaskData[]) => setTasks(data));
-        };
-
-        loadTasks();
-
-        // Listener para atualizar tasks em tempo real
-        const handleTasksUpdate = () => {
-            loadTasks();
-        };
-
-        window.addEventListener('tasksUpdated', handleTasksUpdate);
-
-        return () => {
-            window.removeEventListener('tasksUpdated', handleTasksUpdate);
-        };
-    }, []);
-
+export default function StatusTasks({ tasks = [] }: StatusTasksProps) {
     const totalTasks = tasks.length;
     const completedTasks = tasks.filter((task) => task.concluido == true).length || 0;
     const todoTasks = totalTasks - completedTasks;
