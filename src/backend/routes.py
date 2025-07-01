@@ -92,7 +92,7 @@ def setup_routes(app):
 
         except Error as e:
             conn.rollback()
-            return jsonify({"error": f"Erro no banco de dados: {str(e)}"}), 500
+            return jsonify({"error": f"Erro no banco de dados: {e}"}), 500
         finally:
             if cursor:
                 cursor.close()
