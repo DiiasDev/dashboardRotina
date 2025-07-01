@@ -7,7 +7,7 @@ DB_CONFIG = {
     'host': 'localhost',
     'port': 3306,
     'user': 'root',
-    'password': 'new@H9e8s3w2',
+    'password': 'Gabgrv123',
     'database': 'dashboard'
 }
 
