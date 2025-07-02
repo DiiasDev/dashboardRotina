@@ -24,8 +24,8 @@
     --modal-close-btn-hover: var(--color-border);
     
     /* Sidebar Variables */
-    --sidebar-width: 280px;
-    --sidebar-collapsed-width: 60px;
+    --sidebar-width: 250px;
+    --sidebar-collapsed-width: 70px;
     
     /* Card Colors */
     --color-card-tasks: #3b82f6;
